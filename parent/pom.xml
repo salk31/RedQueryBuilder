@@ -119,15 +119,6 @@
 
     </build>
 
-    <scm>
-
-        <connection>scm:git:ssh://mabel.redspr.com:31522/home/git/redquerybuilder</connection>
-        <url>scm:git:ssh://mabel.redspr.com:31522/home/git/redquerybuilder</url>
-        <developerConnection>scm:git:ssh://mabel.redspr.com:31522/home/git/redquerybuilder</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
-
-
     <distributionManagement>
         <!-- use the following if you're not using a snapshot version. -->
         <repository>
