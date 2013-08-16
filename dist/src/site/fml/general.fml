@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faqs xmlns="http://maven.apache.org/FML/1.0.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/FML/1.0.1 http://maven.apache.org/xsd/fml-1.0.1.xsd"
+  title="Frequently Asked Questions"
+  toplink="false">
+
+  <part id="general">
+    <title>General</title>
+
+    <faq id="whats-foo">
+      <question>
+        What is RedQueryBuilder?
+      </question>
+      <answer>
+        RedQueryBuilder fills the gap between a hand coded "quick search" and a full blown query language. A typical use is in an intranet web application where experienced users need a quick ad-hoc way to find particular data. This means they don't have to use report frameworks or ask a techie.
+      </answer>
+    </faq>
+    
+    <faq id="licence">
+      <question>
+        What licence covers RedQueryBuilder?
+      </question>
+      <answer>
+        Currently it is freeware. We hope to resolve a couple of issues then release source
+        under a licence like LGPL. However there is currently no deadline for this change.
+      </answer>
+    </faq>
+    
+    <faq id="meta-data-source">
+        <question>
+            Where do I get the meta data from?
+        </question>
+        <answer>
+            You can either generate the meta data from your database meta data
+            (this is what the appengine demo does) or create it by hand.
+            Either way you can produce JSON or use the Configuration.nocache.js JavaScript
+            code to create the correct objects.
+        </answer>
+    </faq>
+    
+    <faq id="only-one-table">
+        <question>
+            I only want the users to search one table. How do I remove the From selector.
+        </question>
+        <answer>
+            The primary API to RQB is SQL so you could use RedQueryBuilderFactory to set the
+            initial SQL to select the correct table and optionally setup a starting
+            point expression.
+            If you then want to hide the selector you can either use CSS to hide to hide
+            the element with the class name &quot;rqbFrom&quot; or set visible to false 
+            in the From configuration.
+        </answer>
+    </faq>
+
+    <faq id="only-expression">
+        <question>
+            I only want the SQL after the WHERE clause. Is there an option to do this?
+        </question>
+        <answer>
+            In general it best to use a tool designed to manipulate SQL (i.e. Parser to generate parse tree).
+            However RQB will always generate a &quot;\n&quot; before a keyword.
+            So the WHERE clause can be found by searching for &quot;\nWHERE &quot;.
+        </answer>
+    </faq>
+  </part>
+
+
+</faqs>

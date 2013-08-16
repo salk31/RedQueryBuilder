@@ -1,0 +1,14 @@
+Build everything
+mvn clean install
+
+To deploy to gae
+* cd jdbcsample
+* mvn clean install gae:update (have to do clean install due to version-parser bug)
+
+To release:
+* Change version in POMs
+* Update jdbcsample index.html
+* Update changes.xml
+* Commit changes
+* Tag and push
+* Update version in POMs

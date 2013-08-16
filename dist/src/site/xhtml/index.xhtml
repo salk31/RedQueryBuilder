@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>RedQueryBuilder</title>
+  </head>
+  <body >
+    <h3>Quick start</h3>
+    <p>
+ RedQueryBuilder has a large range of configuration options but only requires a few steps to get up and running.
+ </p>
+ <h3>Link to the JavaScript and CSS files</h3>
+ <p>
+  Copy the &quot;RedQueryBuilder&quot; directory to your project and add the following to your HTML page:
+ </p>
+ 
+ <div class="source">
+ <pre>
+<![CDATA[
+    <script src="RedQueryBuilder/RedQueryBuilder.nocache.js" type="text/javascript" language="javascript">//</script>
+    <link href="RedQueryBuilder/gwt/dark/dark.css" rel="stylesheet" type="text/css" />
+    <script src="RedQueryBuilder/RedQueryBuilderFactory.nocache.js" type="text/javascript" language="javascript">//</script>
+]]>
+</pre>
+</div>
+ 
+ <h3>Startup RedQueryBuilder</h3>
+ <p>
+   To check that everything is working properly provide the default location for the widget to appear 
+   by inserting this bit of HTML:
+ </p>
+ 
+  <div class="source">
+ <pre>
+<![CDATA[
+<div id="rqb">&nbsp;</div>
+]]>
+</pre>
+</div>
+ 
+ <p>
+ Then execute this JavaScript:
+ </p>
+ 
+ <div class="source">
+ <pre>
+<![CDATA[
+RedQueryBuilderFactory.create({
+    meta : {
+        tables : [ {
+            "name" : "PERSON",
+            "columns" : [ {
+                "name" : "NAME",
+                "label" : "Name",
+                "type" : "STRING",
+                "size" : 10
+            }],
+            fks : []
+        } ],
+        types : [ {
+            "name" : "STRING",
+            "editor" : "TEXT",
+            "operators" : [ {
+                "name" : "=",
+                "label" : "is",
+                "cardinality" : "ONE"
+            }]
+        }]
+    }
+});]]>
+</pre>
+</div>
+
+<h3>Next steps</h3>
+
+The JavaScript API documentation describes how to provide more meta data and how to get the widget to call your code when changes happen.
+
+
+ </body>
+</html>

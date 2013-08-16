@@ -1,0 +1,311 @@
+<!DOCTYPE HTML> 
+
+<html> 
+  <head> 
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+    <title>RedQueryBuilder - JavaScript SQL Query Builder UI</title> 
+    <link href="static/site.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="RedQueryBuilder/gwt/dark/dark.css" type="text/css"/>
+
+    <link rel="stylesheet" type="text/css" href="flexigrid/css/flexigrid.pack.css" />
+    <script src="RedQueryBuilder/RedQueryBuilder.nocache.js" type="text/javascript" language="javascript"></script> 
+    <script src="RedQueryBuilder/RedQueryBuilderFactory.nocache.js" type="text/javascript" language="javascript"></script> 
+  	<script type="text/javascript" src="flexigrid/js/jquery.min.js" ></script>
+  	<script type="text/javascript" src="flexigrid/js/flexigrid.js" ></script>
+
+	<script type="text/javascript" src="jsonjs/json2.js" ></script>
+
+  	<link rel="stylesheet" href="jgrowl/jquery.jgrowl.css" type="text/css"/>
+  	<script type="text/javascript" src="jgrowl/jquery.jgrowl.js"></script>
+  </head> 
+  <body bgcolor="white"> 
+    <noscript> 
+      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color:white; border: 1px solid red; padding: 4px; font-family: sans-serif"> 
+        Your web browser must have JavaScript enabled
+        in order for this application to display correctly.
+      </div> 
+    </noscript> 
+<div id="container">
+<div id="header">
+    <h1>RedQueryBuilder - JavaScript SQL Query Builder UI</h1>
+</div>
+<div id="content-container">
+<div id="content">
+	<fieldset>
+	  <legend>Introduction</legend>
+	  <div id="queriesList" style="float:right">
+	  </div>
+	    To get started use the controls below or pick one of the pre-defined searches here:
+    </fieldset>
+
+	<fieldset>
+	  <legend>RedQueryBuilder</legend>
+
+      <div id="rqb">Please wait <img src="static/busy.gif"/></div>
+   	</fieldset>  
+
+    <fieldset>
+	  <legend>Example usage</legend>
+
+      <button id="search" class="gwt-Button">Search</button>
+      <div id="result" ></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>SQL</legend>
+      <div id="sql">Not set yet</div>
+    </fieldset>
+
+	<fieldset>
+	  <legend>Meta data</legend>
+	  <pre id="meta">Not loaded yet</pre>
+	</fieldset>
+
+	<fieldset>
+	  <legend>Saved searches</legend>
+	  <pre id="queriesSource">Not loaded yet</pre>
+	</fieldset>
+</div>
+<div id="aside">
+<h3>What is it?</h3>
+<p>RedQueryBuilder fills the gap between a hand coded "quick search" and a full blown query language. A typical use is in an intranet web application where experienced users need a quick ad-hoc way to find particular data. This means they don't have to use report frameworks or ask a techie.</p>
+<p>
+To use in your app you just need to drop in the JS, feed it the meta data for your database then handle the change events to get the SQL and argument values.
+</p>
+<p>
+Download:
+<a href="/static/dist-0.5.0-js.zip">Javascript - version 0.5.0 zip</a>
+
+</p>
+
+<p>
+Features include:
+<ul>
+<li>Pure JavaScript.</li>
+<li>Can be fed simple meta data (JavaScript/JSON or GWT interfaces)</li>
+<li>Client side SQL parser so it can load existing SQL (within limits of the UI)</li> 
+<li>Non-GWT integration support with event handlers and JavaScript object configuration. See source of the JDBC sample page.</li>
+</ul>
+</p>
+<p>
+Contact: salk31{at}gmail{dot}com
+</p>
+<p>
+Support: <a href="http://stackoverflow.com/questions/ask?tags=redquerybuilder">stack<strong>overflow</strong></a>.
+</p>
+
+
+
+<h3>Thanks</h3>
+<ul>
+<li>http://code.google.com/webtoolkit/ for making it easy enough even for us to write complex client side code.</li>
+<li>http://www.h2database.com very easy to use database. Runs happily on my laptop or appengine without changes (memory database).</li>
+<li>http://jquery.com/ making it easy to glue the samples together.</li>
+<li>https://bitbucket.org/stanlemon/jgrowl for nice way to show events being fired.</li>
+<li>http://flexigrid.info/ very easy to use and pretty results table.</li>
+<li>https://github.com/douglascrockford/JSON-js for JavaScript object serialisation for old browsers.</li>
+</ul>
+
+<h3>Similar projects</h3>
+<ul>
+<li><a href="http://yuilibrary.com/gallery/show/querybuilder">YUI query builder</a></li>
+<li><a href="http://plugins.jquery.com/project/SQL_QUERY_BUILDER">JQuery query builder</a></li>
+<li><a href="http://www.developerextensions.com/index.php/extjs-grid-query-builder">Ext Grid Query Builder</a></li>
+</ul>
+
+<h3>Contributions</h3>
+
+If you have found this code useful then please consider making a donation to 
+fund future development.
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="D8QFAUCS26MYY">
+<table>
+<tr><td><input type="hidden" name="on0" value="Contribution">&nbsp;</td></tr><tr><td><select name="os0">
+    <option value="Option 1">£10.00 GBP</option>
+    <option value="Option 2">£50.00 GBP</option>
+    <option value="Option 3">£100.00 GBP</option>
+</select> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="GBP">
+<input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+
+</div>
+</div>
+</div>    
+    <script>
+    
+function clearResult() {
+  $('#result').empty();
+}
+
+function search(url, meta) {
+    clearResult();
+    var div = $('<table></table>').appendTo('#result');
+    $(div).flexigrid({
+	url: url,
+	dataType: 'json',
+	colModel : meta,
+
+	//searchitems : ["BAR"],
+	//sortname: "BAR",
+	sortorder: "asc",
+	usepager: true,
+	title: 'Results',
+	useRp: true,
+	rp: 15,
+	showTableToggleBtn: true,
+	width: 700,
+	height: 200
+});   }
+
+
+$.jGrowl('Loading meta data');
+
+$.post('meta', {}, phase1, 'json');
+
+var state = new Object();
+
+function phase1(meta) {
+	$.jGrowl('Draw the query builder');
+	state.meta = meta;
+	
+	$('#meta').text(JSON.stringify(meta, null, 2));
+	
+	publish();
+    setupSavedQueries();
+};
+
+
+function publish(sql, args) {
+  state.sql = sql;
+  state.args = args;
+  $('#rqb').html('');
+  RedQueryBuilderFactory.create({targetId:'rqb',
+          meta:state.meta,
+          onSqlChange:sqlChange,
+          onTableChange:tableChange,
+          enumerate:enumerate,
+          suggest:suggest},
+      state.sql,
+      state.args);
+}
+
+function tableChange(filters) {
+ 	state.filters = filters;
+	$.jGrowl('Tables changed');
+}
+
+function sqlChange(sql, args) {
+	$.jGrowl('Sql changed');
+	state.sql = sql;
+	state.args = args;
+	$('#sql').text(sql);
+  $('#searches').attr('value', '');
+}
+
+function enumerate(request, callback) {
+  if (request.columnTypeName == 'BOOLEAN') {
+    callback([{value:'T', label:'Yes'}, {value:'F', label:'No'}]);
+  }
+}
+
+function suggest(args, callback) {
+  var sql = 'SELECT DISTINCT ' + args.columnName + ' FROM ' + args.tableName + ' WHERE UPPER(' + args.columnName + ') LIKE ?';
+  var q = args.query.toUpperCase() + '%';
+  $.ajax({
+    url: 'search',
+    dataType: 'json',
+    data:{sql:sql, arg:q, rp:args.limit, page:1},
+        success: function(r) {
+  	  var s = new Array();
+  	  for (var i = 0; i < r.rows.length; i++) {
+  		var row = r.rows[i]; 
+  		s.push(row.cell[0]);
+  	  };
+  	  callback(s);
+    }
+    });
+}
+
+
+$('#search').click(function() {
+  var url = 'search?sql=' + escape(state.sql);
+  for (var i = 0; i < state.args.length; i++) {
+  	url += '&arg=' + escape(state.args[i]);
+  }   
+  
+  var tableName = state.filters[0].tableName;
+  var tables = state.meta.tables;
+  for (var i = 0; i < tables.length; i++) {
+ 	if (tables[i].name == tableName) {
+ 	 var table = tables[i];
+ 	 break;
+ 	}
+  }
+ 
+
+    var totalWidth = 0;
+    for (var i = 0; i < table.columns.length; i++) {
+  	    totalWidth += table.columns[i].size;
+    }
+
+    var colModel = new Array();
+    for (var i = 0; i < table.columns.length; i++) {
+  	var orig = table.columns[i];
+        var width = orig.size * 700 / totalWidth;
+  	var col = {display: orig.label, name : orig.name, width: width,sortable : true, align: 'center'};
+  	colModel.push(col);
+  }
+  search(url, colModel);
+});
+
+function setupSavedQueries() {
+  var searches = [
+  {
+	label:'Cities in the UK'
+	,sql:'SELECT "x0"."ID", "x0"."NAME", "x0"."COUNTRYCODE", "x0"."DISTRICT", "x0"."POPULATION" FROM "CITY" "x0" INNER JOIN "COUNTRY" "x1" ON "x0"."COUNTRYCODE" = "x1"."CODE" WHERE ("x1"."NAME" = ?)'
+	,args:['United Kingdom']
+  }
+  ,{
+	label:'Large cities in the UK plus Oxford'
+	,sql:'SELECT "x0"."ID", "x0"."NAME", "x0"."COUNTRYCODE", "x0"."DISTRICT", "x0"."POPULATION" FROM "CITY" "x0" INNER JOIN "COUNTRY" "x1" ON "x0"."COUNTRYCODE" = "x1"."CODE" WHERE (("x1"."NAME" = ?) AND (("x0"."POPULATION" > ?) OR ("x0"."NAME" = ?)))'
+	,args:['United Kingdom', '100000', 'Oxford']
+  },
+  {
+    label:'Official languages',
+    sql:'SELECT "x0"."COUNTRYCODE", "x0"."LANGUAGE", "x0"."ISOFFICIAL", "x0"."PERCENTAGE" FROM "COUNTRYLANGUAGE" "x0" WHERE ("x0"."ISOFFICIAL" = ?)',
+    args:['T']
+  }];
+
+  var jselect = $('#queriesList');
+  for (var i = 0; i < searches.length; i++) {
+	var jrow = $('<div><a href="#' + i + '">[' + searches[i].label + ']</a></div>');
+	jselect.append(jrow);
+    jrow.bind('click', searches[i], function(event) {
+      publish(event.data.sql, event.data.args);
+      clearResult();
+    });
+  }
+  $('#queriesSource').text(JSON.stringify(searches, null, 2));
+}
+	</script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36572467-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+  </body> 
+</html> 

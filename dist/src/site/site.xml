@@ -1,0 +1,14 @@
+<project name="RedQueryBuilder">
+ 
+  <body>
+
+ 
+    <menu>
+      <item name="Introduction" href="index.html"/>
+      <item name="JavaScript API" href="jsdoc/index.html" />
+      <item name="Changes" href="changes-report.html" />
+      <item name="FAQ" href="general.html" />
+    </menu>
+  </body>
+  
+</project>

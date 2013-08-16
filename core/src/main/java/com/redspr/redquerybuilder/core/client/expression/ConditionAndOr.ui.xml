@@ -1,0 +1,22 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+xmlns:g='urn:import:com.google.gwt.user.client.ui'
+xmlns:r='urn:import:com.redspr.redquerybuilder.core.client.util'>
+  <g:HTMLPanel>
+    <table>
+      <tr>
+        <td rowspan="2" valign="top">
+          <div class="rqbAndOrOpContainer">
+            <div class="rqbAndOrOpUpper"></div>
+            <div class="rqbAndOrOp" >
+              <g:ListBox ui:field='op'/>
+            </div>
+          </div>
+        </td>
+        <td><r:XWidget ui:field='left' /></td>
+      </tr>
+      <tr>
+        <td><r:XWidget ui:field='right' /></td>
+      </tr>
+    </table>
+  </g:HTMLPanel>
+</ui:UiBinder>

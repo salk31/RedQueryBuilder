@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+	    <groupId>com.redspr.redquerybuilder</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.5.0</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>	
+	<artifactId>jdbcsample</artifactId>
+	<packaging>war</packaging>
+	<name>jdbcsample</name>
+	<url>http://maven.apache.org</url>
+	
+	<properties>
+        <gae.version>1.6.2.1</gae.version>
+    </properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.10</version>
+				<configuration>
+					<stopPort>9966</stopPort>
+					<stopKey>foo</stopKey>
+					<webAppSourceDirectory>
+						${project.build.directory}/jdbcsample-${project.version}
+					</webAppSourceDirectory>
+				</configuration>
+			</plugin>
+
+
+
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+				<version>2.2</version> <configuration> <overlays> <overlay> <groupId>com.redspr</groupId> 
+				<artifactId>redquerybuilder</artifactId> <includes> <include>index.html</include> 
+				</includes> </overlay> </overlays> </configuration> </plugin> -->
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>copy-war-to-lib-folder</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>js</artifactId>
+									<version>${project.version}</version>
+									<type>war</type>
+									<overWrite>true</overWrite>
+									<excludes>**/Thumbs.db</excludes>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+									<destFileName>${renamed.war}</destFileName>
+								</artifactItem>
+								
+								<!-- js zip -->
+								<artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>dist</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>js</classifier>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <includes>**/*.zip</includes>
+                                    <outputDirectory>${project.build.directory}/jdbcsample-${project.version}/static</outputDirectory>
+                                    <destFileName>${renamed.war}</destFileName>
+                                </artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			  <plugin>
+                <groupId>net.kindleit</groupId>
+                <artifactId>maven-gae-plugin</artifactId>
+                <version>0.9.4</version>
+                <dependencies>
+                  <dependency>
+                    <groupId>net.kindleit</groupId>
+                    <artifactId>gae-runtime</artifactId>
+                    <version>${gae.version}</version>
+                    <type>pom</type>
+                    
+                  </dependency>
+                </dependencies>
+                <configuration>
+                    <serverId>appengine.google.com</serverId>
+                    <sdkDir>${appengine.sdk.root}</sdkDir>
+                    <appDir>${project.build.directory}/jdbcsample-${project.version}</appDir>
+                    <unpackVersion>${gae.version}</unpackVersion>
+                    <appVersion>${parsedVersion.majorVersion}-${parsedVersion.minorVersion}-${parsedVersion.incrementalVersion}</appVersion>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>parse-version</id>
+                        <goals>
+                            <goal>parse-version</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+		</plugins>
+	</build>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>js</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+			<scope>runtime</scope>
+		</dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>dist</artifactId>
+            <version>${project.version}</version>
+            <classifier>js</classifier>
+     		<type>zip</type>
+        </dependency>
+
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.3.163</version>
+			<scope>runtime</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.kindleit</groupId>
+			<artifactId>gae-runtime</artifactId>
+			<version>${gae.version}</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+
+    <profiles>
+        <profile>
+            <id>quick</id>
+            <properties>
+               <gwt.draftCompile>true</gwt.draftCompile>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

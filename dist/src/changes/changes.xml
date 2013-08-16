@@ -1,0 +1,157 @@
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+    <properties>
+        <title>RedQueryBuilder Project</title>
+        <author email="salk31@gmail.com">Sam Hough</author>
+    </properties>
+    <body>
+        <release version="future" date="2013-??-??" description="Various small fixes.">
+            <action dev="salk31" type="add" due-to="Erick Moura">
+                * Support date ranges? Use between and somehow constrain a &lt; b?
+            </action> 
+            <action dev="salk31" type="add" due-to="Erick Moura">
+                * Support a "clear all constraints" button?
+            </action>
+            <action dev="salk31" type="fix" due-to="Carl Samuelson">
+                * Sort buttons in JDBC sample fix.
+            </action>
+
+            <action dev="salk31" type="add">
+                * Do something about the need to wait for redquerybuilder to load
+            </action>
+            <action dev="salk31" type="add">
+                * Nice error message if meta data malformed and defaults (types, fks).
+            </action>
+            <action dev="salk31" type="change" due-to="DaFrenk">
+                * Collapse down AND and ORs where evaluation order is not important.
+            </action>
+            <action dev="salk31" type="add" due-to="Cody Lundquist">
+                * API to control the "add condition" button. Always have a condition.
+            </action>
+        </release>
+        
+        <release version="0.5.0" date="2013-07-??" description="Help for CSS/JS">
+            <action dev="salk31" type="add" due-to="Cody Lundquist">
+                Config to hide the from control.
+            </action>
+            <action dev="salk31" type="add">
+                CSS class name could be added via meta data. Can be added to Type, Editor or Column.
+            </action>
+            <action dev="salk31" type="fix">
+                Change linking to xsiframe so can run from local file system.
+            </action>
+            <action dev="salk31" type="fix">
+                SELECT editor adds spurious &quot;null&quot; option.
+            </action>
+        </release>
+        
+        <release version="0.4.0" date="2013-05-13" description="Multiple selection">
+            <action dev="salk31" type="add" due-to="Cody Lundquist">
+                Reduce the redraw lag for and/or widget.
+            </action>
+            <action dev="salk31" type="add" due-to="Cody Lundquist">
+                Widget, parse and generate for multiple selection - i.e. &quot;IN&quot;
+            </action>
+        </release>
+
+        <release version="0.3.0" date="2013-03-11" description="Update UI">
+            <action dev="salk31" type="change" due-to="DaFrenk">
+                More obvious how boolean operators join things together in the UI.
+            </action>
+        </release>
+     
+        <release version="0.2.0.b2" date="2012-12-27" description="Various small fixes.">
+            <action dev="salk31" type="add">
+                &quot;SELECT&quot; editor.
+            </action>
+            <action dev="salk31" type="add">
+                Request context supply type name.
+            </action>
+            <action dev="salk31" type="add" due-to="Jon Casper">
+                Control of text rendering in Date editor.
+            </action>
+        </release>
+
+        <release version="0.2.0.b1" date="2012-10-03" description="Fix some inconsitencies.">
+            <action dev="salk31" type="add">
+                Label for Table to match Column etc.
+            </action>
+            <action dev="salk31" type="add">
+                Editor &quot;TEXT&quot; to replace, now deprecated &quot;STRING&quot;.
+            </action>
+            <action dev="salk31" type="add">
+                JS edition able to override the editor on a column.
+            </action>
+        </release>
+  
+        <release version="0.1.0.b6" date="2012-06-29" description="Various small fixes.">
+            <action dev="salk31" type="fix" due-to="Siddharth">
+                Remove META-INF from the zip.
+            </action>
+        </release>
+        
+        <release version="0.1.0.b5" date="2012-06-29" description="Various small fixes.">
+            <action dev="scary" type="fix">
+                Remove extra DOM elements.
+            </action>
+            <action dev="salk31" type="add" due-to="Steven">
+                Parse &quot;custom&quot; key words.
+            </action>
+            <action dev="salk31" type="fix" due-to="Jon Casper">
+                Incorrect self join when joining from the root table.
+            </action>
+            <action dev="salk31" type="add">
+                Initial documentation.
+            </action>
+            <action dev="salk31" type="fix" due-to="Jon Casper">
+                Fixes to minimal JS html.
+            </action>
+            <action dev="salk31" type="fix">
+                JavaScript version not force arguments to String.
+            </action>
+            <action dev="steven" type="add">
+                JavaScript simple example show arguments and have a DATE editor.
+            </action>
+            <action dev="salk31" type="add" due-to="Jon Casper">
+                Factory JS provide callback when done.
+            </action>
+            <action dev="salk31" type="add" due-to="Jon Casper">
+                RedQueryBuilderFactory support passing initial SQL and arguments.
+            </action>
+            <action dev="salk31" type="add" due-to="Jon Casper">
+                CSS class &quot;rqbWhat&quot; to mark the root table selector.
+            </action>
+            <action dev="salk31" type="fix" due-to="Jon Casper">
+                JS column label not being used.
+            </action>
+        </release>
+            
+        <release version="0.1.0.b4" date="2012-06-19" description="Various small fixes.">
+            <action dev="salk31" type="fix">
+                Improve styling packaging.
+            </action>
+            <action dev="salk31" type="add">
+                First version of Factory JS.
+            </action>
+            <action dev="salk31" type="add">
+                JS project index.html creates very minimal widget.
+            </action>
+        </release>
+  
+        <release version="0.1.0.b3" date="2012-06-15" description="Various small fixes.">
+            <action dev="salk31" type="add">
+                Control id JS version attaches to.
+            </action>
+            <action dev="salk31" type="add">
+                CSS for search oracle.
+            </action>
+        </release>
+
+        <release version="0.1.0.b2" date="2012-06-09" description="Merged code bases.">
+            <action dev="salk31" type="update">
+                Merged code bases.
+            </action>
+        </release>
+    </body>
+</document>

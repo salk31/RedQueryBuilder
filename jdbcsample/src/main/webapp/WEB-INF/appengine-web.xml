@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+  <application>redquerybuilder</application>
+  <version>override</version>
+  
+  <static-files>
+     <include path="/static/**" />
+        <include path="/flexigrid/**" />
+        <include path="/jsonjs/**" />
+        <include path="/jgrowl/**" />
+        <include path="/RedQueryBuilder/**" />
+        <include path="/index.html" />
+    </static-files>
+    
+    <system-properties>
+        <property name="h2.allowedClasses" value="" />
+    </system-properties>
+</appengine-web-app>

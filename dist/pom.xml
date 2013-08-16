@@ -1,0 +1,107 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.redspr.redquerybuilder</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.5.0</version>
+		<relativePath>../parent</relativePath>
+	</parent>
+	<artifactId>dist</artifactId>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>com.redspr.redquerybuilder</groupId>
+			<artifactId>js</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- NOTE: We don't need a groupId specification because the group is 
+					org.apache.maven.plugins ...which is assumed by default. -->
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<configuration>
+							<descriptors>
+								<descriptor>src/main/assembly/src.xml</descriptor>
+							</descriptors>
+							<finalName>redQueryBuilderJs-${project.version}</finalName>
+						</configuration>
+
+						<id>dist-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal> <!-- that's all :) -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                	<reportPlugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.4</version>
+
+						<reports>
+							<report>index</report>
+							<report>dependencies</report>
+						</reports>
+
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.7.1</version>
+
+						<reports>
+							<report>changes-report</report>
+						</reports>
+			</plugin>
+
+			<plugin>
+				<groupId>nl.windgazer</groupId>
+				<artifactId>jsdoctk-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<template>${basedir}/codeview</template>
+					<srcDir>${basedir}/../js/src/main/webapp</srcDir>
+					<recurse>3</recurse><!-- This is the *level of recursion*, not a boolean -->
+				    <directory>${project.build.directory}/site/jsdoc</directory>
+				</configuration>
+			</plugin>
+			                </reportPlugins>
+                    </configuration>
+                    <executions> 
+                        <execution> 
+                            <id>attach-site</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals> 
+                        </execution> 
+                    </executions> 
+                </plugin>
+        </plugins>
+    </build>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jsdoctk2</id>
+			<url>http://jsdoctk-plugin.googlecode.com/svn/repo</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+
+</project>

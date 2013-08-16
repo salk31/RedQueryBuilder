@@ -1,0 +1,35 @@
+@external rqb*;
+
+.rqbAndOrOpContainer {
+  position:relative;
+  width:4.8em;
+}
+
+.rqbAndOrOpUpper {
+  border-style:solid;
+  border-color:#bbb;
+  border-width:10px 0 10px 10px;
+  border-radius: 20px 0 0 20px;
+  width:1em;
+  position:absolute;
+  z-index:-1;
+  margin-left:3.8em;
+}
+
+.rqbAndOrOp {
+  position:absolute;
+  background-color:#888;
+  border-style:solid;
+  border-color:#888;
+  border-width:5px;
+  border-radius:10px;
+}
+
+
+.rqbComparison {
+  background-color:#888;
+  border-style:solid;
+  border-color:#888;
+  border-width:5px;
+  border-radius:10px;
+}

@@ -1,0 +1,105 @@
+#container
+{
+	margin: 0 auto;
+	width: 100%;
+}
+
+#header
+{
+	padding: 20px;
+}
+
+#header h1 { margin: 0; }
+
+#navigation
+{
+	float: left;
+	width: 100%;
+}
+
+#navigation ul
+{
+	margin: 0;
+	padding: 0;
+}
+
+#navigation ul li
+{
+	list-style-type: none;
+	display: inline;
+}
+
+#navigation li a
+{
+	display: block;
+	float: left;
+	padding: 5px 10px;
+	text-decoration: none;
+	border-right: 1px solid #fff;
+}
+
+#navigation li a:hover { background: #383; }
+
+#content-container
+{
+	float: left;
+	width: 100%;
+}
+
+#content
+{
+	clear: left;
+	float: left;
+	width: 60%;
+	padding: 20px 0;
+	margin: 0 0 0 4%;
+	display: inline;
+}
+
+#content h2 { margin: 0; }
+
+#aside
+{
+	float: right;
+	width: 26%;
+	padding: 20px 0;
+	margin: 0 3% 0 0;
+	display: inline;
+}
+
+#aside h3 { margin: 0; }
+
+#footer
+{
+	clear: left;
+	background: #ccc;
+	text-align: right;
+	padding: 20px;
+	height: 1%;
+}
+
+
+
+
+body, table td, select {
+  font-family: Arial Unicode MS, Arial, sans-serif;
+  font-size: small;
+  color: #bec7cc;
+}
+select {
+  color: #000;
+}
+pre {
+  font-family: "courier new", courier;
+  font-size: small;
+}
+body {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  background: #4d4d4d;
+  direction: ltr;
+}
+a, a:visited, a:hover {
+  color: #ccf;
+}
