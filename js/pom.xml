@@ -21,6 +21,7 @@
 						<configuration>
 							<module>com.redspr.redquerybuilder.js.RedQueryBuilder</module>
 							<mode>htmlunit</mode>
+                            <timeOut>120</timeOut>
 						</configuration>
 						<goals>
 							<goal>compile</goal>

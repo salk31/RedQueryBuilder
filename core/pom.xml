@@ -33,6 +33,7 @@
 						<configuration>
 							<module>RedQueryBuilderCore</module>
 							<mode>htmlunit</mode>
+                            <timeOut>120</timeOut>
 						</configuration>
 						<goals>
 							<goal>compile</goal>
