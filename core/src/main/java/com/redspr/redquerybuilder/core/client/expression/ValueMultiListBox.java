@@ -31,13 +31,13 @@ public class ValueMultiListBox<T> extends Composite implements
     private TakesValueEditor<Collection<T>> editor;
     private Collection<T> value;
 
-    public ValueMultiListBox(Renderer<T> renderer) {
-        this(renderer, new SimpleKeyProvider<T>());
+    public ValueMultiListBox(Renderer<T> renderer2) {
+        this(renderer2, new SimpleKeyProvider<T>());
     }
 
-    public ValueMultiListBox(Renderer<T> renderer, ProvidesKey<T> keyProvider) {
-        this.keyProvider = keyProvider;
-        this.renderer = renderer;
+    public ValueMultiListBox(Renderer<T> renderer2, ProvidesKey<T> keyProvider2) {
+        this.keyProvider = keyProvider2;
+        this.renderer = renderer2;
         initWidget(new ListBox(true));
         getListBox().setVisibleItemCount(2);
 

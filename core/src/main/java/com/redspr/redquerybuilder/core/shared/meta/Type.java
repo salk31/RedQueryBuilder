@@ -29,8 +29,8 @@ public class Type implements HasStyleName, Serializable, IsSerializable {
     public Operator[] getOperators() {
         return operators;
     }
-    public void setOperators(Operator[] operators) {
-        this.operators = operators;
+    public void setOperators(Operator[] p) {
+        this.operators = p;
     }
     public String getName() {
         return name;

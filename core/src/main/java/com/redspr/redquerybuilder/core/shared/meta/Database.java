@@ -1,13 +1,8 @@
 package com.redspr.redquerybuilder.core.shared.meta;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-
-
-
-
 
 
 /**
@@ -72,21 +67,6 @@ public class Database implements Serializable, IsSerializable {
     public String getName() {
         return databaseName;
     }
-
-    /**
-     * Get the schema. If the schema does not exist, an exception is thrown.
-     *
-     * @param schemaName the name of the schema
-     * @return the schema
-     * @throws SQLException no schema with that name exists
-     */
-   //public Schema getSchema(String schemaName) throws SQLException {
-   //     return new Schema();
-   // }
-
-//public Schema getSchema() {
-//    return new Schema();
-//}
 
     @Override
     public String toString() {
