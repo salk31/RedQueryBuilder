@@ -19,7 +19,9 @@ public class GwtTestBasics extends GWTTestCase {
         try {
             JsConfiguration conf = (JsConfiguration) JsonUtils.unsafeEval(json);
             RedQueryBuilder.configure(conf, "SELECT id FROM Foo", null);
-            fail();
+            if (msg != null) {
+                fail("Was expecting the error message: " + msg);
+            }
         } catch (Throwable th) {
             assertEquals(msg, th.getMessage());
         }
@@ -47,7 +49,7 @@ public class GwtTestBasics extends GWTTestCase {
 
     @Test
     public void testNoFksInJson() throws Exception {
-        test("{meta:{tables:[{name:'Foo'}]}}", "No tables defined");
+        test("{meta:{tables:[{name:'Foo'}]}}", null);
     }
 
 
