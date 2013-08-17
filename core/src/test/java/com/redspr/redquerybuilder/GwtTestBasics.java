@@ -572,7 +572,11 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
         c.fireDirty();
 
 
-        assertEquals("<select class='gwt-ListBox'><option value='Please select...'>Please select...</option><option value='M'>M</option><option value='F'>F</option></select>", c.getRight());
+        assertEquals("<select class='gwt-ListBox'>"
+                + "<option value='Please select...'>Please select...</option>"
+                + "<option value='M'>M</option>"
+                + "<option value='F'>F</option>"
+                + "</select>", c.getRight());
     }
 
     @Test
