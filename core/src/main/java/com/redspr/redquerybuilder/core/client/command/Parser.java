@@ -93,28 +93,24 @@ public class Parser {
      * @return the prepared object
      */
     public Prepared parseOnly(String sql) throws SQLException {
-        try {
-            return parse(sql);
-        } catch (Exception e) {
-            throw Message.getSQLException(0, e, "expected");
-       }
+        return parse(sql);
     }
 
 
 
     private Prepared parse(String sql) throws SQLException {
         Prepared p = null;
-        try {
+       // try {
             // first, try the fast variant
             p = parse(sql, false);
-        } catch (SQLException e) {
+//        }// catch (SQLException e) {
 //            if (e.getErrorCode() == ErrorCode.SYNTAX_ERROR_1) {
 //                // now, get the detailed exception
 //                p = parse(sql, true);
 //            } else {
-               throw Message.addSQL(e, sql);
+//               throw Message.addSQL(e, sql);
 //            }
-        }
+        //}
        // p.setPrepareAlways(recompileAlways);
        // p.setParameterList(parameters);
         return p;
@@ -2889,7 +2885,7 @@ public class Parser {
         if (table != null) {
             return table;
         }
-        throw new RuntimeException("Unable to find table " + tableName);
+//        throw new RuntimeException("Unable to find table " + tableName);
 //        String[] schemaNames = session.getSchemaSearchPath();
 //        for (int i = 0; schemaNames != null && i < schemaNames.length; i++) {
 //            Schema s = database.getSchema(schemaNames[i]);
@@ -2898,7 +2894,7 @@ public class Parser {
 //                return table;
 //            }
 //        }
-//        throw Message.getSQLException(ErrorCode.TABLE_OR_VIEW_NOT_FOUND_1, tableName);
+        throw new SQLException("Unable to find table " + tableName);
     }
 
     private Sequence findSequence(String schemaName, String sequenceName) throws SQLException {
