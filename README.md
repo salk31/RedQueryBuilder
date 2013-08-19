@@ -6,4 +6,11 @@ An interative demo and ZIP download are hosted on GAE here http://redquerybuilde
 RedQueryBuilder uses an adapted parser from http://www.h2database.com/html/main.html and shares the parse object tree.
 
 
+Build
+-----
+
+* Install Maven http://maven.apache.org/run-maven/index.html
+* mvn clean install
+* The JavaScript friendly files will be in js/target/js-{version}
+
 
