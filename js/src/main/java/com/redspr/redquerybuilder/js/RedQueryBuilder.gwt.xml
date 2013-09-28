@@ -1,11 +1,11 @@
 <module rename-to="RedQueryBuilder">
-	<inherits name="com.google.gwt.user.User" />
-	<inherits name="com.google.gwt.i18n.I18N" />
+    <inherits name="com.google.gwt.user.User" />
+    <inherits name="com.google.gwt.i18n.I18N" />
     <inherits name="RedQueryBuilderCore" />
 
-	<entry-point class="com.redspr.redquerybuilder.js.client.RedQueryBuilder" />
-	
-	<!--  extend-property name="locale" values="en_GB"/ -->
+    <entry-point class="com.redspr.redquerybuilder.js.client.RedQueryBuilder" />
+
+    <!--  extend-property name="locale" values="en_GB"/ -->
 
     <add-linker name="xsiframe" />
 
