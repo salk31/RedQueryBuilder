@@ -19,7 +19,6 @@ import com.redspr.redquerybuilder.core.client.command.dml.Query;
 import com.redspr.redquerybuilder.core.client.command.dml.Select;
 import com.redspr.redquerybuilder.core.client.command.dml.SelectUnion;
 import com.redspr.redquerybuilder.core.client.constant.ErrorCode;
-import com.redspr.redquerybuilder.core.client.constant.SysProperties;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.expression.Comparison;
 import com.redspr.redquerybuilder.core.client.expression.ConditionAndOr;
@@ -2302,7 +2301,7 @@ public class Parser {
                 }
                 break;
             case '$':
-                if (SysProperties.DOLLAR_QUOTING && command[i + 1] == '$' && (i == 0 || command[i - 1] <= ' ')) {
+                if (false && command[i + 1] == '$' && (i == 0 || command[i - 1] <= ' ')) {
                     // dollar quoted string
                     changed = true;
                     command[i] = ' ';

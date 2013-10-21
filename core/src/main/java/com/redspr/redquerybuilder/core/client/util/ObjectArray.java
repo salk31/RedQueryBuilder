@@ -110,9 +110,6 @@ public final class ObjectArray<T> implements Iterable<T> {
      * @return the value
      */
     public T get(int index) {
-        if (SysProperties.CHECK2 && index >= size) {
-            throwException(index);
-        }
         return data[index];
     }
 
@@ -123,11 +120,6 @@ public final class ObjectArray<T> implements Iterable<T> {
      * @return the removed object
      */
     public Object remove(int index) {
-        // TOxDO performance: the app should (where possible)
-        // remove from end to start, to avoid O(n^2)
-        if (SysProperties.CHECK2 && index >= size) {
-            throwException(index);
-        }
         Object value = data[index];
         System.arraycopy(data, index + 1, data, index, size - index - 1);
         size--;
@@ -143,9 +135,6 @@ public final class ObjectArray<T> implements Iterable<T> {
      * @param to the end index
      */
     public void removeRange(int from, int to) {
-        if (SysProperties.CHECK2 && (to > size || from > to)) {
-            throw new ArrayIndexOutOfBoundsException("to=" + to + " from=" + from + " size=" + size);
-        }
         System.arraycopy(data, to, data, from, size - to);
         size -= to - from;
         for (int i = size + (to - from) - 1; i >= size; i--) {
