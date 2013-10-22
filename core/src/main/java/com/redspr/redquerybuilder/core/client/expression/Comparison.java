@@ -26,10 +26,10 @@ import com.redspr.redquerybuilder.core.shared.meta.Type;
 public class Comparison extends Condition {
 
     private String compareType;
-    private final XWidget<Expression> xleft = new XWidget();
-    private final XWidget<Expression> xright = new XWidget();
+    private final XWidget<Expression> xleft = new XWidget<Expression>();
+    private final XWidget<Expression> xright = new XWidget<Expression>();
 
-    private final ListBox2<Operator> op = new ListBox2();
+    private final ListBox2<Operator> op = new ListBox2<Operator>();
 
     private final Button remove = new Button("-");
 

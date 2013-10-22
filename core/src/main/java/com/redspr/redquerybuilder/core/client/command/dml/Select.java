@@ -41,7 +41,7 @@ public class Select extends Query implements  ColumnResolver {
 
     private final Button add = new Button("Add condition");
 
-    private final XWidget<Expression> xcondition = new XWidget();
+    private final XWidget<Expression> xcondition = new XWidget<Expression>();
 
     private HashMap<Expression, Object> currentGroup;
 
@@ -399,7 +399,7 @@ public class Select extends Query implements  ColumnResolver {
     public void garbageCollectFilters() {
         if (filters.size() > 1) {
             // XXX identity?
-            final Set<TableFilter> used = new HashSet();
+            final Set<TableFilter> used = new HashSet<TableFilter>();
             used.add(null);
             Callback counter = new BaseSqlWidget.Callback() {
                 @Override

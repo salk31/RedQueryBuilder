@@ -7,7 +7,10 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Type implements HasStyleName, Serializable, IsSerializable {
     private String name;
 
-    private Operator[] operators = new Operator[]{new Operator("="), new Operator("IS NULL", Cardinality.ZERO), new Operator("LIKE")};
+    private Operator[] operators = new Operator[] {
+            new Operator("="),
+            new Operator("IS NULL", Cardinality.ZERO),
+            new Operator("LIKE") };
 
     private Editor editor;
 
