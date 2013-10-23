@@ -24,6 +24,7 @@ import com.redspr.redquerybuilder.core.client.expression.Comparison;
 import com.redspr.redquerybuilder.core.client.expression.ConditionAndOr;
 import com.redspr.redquerybuilder.core.client.expression.Expression;
 import com.redspr.redquerybuilder.core.client.expression.ExpressionColumn;
+import com.redspr.redquerybuilder.core.client.expression.Null;
 import com.redspr.redquerybuilder.core.client.expression.Parameter;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
 import com.redspr.redquerybuilder.core.client.util.ObjectArray;
@@ -1793,10 +1794,10 @@ public class Parser {
 //            }
 //            r = new Rownum(currentSelect == null ? currentPrepared : currentSelect);
 //            break;
-//        case NULL:
-//            read();
-//            r = ValueExpression.getNull();
-//            break;
+        case NULL:
+            read();
+            r = new Null();
+            break;
 //        case VALUE:
 //            r = ValueExpression.get(currentValue);
 //            read();

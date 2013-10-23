@@ -1,5 +1,6 @@
 package com.redspr.redquerybuilder.core.client.expression;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -42,11 +43,18 @@ public class Parameter extends Expression {
         value = session.getValueRegistry().getY(index).getValue();
     }
 
-    public Parameter(Session session, Collection<Expression> values) {
+    public Parameter(Session session, Collection<Expression> children) {
         super(session);
 
         initWidget(lb); // XXX three times now
-        value = values;
+        List<Object> value2 = new ArrayList<Object>();
+        for (Expression child : children) {
+            if (child instanceof Null) {
+                continue;
+            }
+            value2.add(((Parameter) child).value);
+        }
+        value = value2;
     }
 
     @Override
@@ -54,16 +62,21 @@ public class Parameter extends Expression {
         if (value instanceof Collection) {
             StringBuilder sb = new StringBuilder();
             Collection a = (Collection) value;
-            for (Object o : a) {
-                if (sb.length() == 0) {
-                    sb.append("(?");
-                } else {
-                    sb.append(", ?");
+            if (a.isEmpty()) {
+                sb.append("(NULL)");
+            } else {
+                for (Object o : a) {
+                    if (sb.length() == 0) {
+                        sb.append("(?");
+                    } else {
+                        sb.append(", ?");
+                    }
+                    args.add(o);
                 }
-                args.add(o);
+                sb.append(')');
             }
-            sb.append(')');
 
+// TODO 00 toSql with no values select IN ()
             return sb.toString();
         } else {
             args.add(value);

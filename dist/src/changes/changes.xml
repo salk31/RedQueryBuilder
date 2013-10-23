@@ -28,14 +28,20 @@
             <action dev="salk31" type="add" due-to="Cody Lundquist">
                 * API to control the "add condition" button. Always have a condition.
             </action>
-        </release>
-        
-        <release version="0.6.0" date="2013-09-28" description="Help for CSS/JS">
             <action dev="salk31" type="add">
                 * Documentation on GAE webapp.
             </action>
+        </release>
+        
+        <release version="0.6.0" date="2013-09-28" description="Help for CSS/JS">
             <action dev="salk31" type="fix" due-to="Matt S">
-                * Support input and output of array arguments.
+                Fix passing in arguments to the IN operator.
+            </action>
+            <action dev="salk31" type="add" due-to="Matt S">
+                Handling of empty IN operators.
+            </action>
+            <action dev="salk31" type="add" due-to="Matt S">
+                * Support &quot;NOT IN&quot;
             </action>
         </release>
         
