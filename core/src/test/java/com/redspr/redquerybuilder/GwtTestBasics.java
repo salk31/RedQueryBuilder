@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.gwt.dom.client.Element;
@@ -63,11 +64,11 @@ public class GwtTestBasics extends AbstractTest {
     @Test
     public void testParseLike() throws Exception {
         Parser p = new Parser(getSession());
-        Prepared prep = p.parseOnly("SELECT id FROM Person WHERE sex LIKE ?");
+        Prepared prep = p.parseOnly("SELECT id FROM Person WHERE owner LIKE ?");
 
         Select s = (Select) prep;
 
-        assertEquals("SELECT ID\nFROM PERSON\nWHERE (SEX LIKE ?)", s.getSQL(new ArrayList()));
+        assertEquals("SELECT ID\nFROM PERSON\nWHERE (OWNER LIKE ?)", s.getSQL(new ArrayList()));
     }
 
     @Test
@@ -474,9 +475,47 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
 
     @Test
     public void testParseAndGenerateIn() throws Exception {
-        Parser p = new Parser(getSession());
         String sql0 = "SELECT x.id FROM Person x"
             + " WHERE x.category IN (?, ?)";
+        List<Object> args0 = args("1", "2");
+        CommandBuilder cb = new CommandBuilder(getSession(), sql0, args0);
+
+        Select s = cb.getSelect();
+        cb.fireDirty(); // XXX encapsulation
+
+        // collect initial non-sense...
+        String sql1 = "SELECT X.ID\nFROM PERSON X\n"
+            + "WHERE (X.CATEGORY IN (?, ?))";
+        List<Object> args1 = new ArrayList<Object>();
+        assertEquals(sql1, s.getSQL(args1));
+        assertEquals(args0, args1);
+    }
+
+    @Test
+    public void testParseAndGenerateNotIn() throws Exception {
+        String sql0 = "SELECT x.id FROM Person x"
+            + " WHERE x.category NOT IN (?, ?)";
+        List<Object> args0 = args("1", "2");
+        CommandBuilder cb = new CommandBuilder(getSession(), sql0, args0);
+
+        Select s = cb.getSelect();
+        cb.fireDirty(); // XXX encapsulation
+
+        // collect initial non-sense...
+        String sql1 = "SELECT X.ID\nFROM PERSON X\n"
+            + "WHERE (X.CATEGORY NOT IN (?, ?))";
+        List<Object> args1 = new ArrayList<Object>();
+        assertEquals(sql1, s.getSQL(args1));
+        assertEquals(args0, args1);
+    }
+
+
+    @Ignore
+    @Test
+    public void testParseAndGenerateEmptyIn() throws Exception {
+        Parser p = new Parser(getSession());
+        String sql0 = "SELECT x.id FROM Person x"
+            + " WHERE x.category IN (NULL)";
 
         Prepared prep = p.parseOnly(sql0);
 
@@ -484,8 +523,18 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
 
         // collect initial non-sense...
         String sql1 = "SELECT X.ID\nFROM PERSON X\n"
-            + "WHERE (X.CATEGORY IN (?, ?))";
-        assertEquals(sql1, s.getSQL(new ArrayList()));
+            + "WHERE (X.CATEGORY IN (NULL))";
+        List args = args();
+        assertEquals(sql1, s.getSQL(args));
+        assertEquals(0, args.size());
+    }
+
+    private List<Object> args(Object... args) {
+        List<Object> result = new ArrayList<Object>();
+        for (Object a : args) {
+            result.add(a);
+        }
+        return result;
     }
 
     @Test
@@ -494,7 +543,7 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
 
         String sql0 = "SELECT x.id FROM Person x"
                 + " WHERE x.category IN (?, ?)";
-        CommandBuilder cb = new CommandBuilder(sess, sql0, new ArrayList());
+        CommandBuilder cb = new CommandBuilder(sess, sql0, args("A", "B"));
         RootPanel.get().add(cb);
         Select s = cb.getSelect();
 
@@ -510,6 +559,9 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
                     + "<option value='B'>B</option>"
                     + "<option value='C'>C</option>" + "</select>";
             assertEquals(html, selectElmt);
+
+            assertEquals("SELECT X.ID\nFROM PERSON X\nWHERE (X.CATEGORY IN (?, ?))", s.getSQL(args()));
+
 
             // change to sex
             ExpressionColumn left2 = (ExpressionColumn) comp.getLeft();
@@ -528,6 +580,8 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
                     + "<option value='Y'>Y</option>"
                     + "<option value='Z'>Z</option>" + "</select>";
             assertEquals(html, selectElmt);
+
+            assertEquals("SELECT X.ID\nFROM PERSON X\nWHERE (X.category2 IN ?)", s.getSQL(args()));
 
             // change to sex
             ExpressionColumn left2 = (ExpressionColumn) comp.getLeft();
@@ -548,6 +602,8 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
                     + "<option value='F'>F</option>"
                     + "</select>";
             assertEquals(html, selectElmt);
+
+            assertEquals("SELECT X.ID\nFROM PERSON X\nWHERE (X.sex = ?)", s.getSQL(args()));
         }
 
         // check options in ListBox please, male, female
