@@ -135,6 +135,7 @@ public class Comparison extends Condition {
         Operator o = lt.getOperatorByName(compareType);
         if (o == null) {
             o = lt.getOperators()[0];
+            compareType = o.getName();
         }
         return o;
     }
@@ -142,11 +143,6 @@ public class Comparison extends Condition {
     @Override
     public void onDirty(DirtyEvent e) {
         Column col = ((ExpressionColumn) getLeft()).getColumn();
-
-        Operator ope = col.getType().getOperatorByName(compareType);
-        if (ope == null) {
-            ope = col.getType().getOperators()[0];
-        }
 
         op.setValue(getOperator());
         op.setAcceptableValues(col.getType().getOperators());
