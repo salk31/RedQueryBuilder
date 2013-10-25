@@ -1127,17 +1127,17 @@ public class Parser {
 //            // special case: NOT NULL is not part of an expression (as in CREATE
 //            // TABLE TEST(ID INT DEFAULT 0 NOT NULL))
 //            int backup = parseIndex;
-//            boolean not = false;
-//            if (readIf("NOT")) {
-//                not = true;
+            boolean not = false;
+            if (readIf("NOT")) {
+                not = true;
 //                if (isToken("NULL")) {
 //                    // this really only works for NOT NULL!
 //                    parseIndex = backup;
 //                    currentToken = "NOT";
 //                    break;
 //                }
-//            }
-            Operator op = readCustom();
+            }
+            Operator op = readCustom(not);
             if (op != null) {
                 Expression b;
                 switch (op.getCardinality()) {
@@ -1270,10 +1270,11 @@ public class Parser {
                         r = new Comparison(session, compareType, r, right);
 //                    }
 //                }
+
+            //if (not) {
+              //  r = new ConditionNot(session, r);
+            //}
             }
-//            if (not) {
-//                r = new ConditionNot(r);
-//            }
         }
         return r;
     }
@@ -1962,8 +1963,9 @@ public class Parser {
         read();
     }
 
-    private Operator readCustom() throws SQLException {
-        Operator op = session.getDatabase().getOperatorByName(currentToken);
+    private Operator readCustom(boolean not) throws SQLException {
+        String token = not ? "NOT " + currentToken : currentToken;
+        Operator op = session.getDatabase().getOperatorByName(token);
         if (op != null) {
             read();
             return op;

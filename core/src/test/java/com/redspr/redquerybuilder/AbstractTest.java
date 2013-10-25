@@ -66,8 +66,9 @@ public class AbstractTest extends GWTTestCase {
         // XXX IN done better as hint or style?
         Type refType = new Type("REFS");
         refType.setEditor(new Editor.SelectEditor());
-        refType.setOperators(
-                new Operator[]{new Operator("IN", Cardinality.MULTI)});
+        refType.setOperators(new Operator[]{
+                new Operator("IN", Cardinality.MULTI),
+                new Operator("NOT IN", Cardinality.MULTI)});
 
         Type suggestType = new Type("SUGGEST");
         suggestType.setEditor(new SuggestEditor());
@@ -77,7 +78,8 @@ public class AbstractTest extends GWTTestCase {
         singleRefType.setEditor(new Editor.SelectEditor());
         singleRefType.setOperators(new Operator[] {
                 new Operator("="),
-                new Operator("IS NULL", Cardinality.ZERO)});
+                new Operator("IS NULL", Cardinality.ZERO),
+                new Operator("CUSTOM_OP", Cardinality.ONE)});
 
         Type dateType = new Type("DATE");
         dateType.setEditor(new Editor.DateEditor());

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.gwt.dom.client.Element;
@@ -509,8 +508,6 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
         assertEquals(args0, args1);
     }
 
-
-    @Ignore
     @Test
     public void testParseAndGenerateEmptyIn() throws Exception {
         Parser p = new Parser(getSession());
