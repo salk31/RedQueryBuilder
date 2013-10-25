@@ -3,10 +3,6 @@
     <inherits name="com.google.gwt.i18n.I18N"/>
     <inherits name="com.google.gwt.resources.Resources" />
 
-    <entry-point class="com.redspr.redquerybuilder.core.RedQueryBuilder" />
-
-    <!--  extend-property name="locale" values="en_GB"/ -->
-
     <source path="" >
         <include name="com/redspr/**" />
         <include name="java/sql/**" />
