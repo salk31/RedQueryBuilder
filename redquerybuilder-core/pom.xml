@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.redspr</groupId>
+		<artifactId>redquerybuilder-parent</artifactId>
+		<version>0.6.0</version>
+		<relativePath>../redquerybuilder-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>redquerybuilder-core</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.5.1</version>
+				<executions>
+					<execution>
+						<configuration>
+							<module>com.redspr.redquerybuilder.core.RedQueryBuilderCore</module>
+							<mode>htmlunit</mode>
+                            <timeOut>120</timeOut>
+						</configuration>
+						<goals>
+							<goal>compile</goal>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<excludes>**/*.class</excludes>
+				</configuration>
+			</plugin>
+
+
+		</plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/client/**</include>
+                    <include>**/public/**</include>
+                    <include>**/shared/**</include>
+                    <include>**/*.gwt.xml</include>
+                    <include>**/*.gif</include>
+                    <include>**/*.png</include>
+                    <include>**/*.css</include>
+                </includes>
+            </resource>
+        </resources>
+        
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>2.5.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+    <profiles>
+        <profile>
+            <id>quick</id>
+            <properties>
+               <gwt.draftCompile>true</gwt.draftCompile>
+               <maven.test.skip>true</maven.test.skip>
+               <gwt.compiler.localWorkers>1</gwt.compiler.localWorkers>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

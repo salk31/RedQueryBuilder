@@ -34,6 +34,9 @@
         </release>
         
         <release version="0.6.0" date="2013-09-28" description="Help for CSS/JS">
+            <action dev="salk31" type="fix">
+                * Fix packaging for GWT projects.
+            </action>
             <action dev="salk31" type="fix" due-to="Matt S">
                 Fix passing in arguments to the IN operator.
             </action>

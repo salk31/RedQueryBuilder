@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-	    <groupId>com.redspr.redquerybuilder</groupId>
-		<artifactId>parent</artifactId>
+	    <groupId>com.redspr</groupId>
+		<artifactId>redquerybuilder-parent</artifactId>
 		<version>0.6.0</version>
-		<relativePath>../parent/pom.xml</relativePath>
+		<relativePath>../redquerybuilder-parent/pom.xml</relativePath>
 	</parent>	
-	<artifactId>jdbcsample</artifactId>
+	<artifactId>redquerybuilder-jdbcsample</artifactId>
 	<packaging>war</packaging>
 	<name>jdbcsample</name>
 	<url>http://maven.apache.org</url>
@@ -54,7 +54,7 @@
 							<artifactItems>
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
-									<artifactId>js</artifactId>
+									<artifactId>redquerybuilder-js</artifactId>
 									<version>${project.version}</version>
 									<type>war</type>
 									<overWrite>true</overWrite>
@@ -66,7 +66,7 @@
 								<!-- js zip -->
 								<artifactItem>
                                     <groupId>${project.groupId}</groupId>
-                                    <artifactId>dist</artifactId>
+                                    <artifactId>redquerybuilder-dist</artifactId>
                                     <version>${project.version}</version>
                                     <classifier>js</classifier>
                                     <type>zip</type>
@@ -124,7 +124,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>js</artifactId>
+			<artifactId>redquerybuilder-js</artifactId>
 			<version>${project.version}</version>
 			<type>war</type>
 			<scope>runtime</scope>
@@ -132,7 +132,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>dist</artifactId>
+            <artifactId>redquerybuilder-dist</artifactId>
             <version>${project.version}</version>
             <classifier>js</classifier>
      		<type>zip</type>

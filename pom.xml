@@ -5,18 +5,18 @@
 	<packaging>pom</packaging>
 
 	<parent>
-		<groupId>com.redspr.redquerybuilder</groupId>
-		<artifactId>parent</artifactId>
+		<groupId>com.redspr</groupId>
+		<artifactId>redquerybuilder-parent</artifactId>
 		<version>0.6.0</version>
-		<relativePath>parent/pom.xml</relativePath>
+		<relativePath>redquerybuilder-parent/pom.xml</relativePath>
 	</parent>
 
 	<modules>
-		<module>parent</module>
-		<module>jdbcsample</module>
-		<module>core</module>
-		<module>js</module>
-		<module>dist</module>
+		<module>redquerybuilder-parent</module>
+		<module>redquerybuilder-jdbcsample</module>
+		<module>redquerybuilder-core</module>
+		<module>redquerybuilder-js</module>
+		<module>redquerybuilder-dist</module>
 	</modules>
 
 	<build>
