@@ -1,4 +1,4 @@
-package com.redspr.redquerybuilder.core;
+package com.redspr.redquerybuilder.core.client;
 
 import java.util.List;
 

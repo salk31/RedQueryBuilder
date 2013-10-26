@@ -8,7 +8,7 @@
 * Contributors:
 * Sam Hough - initial API and implementation
 *******************************************************************************/
-package com.redspr.redquerybuilder.core;
+package com.redspr.redquerybuilder.core.client;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,7 +10,7 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.redspr.redquerybuilder.core.Configuration;
+import com.redspr.redquerybuilder.core.client.Configuration;
 import com.redspr.redquerybuilder.core.client.command.CommandBuilder;
 import com.redspr.redquerybuilder.core.client.command.dml.Select;
 import com.redspr.redquerybuilder.core.client.engine.Session;

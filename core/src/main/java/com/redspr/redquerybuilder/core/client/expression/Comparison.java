@@ -9,7 +9,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.redspr.redquerybuilder.core.BaseSqlWidget;
+import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
 import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;

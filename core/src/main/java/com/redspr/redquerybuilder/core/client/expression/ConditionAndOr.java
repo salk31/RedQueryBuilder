@@ -14,7 +14,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.redspr.redquerybuilder.core.BaseSqlWidget;
+import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
 import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.util.XWidget;

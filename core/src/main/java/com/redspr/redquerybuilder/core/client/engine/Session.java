@@ -2,8 +2,8 @@ package com.redspr.redquerybuilder.core.client.engine;
 
 
 import com.google.gwt.event.shared.HandlerManager;
-import com.redspr.redquerybuilder.core.Configuration;
-import com.redspr.redquerybuilder.core.ValueRegistry;
+import com.redspr.redquerybuilder.core.client.Configuration;
+import com.redspr.redquerybuilder.core.client.ValueRegistry;
 import com.redspr.redquerybuilder.core.client.command.CommandBuilder;
 import com.redspr.redquerybuilder.core.client.command.dml.Select;
 import com.redspr.redquerybuilder.core.client.conf.IdentifierEscaper;

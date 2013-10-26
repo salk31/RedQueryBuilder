@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import com.google.gwt.user.client.ui.Widget;
-import com.redspr.redquerybuilder.core.Configuration;
+import com.redspr.redquerybuilder.core.client.Configuration;
 import com.redspr.redquerybuilder.core.client.conf.IdentifierEscaper;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;

@@ -19,7 +19,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.redspr.redquerybuilder.core.BaseSqlWidget;
+import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
 import com.redspr.redquerybuilder.core.client.engine.ColumnResolver;
 import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
 import com.redspr.redquerybuilder.core.client.engine.Session;

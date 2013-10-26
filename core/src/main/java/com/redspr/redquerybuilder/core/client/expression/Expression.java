@@ -3,7 +3,7 @@ package com.redspr.redquerybuilder.core.client.expression;
 
 import java.util.List;
 
-import com.redspr.redquerybuilder.core.BaseSqlWidget;
+import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 
 public class Expression extends BaseSqlWidget {

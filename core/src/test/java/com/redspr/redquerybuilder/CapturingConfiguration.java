@@ -2,7 +2,7 @@ package com.redspr.redquerybuilder;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
-import com.redspr.redquerybuilder.core.Configuration;
+import com.redspr.redquerybuilder.core.client.Configuration;
 import com.redspr.redquerybuilder.core.shared.meta.EnumerateRequest;
 
 public class CapturingConfiguration extends Configuration {

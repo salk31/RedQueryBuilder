@@ -22,7 +22,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
-import com.redspr.redquerybuilder.core.Configuration;
+import com.redspr.redquerybuilder.core.client.Configuration;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
 import com.redspr.redquerybuilder.core.client.util.JsStringArray;
 import com.redspr.redquerybuilder.core.client.util.ObjectArray;
