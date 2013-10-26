@@ -1,7 +1,8 @@
 <module rename-to="RedQueryBuilder">
     <inherits name="com.google.gwt.user.User" />
     <inherits name="com.google.gwt.i18n.I18N" />
-    <inherits name="RedQueryBuilderCore" />
+    
+    <inherits name="com.redspr.redquerybuilder.core.RedQueryBuilderCore" />
 
     <entry-point class="com.redspr.redquerybuilder.js.client.RedQueryBuilder" />
 

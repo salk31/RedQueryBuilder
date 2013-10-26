@@ -1,4 +1,4 @@
-package com.redspr.redquerybuilder;
+package com.redspr.redquerybuilder.core.client;
 
 import java.util.ArrayList;
 import java.util.Collection;

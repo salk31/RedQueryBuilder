@@ -1,8 +1,7 @@
-package com.redspr.redquerybuilder.core.conf;
+package com.redspr.redquerybuilder.core.client;
 
 import org.junit.Test;
 
-import com.redspr.redquerybuilder.AbstractTest;
 
 public class GwtTestConf extends AbstractTest {
 

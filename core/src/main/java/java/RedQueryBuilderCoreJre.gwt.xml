@@ -1,0 +1,6 @@
+<module>
+    <source path="" >
+        <include name="sql/**" />
+        <include name="math/**" />
+    </source>
+</module>

@@ -1,4 +1,4 @@
-package com.redspr.redquerybuilder;
+package com.redspr.redquerybuilder.core.client;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -208,6 +208,6 @@ public class AbstractTest extends GWTTestCase {
 
     @Override
     public String getModuleName() {
-        return "RedQueryBuilderCore";
+        return "com.redspr.redquerybuilder.core.RedQueryBuilderCore";
     }
 }

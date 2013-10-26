@@ -3,10 +3,11 @@
     <inherits name="com.google.gwt.i18n.I18N"/>
     <inherits name="com.google.gwt.resources.Resources" />
 
-    <source path="" >
-        <include name="com/redspr/**" />
-        <include name="java/sql/**" />
-        <include name="java/math/**" />
+    <inherits name="java/RedQueryBuilderCoreJre" />
+
+    <source>
+        <include name="client/**" />
+        <include name="shared/**" />
     </source>
 
 </module>

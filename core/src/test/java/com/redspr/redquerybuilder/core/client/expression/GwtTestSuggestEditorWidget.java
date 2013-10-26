@@ -12,7 +12,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.redspr.redquerybuilder.AbstractTest;
+import com.redspr.redquerybuilder.core.client.AbstractTest;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.shared.meta.Column;
 

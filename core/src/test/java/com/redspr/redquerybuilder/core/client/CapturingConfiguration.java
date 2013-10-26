@@ -1,4 +1,4 @@
-package com.redspr.redquerybuilder;
+package com.redspr.redquerybuilder.core.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;

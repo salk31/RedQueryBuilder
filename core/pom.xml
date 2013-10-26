@@ -31,7 +31,7 @@
 				<executions>
 					<execution>
 						<configuration>
-							<module>RedQueryBuilderCore</module>
+							<module>com.redspr.redquerybuilder.core.RedQueryBuilderCore</module>
 							<mode>htmlunit</mode>
                             <timeOut>120</timeOut>
 						</configuration>
