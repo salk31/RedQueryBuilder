@@ -63,6 +63,7 @@
                     <include>**/client/**</include>
                     <include>**/public/**</include>
                     <include>**/shared/**</include>
+                    <include>java/**</include>
                     <include>**/*.gwt.xml</include>
                     <include>**/*.gif</include>
                     <include>**/*.png</include>

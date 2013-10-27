@@ -45,12 +45,6 @@
 		</plugins>
 	</build>
 	<dependencies>
-	    <dependency>
-            <groupId>com.redspr</groupId>
-            <artifactId>redquerybuilder-core</artifactId>
-            <version>${project.version}</version>
-            <type>java-source</type>
-	    </dependency>
         
         <dependency>
             <groupId>com.redspr</groupId>
