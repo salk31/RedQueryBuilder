@@ -9,7 +9,7 @@ import java.util.Map;
 
 
 public class Schema extends DbObjectBase {
-    private final Map<String, Table> tables = new HashMap<String, Table>();
+    private Map<String, Table> tables = new HashMap<String, Table>();
 
     public Table findTableOrView(String name) {
         return tables.get(name.toUpperCase());

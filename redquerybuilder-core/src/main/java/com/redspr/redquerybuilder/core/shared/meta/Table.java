@@ -11,20 +11,13 @@ import java.util.Map;
 
 public class Table extends SchemaObjectBase implements HasLabel {
 
-    private final Map<String, Column> columns = new HashMap<String, Column>();
+    private Map<String, Column> columns = new HashMap<String, Column>();
 
-    private final List<Constraint> constraints = new ArrayList<Constraint>();
-
+    private List<Constraint> constraints = new ArrayList<Constraint>();
 
     private boolean hidden;
 
-    public boolean isHidden() {
-        return hidden;
-    }
 
-    public void setHidden(boolean p) {
-        this.hidden = p;
-    }
     public Table() {
     }
 
@@ -51,6 +44,14 @@ public class Table extends SchemaObjectBase implements HasLabel {
 
     public void add(Constraint c) {
         constraints.add(c);
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean p) {
+        this.hidden = p;
     }
 
     @Override
