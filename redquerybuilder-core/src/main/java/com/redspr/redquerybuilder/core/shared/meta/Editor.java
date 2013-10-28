@@ -62,7 +62,7 @@ public class Editor implements HasStyleName, Serializable, IsSerializable {
     }
 
     // XXX map mush
-    private final Map<String, Object> attributes = new HashMap<String, Object>();
+    private Map<String, Object> attributes = new HashMap<String, Object>();
 
     private String styleName;
 

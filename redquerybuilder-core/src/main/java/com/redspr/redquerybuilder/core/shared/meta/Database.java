@@ -15,10 +15,10 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class Database implements Serializable, IsSerializable {
 
-    private  String databaseName;
-    private  String databaseShortName;
+    private String databaseName;
+    private String databaseShortName;
 
-    private final Schema mainSchema;
+    private Schema mainSchema;
 
     private Type[] types;
 
