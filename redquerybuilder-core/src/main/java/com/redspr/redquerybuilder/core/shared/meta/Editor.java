@@ -36,7 +36,7 @@ public class Editor implements HasStyleName, Serializable, IsSerializable {
 
 
     // XXX - rubbish, only used by JSON?
-    private static final Map<String, Editor> editorByName = new HashMap();
+    private static final Map<String, Editor> editorByName = new HashMap<String, Editor>();
 
     private static Editor valueOf2(String name) {
         if ("STRING".equals(name) || "TEXT".equals(name)) {

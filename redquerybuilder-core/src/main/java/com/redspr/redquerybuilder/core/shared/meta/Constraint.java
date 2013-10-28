@@ -3,7 +3,7 @@ package com.redspr.redquerybuilder.core.shared.meta;
 
 
 public abstract class Constraint extends SchemaObjectBase {
-    protected Table table;
+    private Table table;
 
     // for GWT RPC
     public Constraint() {
