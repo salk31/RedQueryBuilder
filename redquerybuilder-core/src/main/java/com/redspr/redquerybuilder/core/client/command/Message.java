@@ -11,7 +11,11 @@ package com.redspr.redquerybuilder.core.client.command;
 
 import java.sql.SQLException;
 
-public class Message {
+public final class Message {
+
+    private Message() {
+    }
+
     public static SQLException addSQL(Exception e, String sql) {
         return new SQLException(sql, e);
     }
