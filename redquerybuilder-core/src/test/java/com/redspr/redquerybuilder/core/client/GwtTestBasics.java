@@ -679,7 +679,7 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
 
         String sql0 = "SELECT x.id FROM Person x"
                 + " WHERE x.id=? OR x.id=?";
-        List<Object> args = new ArrayList();
+        List<Object> args = new ArrayList<Object>();
         args.add("13");
         args.add("15");
         CommandBuilder cb = new CommandBuilder(sess, sql0, args);
