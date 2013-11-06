@@ -9,9 +9,7 @@
 	</parent>	
 	<artifactId>redquerybuilder-jdbcsample</artifactId>
 	<packaging>war</packaging>
-	<name>jdbcsample</name>
-	<url>http://maven.apache.org</url>
-	
+
 	<properties>
         <gae.version>1.6.2.1</gae.version>
     </properties>
