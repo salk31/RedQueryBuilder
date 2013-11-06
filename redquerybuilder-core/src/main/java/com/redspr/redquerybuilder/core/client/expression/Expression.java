@@ -13,7 +13,7 @@ public class Expression extends BaseSqlWidget {
         // initWidget(new Label("E" + getClass().getName()));
     }
 
-    public String getSQL(List args) {
+    public String getSQL(List<Object> args) {
         return "blah";
     }
 

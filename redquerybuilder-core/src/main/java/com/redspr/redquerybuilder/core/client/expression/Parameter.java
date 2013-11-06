@@ -58,10 +58,10 @@ public class Parameter extends Expression {
     }
 
     @Override
-    public String getSQL(List args) {
+    public String getSQL(List<Object> args) {
         if (value instanceof Collection) {
             StringBuilder sb = new StringBuilder();
-            Collection a = (Collection) value;
+            Collection<Object> a = (Collection<Object>) value;
             if (a.isEmpty()) {
                 sb.append("(NULL)");
             } else {
@@ -76,7 +76,6 @@ public class Parameter extends Expression {
                 sb.append(')');
             }
 
-// TODO 00 toSql with no values select IN ()
             return sb.toString();
         } else {
             args.add(value);
