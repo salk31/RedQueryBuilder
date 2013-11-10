@@ -76,7 +76,7 @@
 				<version>2.3.2</version>
 				<configuration>
 					<template>${basedir}/codeview</template>
-					<srcDir>${basedir}/../js/src/main/webapp</srcDir>
+					<srcDir>${basedir}/../redquerybuilder-js/src/main/webapp</srcDir>
 					<recurse>3</recurse><!-- This is the *level of recursion*, not a boolean -->
 				    <directory>${project.build.directory}/site/jsdoc</directory>
 				</configuration>

@@ -11,7 +11,8 @@
 	<packaging>war</packaging>
 
 	<properties>
-        <gae.version>1.6.2.1</gae.version>
+        <gae.version>1.8.5</gae.version>
+        <gae.home>${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}</gae.home>
     </properties>
 	
 	<build>
@@ -42,6 +43,33 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>2.3</version>
 				<executions>
+            		<execution>
+             			<id>unpack</id>
+             			<phase>package</phase>
+             			<goals>
+               				<goal>unpack</goal>
+             			</goals>
+             			<configuration>
+               				<artifactItems>
+                 				<artifactItem>
+                   					<groupId>${project.groupId}</groupId>
+                   					<artifactId>redquerybuilder-dist</artifactId>
+                   					<version>${project.version}</version>
+                   					<classifier>js</classifier>
+                                    <type>zip</type>
+
+                   					<outputDirectory>${project.build.directory}/${project.name}-${project.version}</outputDirectory>
+                   					<includes>**/*.css,**/*.html,**/*.gif,**/*.png,**/*.js</includes>
+                 				</artifactItem>
+               				</artifactItems>
+               				<includes>**/*.html</includes>
+               				<excludes>**/*.properties</excludes>
+               				<outputDirectory>${project.build.directory}/xwars</outputDirectory>
+               				<overWriteReleases>false</overWriteReleases>
+               				<overWriteSnapshots>true</overWriteSnapshots>
+             			</configuration>
+           			</execution>
+                
 					<execution>
 						<id>copy-war-to-lib-folder</id>
 						<phase>process-sources</phase>
@@ -50,6 +78,8 @@
 						</goals>
 						<configuration>
 							<artifactItems>
+
+                                <!-- js webapp -->
 								<artifactItem>
 									<groupId>${project.groupId}</groupId>
 									<artifactId>redquerybuilder-js</artifactId>
@@ -61,7 +91,7 @@
 									<destFileName>${renamed.war}</destFileName>
 								</artifactItem>
 								
-								<!-- js zip -->
+								<!-- dist zip -->
 								<artifactItem>
                                     <groupId>${project.groupId}</groupId>
                                     <artifactId>redquerybuilder-dist</artifactId>
@@ -70,7 +100,7 @@
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                     <includes>**/*.zip</includes>
-                                    <outputDirectory>${project.build.directory}/jdbcsample-${project.version}/static</outputDirectory>
+                                    <outputDirectory>${project.build.directory}/${project.name}-${project.version}/static</outputDirectory>
                                     <destFileName>${renamed.war}</destFileName>
                                 </artifactItem>
 							</artifactItems>
@@ -82,7 +112,7 @@
 			  <plugin>
                 <groupId>net.kindleit</groupId>
                 <artifactId>maven-gae-plugin</artifactId>
-                <version>0.9.4</version>
+                <version>0.9.5</version>
                 <dependencies>
                   <dependency>
                     <groupId>net.kindleit</groupId>
@@ -94,8 +124,8 @@
                 </dependencies>
                 <configuration>
                     <serverId>appengine.google.com</serverId>
-                    <sdkDir>${appengine.sdk.root}</sdkDir>
-                    <appDir>${project.build.directory}/jdbcsample-${project.version}</appDir>
+                    <sdkDir>${gae.home}</sdkDir>
+                    <appDir>${project.build.directory}/${project.build.finalName}</appDir>
                     <unpackVersion>${gae.version}</unpackVersion>
                     <appVersion>${parsedVersion.majorVersion}-${parsedVersion.minorVersion}-${parsedVersion.incrementalVersion}</appVersion>
                 </configuration>
