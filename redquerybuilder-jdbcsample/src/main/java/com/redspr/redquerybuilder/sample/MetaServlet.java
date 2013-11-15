@@ -37,10 +37,10 @@ public class MetaServlet extends HttpServlet {
             fk.put("name", name);
             fk.put("label", label);
             fk.put("reverseLabel", reverseLabel);
-            fk.put("fkTableName", fkTableName);
+            fk.put("referencedTableName", fkTableName);
 
-            fk.put("fkColumnNames", fkColumnNames);
-            fk.put("pkColumnNames", pkColumnNames);
+            fk.put("referencedKeyNames", fkColumnNames);
+            fk.put("foreignKeyNames", pkColumnNames);
             return fk;
         }
     }

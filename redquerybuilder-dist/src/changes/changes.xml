@@ -28,14 +28,15 @@
             <action dev="salk31" type="add" due-to="Cody Lundquist">
                 * API to control the "add condition" button. Always have a condition.
             </action>
-            <action dev="salk31" type="add">
-                * Documentation on GAE webapp.
-            </action>
+
         </release>
         
-        <release version="0.6.0" date="2013-09-28" description="Help for CSS/JS">
+        <release version="0.6.0" date="2013-??-??" description="Small fixes.">
+            <action dev="salk31" type="add">
+                Unpacked documentation on GAE webapp.
+            </action>
             <action dev="salk31" type="fix">
-                * Fix packaging for GWT projects.
+                Fix packaging for GWT projects.
             </action>
             <action dev="salk31" type="fix" due-to="Matt S">
                 Fix passing in arguments to the IN operator.
@@ -44,7 +45,10 @@
                 Handling of empty IN operators.
             </action>
             <action dev="salk31" type="add" due-to="Matt S">
-                * Support &quot;NOT IN&quot;
+                Support &quot;NOT IN&quot;
+            </action>
+            <action dev="salk31" type="fix">
+                Better names for JavaScript/JSON FK config.
             </action>
         </release>
         

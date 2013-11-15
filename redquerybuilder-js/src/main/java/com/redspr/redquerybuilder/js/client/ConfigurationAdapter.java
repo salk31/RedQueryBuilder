@@ -151,15 +151,15 @@ public class ConfigurationAdapter extends Configuration {
             for (int j = 0; j < fks.length(); j++) {
                 JsFk jsfk = fks.get(j);
                 Table fkTable = database.getMainSchema().findTableOrView(
-                        jsfk.getFkTableName());
+                        jsfk.getReferencedTableName());
 
                 ConstraintReferential fk = new ConstraintReferential(
                         jsfk.getName(), pkTable);
                 fk.setLabel(jsfk.getLabel());
 
                 fk.setRefTable(fkTable);
-                fk.setColumns(createColumns(pkTable, jsfk.getPkColumnNames()));
-                fk.setRefColumns(createColumns(fkTable, jsfk.getFkColumnNames()));
+                fk.setColumns(createColumns(pkTable, jsfk.getForeignKeyNames()));
+                fk.setRefColumns(createColumns(fkTable, jsfk.getReferencedKeyNames()));
                 pkTable.add(fk);
 
                 ConstraintReferential fkr = new ConstraintReferential(
@@ -167,11 +167,11 @@ public class ConfigurationAdapter extends Configuration {
                 fkr.setLabel(jsfk.getReverseLabel());
 
                 fkr.setRefTable(pkTable);
-                fkr.setColumns(createColumns(fkTable, jsfk.getFkColumnNames())); // XXX
+                fkr.setColumns(createColumns(fkTable, jsfk.getReferencedKeyNames())); // XXX
                                                                        // already
                                                                        // done
                                                                        // this
-                fkr.setRefColumns(createColumns(pkTable, jsfk.getPkColumnNames())); // XXX
+                fkr.setRefColumns(createColumns(pkTable, jsfk.getForeignKeyNames())); // XXX
                                                                           // already
                                                                           // done
                                                                           // this

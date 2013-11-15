@@ -251,7 +251,7 @@ function Operator(name, label, cardinality) {
  * 
  * @constructor
  */
-function ForeignKey(name, pkColumnNames, fkTableName, fkColumnNames) {
+function ForeignKey(name, foreignKeyNames, referencedTableName, referencedKeyNames) {
     /**
      * Name for debugging purposes.
      * @type string
@@ -259,22 +259,22 @@ function ForeignKey(name, pkColumnNames, fkTableName, fkColumnNames) {
 	this.name = name;
 	
     /**
-     * The owning table's columns.
+     * The referencing/child column names that reference the key in a foreign table.
      * @type string[]
      */
-	this.pkColumnNames = pkColumnNames;
+	this.foreignKeyNames = foreignKeyNames;
 	
     /**
-     * The referenced table.
+     * The referenced/parent table name.
      * @type string
      */
-	this.fkTableName = fkTableName;
+	this.referencedTableName = referencedTableName;
 
 	/**
-     * Columns on the referenced table.
+     * The referenced/parent table column names.
      * @type string[]
      */
-	this.fkColumnNames = fkColumnNames;
+	this.referencedKeyNames = referencedKeyNames;
 	
     /**
      * Text to display to the user when going from owning table to referenced table.

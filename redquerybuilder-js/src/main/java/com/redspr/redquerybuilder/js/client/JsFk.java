@@ -10,8 +10,16 @@ public class JsFk extends JavaScriptObject {
     public final native String getName() /*-{ return this.name; }-*/;
     public final native String getLabel() /*-{ return this.label; }-*/;
     public final native String getReverseLabel() /*-{ return this.reverseLabel; }-*/;
-    public final native String getFkTableName() /*-{ return this.fkTableName; }-*/;
 
-    public final native JsStringArray getFkColumnNames() /*-{ return this.fkColumnNames; }-*/;
-    public final native JsStringArray getPkColumnNames() /*-{ return this.pkColumnNames; }-*/;
+    public final native JsStringArray getForeignKeyNames() /*-{
+        return this.foreignKeyNames || this.pkColumnNames;
+    }-*/;
+
+    public final native String getReferencedTableName() /*-{
+        return this.referencedTableName || this.fkTableName;
+    }-*/;
+
+    public final native JsStringArray getReferencedKeyNames() /*-{
+        return this.referencedKeyNames || this.fkColumnNames;
+    }-*/;
 }

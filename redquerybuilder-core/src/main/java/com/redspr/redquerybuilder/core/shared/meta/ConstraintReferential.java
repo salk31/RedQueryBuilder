@@ -4,9 +4,10 @@ package com.redspr.redquerybuilder.core.shared.meta;
 
 public class ConstraintReferential extends Constraint {
     private Column[] columns;
-    private Column[] refColumns;
 
     private Table refTable;
+
+    private Column[] refColumns;
 
     private String revName;
 
