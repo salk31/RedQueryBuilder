@@ -17,7 +17,6 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
-import com.google.gwt.user.datepicker.client.DatePicker;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.shared.meta.Cardinality;
 import com.redspr.redquerybuilder.core.shared.meta.Column;
@@ -60,8 +59,13 @@ public class EditorWidgetFactory {
         add(Editor.DateEditor.class, Cardinality.ONE, new Factory() {
             @Override
             public Widget create(Session session, Column column) {
-                String format = (String) column.getEditor().getAttribute(DateEditor.FORMAT);
-                return new DateBox(new DatePicker(), null, new DateBox.DefaultFormat(DateTimeFormat.getFormat(format)));
+                DateBox dateBox = new DateBox();
+
+                String pattern = (String) column.getEditor().getAttribute(DateEditor.FORMAT);
+                if (pattern != null) {
+                    dateBox.setFormat(new DateBox.DefaultFormat(DateTimeFormat.getFormat(pattern)));
+                }
+                return dateBox;
             }
         });
 
