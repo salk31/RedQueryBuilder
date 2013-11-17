@@ -11,7 +11,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-        <gae.version>1.8.5</gae.version>
+        <gae.version>1.8.0</gae.version>
         <gae.home>${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}</gae.home>
     </properties>
 	
