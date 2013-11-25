@@ -9,4 +9,7 @@ interface Resources extends ClientBundle {
 
     @Source("SampleConfig1.js")
     TextResource synchronous();
+
+    @Source("MinimalDateMeta.json")
+    TextResource minimalDateMeta();
 }

@@ -1,0 +1,24 @@
+
+{meta : {
+        tables : [ {
+            "name" : "person",
+            "label" : "Person",
+            "columns" : [ {
+                "name" : "dob",
+                "label" : "Date of birth",
+                "type" : "DATE"
+            }  ],
+            fks : []
+        } ],
+
+        types : [ {
+            "name" : "DATE",
+            "editor" : "DATE",
+            "operators" : [ {
+                "name" : "=",
+                "label" : "is",
+                "cardinality" : "ONE"
+            }]
+        }  ]
+    }
+}

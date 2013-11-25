@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.JsArrayMixed;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -37,25 +37,18 @@ public class RedQueryBuilder implements EntryPoint {
 
     private native void publish() /*-{
         $wnd.redQueryBuilder =
-                @com.redspr.redquerybuilder.js.client.RedQueryBuilder::configure(Lcom/redspr/redquerybuilder/js/client/JsConfiguration;Ljava/lang/String;Lcom/google/gwt/core/client/JsArrayMixed;);
+                @com.redspr.redquerybuilder.js.client.RedQueryBuilder::configure(Lcom/redspr/redquerybuilder/js/client/JsConfiguration;Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;);
     }-*/;
 
     static CommandBuilder configure(JsConfiguration config, String sql,
-            JsArrayMixed args) throws Exception {
+            JavaScriptObject args) throws Exception {
         if (config == null) {
             throw new IllegalArgumentException("Config is null.");
         }
 
         RedQueryBuilder rqb = new RedQueryBuilder();
-        List<Object> args2 = null;
-        if (args != null) {
-            args2 = new ArrayList<Object>();
-            for (int i = 0; i < args.length(); i++) {
-                args2.add(args.getString(i));
-            }
-        }
 
-        return rqb.install(config, sql, args2);
+        return rqb.install(config, sql, new JsList(args));
     }
 
     private CommandBuilder install(JsConfiguration config2, String sql, List<Object> args)

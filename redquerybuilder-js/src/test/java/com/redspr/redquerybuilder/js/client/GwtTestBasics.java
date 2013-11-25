@@ -1,14 +1,19 @@
 package com.redspr.redquerybuilder.js.client;
 
+import java.util.Date;
+
 import org.junit.Test;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayMixed;
+import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.JsonUtils;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.redspr.redquerybuilder.core.client.command.CommandBuilder;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
+import com.redspr.redquerybuilder.js.client.JsList.JsListAdapter;
 
 public class GwtTestBasics extends GWTTestCase {
 
@@ -39,7 +44,7 @@ public class GwtTestBasics extends GWTTestCase {
         return config.lastArgs;
     }-*/;
 
-    private void test(String json, String sql, JsArrayMixed args, String msg) throws Throwable {
+    private void test(String json, String sql, JsListAdapter args, String msg) throws Throwable {
         RootPanel.get().getElement().setAttribute("id", "rqb");
 
         try {
@@ -59,13 +64,17 @@ public class GwtTestBasics extends GWTTestCase {
         }
     }
 
-    private JsArrayMixed args(Object... args) {
+    private JsListAdapter args(Object... args) {
         JsArrayMixed result = (JsArrayMixed) JsArray.createArray();
 
         for (Object x : args) {
-            result.push((String) x);
+            if (x instanceof String) {
+                result.push((String) x);
+            } else {
+                result.push((JavaScriptObject) x);
+            }
         }
-        return result;
+        return (JsListAdapter) (JavaScriptObject) result;
     }
 
     private void test(String json, String msg) throws Throwable {
@@ -130,6 +139,48 @@ public class GwtTestBasics extends GWTTestCase {
         assertEquals(2, getLastArgs(conf).length());
         assertEquals("foo", getLastArgs(conf).getString(0));
         assertEquals("bar", getLastArgs(conf).getString(1));
+    }
+
+    @Test
+    public void testDateInAndOut() throws Throwable {
+        String json = Resources.INSTANCE.minimalDateMeta().getText();
+        JsDate dateIn = JsDate.create();
+        dateIn.setUTCFullYear(1914);
+        dateIn.setUTCMonth(4);
+        dateIn.setUTCDate(15);
+        dateIn.setUTCHours(22);
+        dateIn.setUTCMinutes(13);
+        test(json, "SELECT dob FROM person WHERE dob = ?", args(dateIn), null);
+
+        builder.fireDirty();
+
+        assertEquals(1, getLastArgs(conf).length());
+        JsDate dateOut = getLastArgs(conf).getObject(0);
+        assertEquals(1914, dateOut.getUTCFullYear());
+        assertEquals(4, dateOut.getUTCMonth());
+        assertEquals(15, dateOut.getUTCDate());
+        assertEquals(22, dateOut.getUTCHours());
+        assertEquals(13, dateOut.getUTCMinutes());
+    }
+
+    public void testJsList() throws Throwable {
+        JsDate dateIn = JsDate.create();
+        dateIn.setUTCFullYear(1914);
+        dateIn.setUTCMonth(4);
+        dateIn.setUTCDate(15);
+        dateIn.setUTCHours(22);
+        dateIn.setUTCMinutes(13);
+
+        JsArrayMixed mixed = (JsArrayMixed) JsArrayMixed.createArray();
+        mixed.push(dateIn);
+        JsList list = new JsList(mixed);
+        Date dateOut = (Date) list.get(0);
+        assertEquals(14, dateOut.getYear());
+        assertEquals(4, dateOut.getMonth());
+        assertEquals(15, dateOut.getDate());
+        assertEquals(22, dateOut.getHours());
+        assertEquals(13, dateOut.getMinutes());
+
     }
 
     @Override
