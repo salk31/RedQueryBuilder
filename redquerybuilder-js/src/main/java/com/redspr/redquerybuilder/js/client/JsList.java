@@ -12,13 +12,13 @@ public class JsList extends AbstractList {
         protected JsListAdapter() {
         }
 
-        public final native int length() /*-{ return this.length; }-*/;
+        public native int length() /*-{ return this.length; }-*/;
 
-        public final native boolean isNull(int i) /*-{
+        public native boolean isNull(int i) /*-{
             return this[i] == null;
         }-*/;
 
-        public final native boolean isDate(int i) /*-{
+        public native boolean isDate(int i) /*-{
             return Boolean(this[i].getMonth);
         }-*/;
 
@@ -28,15 +28,15 @@ public class JsList extends AbstractList {
             return new Date((long) jsDate.getTime());
         }
 
-        private final native JsDate getJsDate(int i) /*-{
+        private native JsDate getJsDate(int i) /*-{
             return this[i];
         }-*/;
 
-        public final native boolean isString(int i) /*-{
+        public native boolean isString(int i) /*-{
             return (typeof this[i] == 'string' || this[i] instanceof String);
         }-*/;
 
-        public final native String getString(int i) /*-{
+        public native String getString(int i) /*-{
             return this[i];
         }-*/;
     }
