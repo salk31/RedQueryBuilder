@@ -21,6 +21,7 @@ public class Configuration {
     public void fireEnumerate(EnumerateRequest request, AsyncCallback<Response> callback) {
     }
 
+    // XXX not called by CommandBuilder. GWT users meant to use RedQueryBuilder?
     public void fireOnSqlChange(String sql, List<Object> args) {
     }
 
