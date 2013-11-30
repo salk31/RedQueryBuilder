@@ -59,14 +59,10 @@
                                     <type>zip</type>
 
                    					<outputDirectory>${project.build.directory}/${project.name}-${project.version}</outputDirectory>
-                   					<includes>**/*.css,**/*.html,**/*.gif,**/*.png,**/*.js</includes>
+                   					<includes>docs/**/*.*</includes>
                  				</artifactItem>
                				</artifactItems>
-               				<includes>**/*.html</includes>
-               				<excludes>**/*.properties</excludes>
-               				<outputDirectory>${project.build.directory}/xwars</outputDirectory>
-               				<overWriteReleases>false</overWriteReleases>
-               				<overWriteSnapshots>true</overWriteSnapshots>
+            
              			</configuration>
            			</execution>
                 
