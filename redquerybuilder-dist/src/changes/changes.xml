@@ -31,7 +31,7 @@
 
         </release>
         
-        <release version="0.6.0" date="2013-??-??" description="Small fixes.">
+        <release version="0.6.0" date="2013-12-01" description="Small fixes.">
             <action dev="salk31" type="fix">
                 Cope without format from meta data for DATE Editor.
             </action>
