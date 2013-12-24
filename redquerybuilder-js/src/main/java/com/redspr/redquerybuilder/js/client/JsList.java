@@ -39,6 +39,18 @@ public class JsList extends AbstractList {
         public native String getString(int i) /*-{
             return this[i];
         }-*/;
+
+        public native boolean isNumber(int i) /*-{
+            return (typeof this[i] == 'number' || this[i] instanceof Number);
+        }-*/;
+
+        public native double getNumber(int i) /*-{
+            return this[i];
+        }-*/;
+
+        public native String debugString(int i) /*-{
+            return 'typeof=' + typeof this[i] + ' toString="' + this[i] + '"';
+        }-*/;
     }
 
     private final JsListAdapter target;
@@ -55,8 +67,11 @@ public class JsList extends AbstractList {
             return target.getDate(i);
         } else if (target.isString(i)) {
             return target.getString(i);
+        } else if (target.isNumber(i)) {
+            return target.getNumber(i);
         }
-        throw new RuntimeException("Unable to handle value " + i);
+
+        throw new RuntimeException("Unable to handle value " + target.debugString(i));
     }
 
     @Override
