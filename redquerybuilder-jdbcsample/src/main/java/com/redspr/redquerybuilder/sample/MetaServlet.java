@@ -120,10 +120,10 @@ public class MetaServlet extends HttpServlet {
                 root.put("types", types);
 
                 types.put(type("CHAR", "SUGGEST", stringOps()));
-                types.put(type("NUMERIC", "TEXT", numberOps()));
-                types.put(type("INTEGER", "TEXT", numberOps()));
-                types.put(type("DECIMAL", "TEXT", numberOps()));
-                types.put(type("SMALLINT", "TEXT", numberOps()));
+                types.put(type("NUMERIC", "NUMBER", numberOps()));
+                types.put(type("INTEGER", "NUMBER", numberOps()));
+                types.put(type("DECIMAL", "NUMBER", numberOps()));
+                types.put(type("SMALLINT", "NUMBER", numberOps()));
                 types.put(type("BOOLEAN", "SELECT", booleanOps()));
             }
 

@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.redspr.redquerybuilder.core.client.engine.Session;
+import com.redspr.redquerybuilder.core.client.util.NumberBox;
 import com.redspr.redquerybuilder.core.shared.meta.Cardinality;
 import com.redspr.redquerybuilder.core.shared.meta.Column;
 import com.redspr.redquerybuilder.core.shared.meta.Editor;
@@ -66,6 +67,13 @@ public class EditorWidgetFactory {
                     dateBox.setFormat(new DateBox.DefaultFormat(DateTimeFormat.getFormat(pattern)));
                 }
                 return dateBox;
+            }
+        });
+
+        add(Editor.NumberEditor.class, Cardinality.ONE, new Factory() {
+            @Override
+            public Widget create(Session session, Column column) {
+                return new NumberBox(session, column);
             }
         });
 

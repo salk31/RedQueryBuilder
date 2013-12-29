@@ -33,6 +33,8 @@ public class Editor implements HasStyleName, Serializable, IsSerializable {
 
     }
 
+    public static class NumberEditor extends Editor {
+    }
 
 
     // XXX - rubbish, only used by JSON?
@@ -47,6 +49,8 @@ public class Editor implements HasStyleName, Serializable, IsSerializable {
             return new SuggestEditor();
         } else if ("SELECT".equals(name)) {
             return new SelectEditor();
+        } else if ("NUMBER".equals(name)) {
+            return new NumberEditor();
         } else {
             throw new RuntimeException("No editor for " + name);
         }
@@ -62,7 +66,7 @@ public class Editor implements HasStyleName, Serializable, IsSerializable {
     }
 
     // XXX map mush
-    private Map<String, Object> attributes = new HashMap<String, Object>();
+    private final Map<String, Object> attributes = new HashMap<String, Object>();
 
     private String styleName;
 

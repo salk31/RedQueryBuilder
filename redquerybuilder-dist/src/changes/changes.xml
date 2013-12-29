@@ -32,6 +32,15 @@
         </release>
         
         <release version="0.7.0" date="201?-??-??" description="New types.">
+            <action dev="salk31" type="add">
+                * New Number type/editor.
+            </action>
+            <action dev="salk31" type="add">
+                * Initial validation support.
+            </action>
+            <action dev="salk31" type="fix">
+                * Fix JDBC sample letting you search with missing args.
+            </action>
         </release>
         
         <release version="0.6.0" date="2013-12-01" description="Small fixes.">
