@@ -1,11 +1,11 @@
 package com.redspr.redquerybuilder.js.client;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.core.client.JsDate;
 import com.google.gwt.core.client.JsonUtils;
@@ -13,7 +13,6 @@ import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.redspr.redquerybuilder.core.client.command.CommandBuilder;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
-import com.redspr.redquerybuilder.js.client.JsList.JsListAdapter;
 
 public class GwtTestBasics extends GWTTestCase {
 
@@ -44,7 +43,7 @@ public class GwtTestBasics extends GWTTestCase {
         return config.lastArgs;
     }-*/;
 
-    private void test(String json, String sql, JsListAdapter args, String msg) throws Throwable {
+    private void test(String json, String sql, JsArrayMixed args, String msg) throws Throwable {
         RootPanel.get().getElement().setAttribute("id", "rqb");
 
         try {
@@ -64,8 +63,8 @@ public class GwtTestBasics extends GWTTestCase {
         }
     }
 
-    private JsListAdapter args(Object... args) {
-        JsArrayMixed result = (JsArrayMixed) JsArray.createArray();
+    private JsArrayMixed args(Object... args) {
+        JsArrayMixed result = (JsArrayMixed) JavaScriptObject.createArray();
 
         for (Object x : args) {
             if (x instanceof String) {
@@ -74,7 +73,7 @@ public class GwtTestBasics extends GWTTestCase {
                 result.push((JavaScriptObject) x);
             }
         }
-        return (JsListAdapter) (JavaScriptObject) result;
+        return result;
     }
 
     private void test(String json, String msg) throws Throwable {
@@ -173,7 +172,11 @@ public class GwtTestBasics extends GWTTestCase {
 
         JsArrayMixed mixed = (JsArrayMixed) JsArrayMixed.createArray();
         mixed.push(dateIn);
-        JsList list = new JsList(mixed);
+        mixed.push(new Double(123.12d));
+        mixed.push("123");
+        mixed.push("false");
+
+        List<Object> list = JsList.get().toList(mixed);
         Date dateOut = (Date) list.get(0);
         assertEquals(14, dateOut.getYear());
         assertEquals(4, dateOut.getMonth());
@@ -181,6 +184,9 @@ public class GwtTestBasics extends GWTTestCase {
         assertEquals(22, dateOut.getHours());
         assertEquals(13, dateOut.getMinutes());
 
+        assertEquals(new Double(123.12d), list.get(1));
+        assertEquals("123", list.get(2));
+        assertEquals("false", list.get(3));
     }
 
     @Override

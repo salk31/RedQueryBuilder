@@ -1,81 +1,93 @@
 package com.redspr.redquerybuilder.js.client;
 
-import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayMixed;
 import com.google.gwt.core.client.JsDate;
 
-public class JsList extends AbstractList {
+public final class JsList extends JavaScriptObject {
 
-    public static final class JsListAdapter extends JavaScriptObject {
-        protected JsListAdapter() {
-        }
+    private static final JsList INSTANCE = (JsList) JavaScriptObject.createObject();
 
-        public native int length() /*-{ return this.length; }-*/;
-
-        public native boolean isNull(int i) /*-{
-            return this[i] == null;
-        }-*/;
-
-        public native boolean isDate(int i) /*-{
-            return Boolean(this[i].getMonth);
-        }-*/;
-
-        public Date getDate(int i) {
-            JsDate jsDate = getJsDate(i);
-
-            return new Date((long) jsDate.getTime());
-        }
-
-        private native JsDate getJsDate(int i) /*-{
-            return this[i];
-        }-*/;
-
-        public native boolean isString(int i) /*-{
-            return (typeof this[i] == 'string' || this[i] instanceof String);
-        }-*/;
-
-        public native String getString(int i) /*-{
-            return this[i];
-        }-*/;
-
-        public native boolean isNumber(int i) /*-{
-            return (typeof this[i] == 'number' || this[i] instanceof Number);
-        }-*/;
-
-        public native double getNumber(int i) /*-{
-            return this[i];
-        }-*/;
-
-        public native String debugString(int i) /*-{
-            return 'typeof=' + typeof this[i] + ' toString="' + this[i] + '"';
-        }-*/;
+    public static JsList get() {
+        return INSTANCE;
     }
 
-    private final JsListAdapter target;
-
-    public JsList(JavaScriptObject target) {
-        this.target = (JsListAdapter) target;
+    protected JsList() {
     }
 
-    @Override
-    public Object get(int i) {
-        if (target.isNull(i)) {
+    public native boolean isNull(JavaScriptObject array, int i) /*-{
+        return array[i] == null;
+    }-*/;
+
+    public native boolean isDate(JavaScriptObject array, int i) /*-{
+        return Boolean(array[i].getMonth);
+    }-*/;
+
+    public Date getDate(JavaScriptObject array, int i) {
+        JsDate jsDate = getJsDate(array, i);
+
+        return new Date((long) jsDate.getTime());
+    }
+
+    private native JsDate getJsDate(JavaScriptObject array, int i) /*-{
+        return array[i];
+    }-*/;
+
+    public native boolean isString(JavaScriptObject array, int i) /*-{
+        return (typeof array[i] == 'string' || array[i] instanceof String);
+    }-*/;
+
+    public native boolean isNumber(JavaScriptObject array, int i) /*-{
+        return (typeof array[i] == 'number' || array[i] instanceof Number);
+    }-*/;
+
+    public native String debugString(JavaScriptObject array, int i) /*-{
+        return 'typeof=' + typeof array[i] + ' toString="' + array[i] + '"';
+    }-*/;
+
+    public JsArrayMixed toJso(List<Object> args) {
+        JsArrayMixed result = (JsArrayMixed) JavaScriptObject.createArray();
+        for (Object o : args) {
+            if (o == null) {
+                result.push((JavaScriptObject) null);
+            } else if (o instanceof String) {
+                result.push((String) o);
+            } else if (o instanceof Date) {
+                result.push(JsDate.create(((Date) o).getTime()));
+            } else if (o instanceof Double) {
+                result.push(((Double) o).doubleValue());
+            } else {
+                throw new IllegalArgumentException("Don't know how to handle "
+                        + o);
+            }
+        }
+        return result;
+    }
+
+    private Object get(JsArrayMixed args, int i) {
+        if (isNull(args, i)) {
             return i;
-        } else if (target.isDate(i)) {
-            return target.getDate(i);
-        } else if (target.isString(i)) {
-            return target.getString(i);
-        } else if (target.isNumber(i)) {
-            return target.getNumber(i);
+        } else if (isDate(args, i)) {
+            return getDate(args, i);
+        } else if (isString(args, i)) {
+            return args.getString(i);
+        } else if (isNumber(args, i)) {
+            return args.getNumber(i);
         }
 
-        throw new RuntimeException("Unable to handle value " + target.debugString(i));
+        throw new RuntimeException("Unable to handle value " + debugString(args, i));
     }
 
-    @Override
-    public int size() {
-        return target.length();
+    public List<Object> toList(JsArrayMixed args) {
+        List<Object> result = new ArrayList<Object>();
+        for (int i = 0; i < args.length(); i++) {
+            result.add(get(args, i));
+        }
+        return result;
     }
 }
+

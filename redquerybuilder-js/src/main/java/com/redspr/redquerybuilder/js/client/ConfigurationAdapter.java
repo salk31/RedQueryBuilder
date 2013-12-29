@@ -11,13 +11,10 @@
 package com.redspr.redquerybuilder.js.client;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.core.client.JsArrayMixed;
-import com.google.gwt.core.client.JsDate;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
@@ -39,7 +36,7 @@ import com.redspr.redquerybuilder.core.shared.meta.Type;
 import com.redspr.redquerybuilder.js.client.conf.JsFrom;
 
 public class ConfigurationAdapter extends Configuration {
-    class EnumerateCallback implements JsCallback {
+    private static class EnumerateCallback implements JsCallback {
         private final AsyncCallback<Response> callback;
 
         EnumerateCallback(AsyncCallback<Response> callback2) {
@@ -190,20 +187,7 @@ public class ConfigurationAdapter extends Configuration {
 
     @Override
     public void fireOnSqlChange(String sql, List<Object> args) {
-        JsArrayMixed jarg = (JsArrayMixed) JavaScriptObject.createArray();
-        for (Object o : args) {
-            if (o == null) {
-                jarg.push((JavaScriptObject) null);
-            } else if (o instanceof String) {
-                jarg.push((String) o);
-            } else if (o instanceof Date) {
-                jarg.push(JsDate.create(((Date) o).getTime()));
-            } else {
-                throw new IllegalArgumentException("Don't know how to handle "
-                        + o);
-            }
-        }
-        config.fireOnSqlChange(sql, jarg);
+        config.fireOnSqlChange(sql, JsList.get().toJso(args));
     }
 
     @Override
