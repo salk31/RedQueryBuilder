@@ -152,58 +152,9 @@ public class Parser {
                     c = parseAnalyze();
                 }
                 break;
-            case 'B':
-                if (readIf("BACKUP")) {
-                    c = parseBackup();
-                } else if (readIf("BEGIN")) {
-                    c = parseBegin();
-                }
-                break;
-            case 'C':
-                if (readIf("COMMIT")) {
-                    c = parseCommit();
-                } else if (readIf("CREATE")) {
-                    c = parseCreate();
-                } else if (readIf("CALL")) {
-                    c = parserCall();
-                } else if (readIf("CHECKPOINT")) {
-                    c = parseCheckpoint();
-                } else if (readIf("COMMENT")) {
-                    c = parseComment();
-                }
-                break;
-            case 'D':
-                if (readIf("DELETE")) {
-                    c = parseDelete();
-                } else if (readIf("DROP")) {
-                    c = parseDrop();
-                } else if (readIf("DECLARE")) {
-                    // support for DECLARE GLOBAL TEMPORARY TABLE...
-                    c = parseCreate();
-                } else if (readIf("DEALLOCATE")) {
-                    c = parseDeallocate();
-                }
-                break;
-            case 'E':
-                if (readIf("EXPLAIN")) {
-                    c = parseExplain();
-                } else if (readIf("EXECUTE")) {
-                    c = parseExecute();
-                }
-                break;
             case 'F':
                 if (isToken("FROM")) {
                     c = parseSelect();
-                }
-                break;
-            case 'G':
-                if (readIf("GRANT")) {
-                    c = parseGrantRevoke(0);
-                }
-                break;
-            case 'H':
-                if (readIf("HELP")) {
-                    c = parseHelp();
                 }
                 break;
             case 'I':
@@ -219,17 +170,6 @@ public class Parser {
             case 'P':
                 if (readIf("PREPARE")) {
                     c = parsePrepare();
-                }
-                break;
-            case 'R':
-                if (readIf("ROLLBACK")) {
-                    c = parseRollback();
-                } else if (readIf("REVOKE")) {
-                    c = parseGrantRevoke(0);
-                } else if (readIf("RUNSCRIPT")) {
-                    c = parseRunScript();
-                } else if (readIf("RELEASE")) {
-                    c = parseReleaseSavepoint();
                 }
                 break;
             case 'S':
@@ -319,14 +259,6 @@ public class Parser {
         return Message.getSyntaxError(sqlCommand, parseIndex, buff.toString());
     }
 
-    private Prepared parseBackup() throws SQLException {
-//        BackupCommand command = new BackupCommand(session);
-//        read("TO");
-//        command.setFileName(readExpression());
-//        return command;
-        return null;
-    }
-
     private Prepared parseAnalyze() throws SQLException {
 //        Analyze command = new Analyze(session);
 //        if (readIf("SAMPLE_SIZE")) {
@@ -336,25 +268,7 @@ public class Parser {
         return null;
     }
 
-    private Prepared parseBegin() throws SQLException {
-        return null;
-//        TransactionCommand command;
-//        if (!readIf("WORK")) {
-//            readIf("TRANSACTION");
-//        }
-//        command = new TransactionCommand(session, TransactionCommand.BEGIN);
-//        return command;
-    }
-
-    private Prepared parseCommit() throws SQLException {
-        return null;
-    }
-
     private Prepared parseShutdown() throws SQLException {
-        return null;
-    }
-
-    private Prepared parseRollback() throws SQLException {
         return null;
     }
 
@@ -363,10 +277,6 @@ public class Parser {
     }
 
     private Prepared parseSavepoint() throws SQLException {
-        return null;
-    }
-
-    private Prepared parseReleaseSavepoint() throws SQLException {
         return null;
     }
 
@@ -435,10 +345,6 @@ public class Parser {
 //        }
 //        return new TableFilter(session, table, alias, rightsChecked, currentSelect);
         return null;
-    }
-
-    private Prepared parseDelete() throws SQLException {
-       return null;
     }
 
     private IndexColumn[] parseIndexColumnList() throws SQLException {
@@ -656,10 +562,6 @@ public class Parser {
        return null;
     }
 
-    private Prepared parseDrop() throws SQLException {
-        return null;
-    }
-
     private Prepared parseDropUserDataType() throws SQLException {
         return null;
     }
@@ -755,18 +657,6 @@ public class Parser {
             }
         }
         return top;
-    }
-
-    private Prepared parseExecute() throws SQLException {
-       return null;
-    }
-
-    private Prepared parseDeallocate() throws SQLException {
-        return null;
-    }
-
-    private Prepared parseExplain() throws SQLException {
-        return null;
     }
 
     private Query parseSelect() throws SQLException {
