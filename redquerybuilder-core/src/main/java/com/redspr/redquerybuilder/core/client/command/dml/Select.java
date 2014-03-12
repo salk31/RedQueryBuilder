@@ -21,7 +21,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
 import com.redspr.redquerybuilder.core.client.engine.ColumnResolver;
-import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.engine.TableEvent;
 import com.redspr.redquerybuilder.core.client.expression.Comparison;
@@ -37,7 +36,7 @@ import com.redspr.redquerybuilder.core.client.util.XWidget;
 import com.redspr.redquerybuilder.core.shared.meta.Column;
 import com.redspr.redquerybuilder.core.shared.meta.Table;
 
-public class Select extends Query implements  ColumnResolver {
+public class Select extends Query implements ColumnResolver {
 
     private final Button add = new Button("Add condition");
 
@@ -386,7 +385,7 @@ public class Select extends Query implements  ColumnResolver {
     }
 
     @Override
-    public void onDirty(DirtyEvent e) {
+    public void onDirty() {
         garbageCollectFilters();
 
         add.setVisible(getCondition() == null && this.getFilters().size() > 0);

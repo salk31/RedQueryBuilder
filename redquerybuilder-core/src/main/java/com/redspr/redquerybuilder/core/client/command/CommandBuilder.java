@@ -7,17 +7,17 @@ import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
+import com.redspr.redquerybuilder.core.client.BaseSqlWidget.Callback;
 import com.redspr.redquerybuilder.core.client.command.dml.Select;
-import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
-import com.redspr.redquerybuilder.core.client.engine.DirtyEventHandler;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 
 /**
  * Container for the command - currently only ever SELECT
  */
-public class CommandBuilder extends BaseSqlWidget implements
-        HasValueChangeHandlers<Select>, DirtyEventHandler {
+public class CommandBuilder extends SimplePanel implements
+        HasValueChangeHandlers<Select> {
 
     private final Select select;
 
@@ -29,36 +29,36 @@ public class CommandBuilder extends BaseSqlWidget implements
         this(session2, null, null);
     }
 
-    public CommandBuilder(Session session2, String sql, List args)
+    public CommandBuilder(Session session, String sql, List<Object> args)
             throws SQLException {
-        super(session2);
 
-        session2.setCommandBuilder(this);
+        session.setCommandBuilder(this);
 
         if (sql == null || sql.isEmpty()) {
-            select = new Select(getSession());
+            select = new Select(session);
         } else {
-            Parser p = new Parser(getSession());
+            Parser p = new Parser(session);
             if (args != null) { // XXX unit test for this
                 for (Object a : args) {
-                    session2.getValueRegistry().add(a);
+                    session.getValueRegistry().add(a);
                 }
             }
             select = (Select) p.parseOnly(sql);
         }
 
-        initWidget(select);
+        setWidget(select);
 
+        fireDirty();
+    }
+
+    public void fireDirty() {
         select.traverse(new Callback() {
             @Override
             public void handle(BaseSqlWidget w) {
-                w.onDirty(null);
+                w.onDirty();
             }
         });
-    }
 
-    @Override
-    public void onDirty(DirtyEvent e) {
         ValueChangeEvent.fire(this, select);
     }
 
@@ -66,6 +66,5 @@ public class CommandBuilder extends BaseSqlWidget implements
     public HandlerRegistration addValueChangeHandler(
             ValueChangeHandler<Select> handler) {
         return addHandler(handler, ValueChangeEvent.getType());
-
     }
 }

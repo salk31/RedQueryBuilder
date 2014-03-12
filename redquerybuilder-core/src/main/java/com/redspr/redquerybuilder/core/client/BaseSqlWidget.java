@@ -1,11 +1,8 @@
 package com.redspr.redquerybuilder.core.client;
 
 
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
-import com.redspr.redquerybuilder.core.client.engine.DirtyEventHandler;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.expression.Expression;
 
@@ -17,7 +14,7 @@ import com.redspr.redquerybuilder.core.client.expression.Expression;
  * @author sam
  */
 // XXX kill the event bus?
-public class BaseSqlWidget extends Composite implements DirtyEventHandler {
+public class BaseSqlWidget extends Composite {
 
 
     {
@@ -48,33 +45,11 @@ public class BaseSqlWidget extends Composite implements DirtyEventHandler {
         return (BaseSqlWidget) w;
     }
 
-    private HandlerRegistration reg;
-
-    @Override
-    public void onLoad() {
-        if (getSession() != null) {
-            reg = getSession().getMsgBus().addHandler(DirtyEvent.TYPE, this);
-         }
-    }
-
-    @Override
-    public void onUnload() {
-        if (reg != null) {
-            reg.removeHandler();
-        }
-    }
-
-    @Override
-    public void onDirty(DirtyEvent e) {
+    public void onDirty() {
     }
 
     public void fireDirty() {
-        getSession().getMsgBus().fireEvent(new DirtyEvent());
-    }
-
-    public void fireChangeEvent() {
-        // XXX need sensible implementation
-        getSession().fireChangeEvent();
+        getSession().getCommandBuilder().fireDirty();
     }
 
     public void traverse(Callback callback) {
@@ -83,6 +58,8 @@ public class BaseSqlWidget extends Composite implements DirtyEventHandler {
 
     public interface Callback {
         void handle(BaseSqlWidget w);
+        //startVisit
+        //endVisit
     }
 
     public int hook() {

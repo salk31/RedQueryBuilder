@@ -10,7 +10,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
-import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
 import com.redspr.redquerybuilder.core.client.util.ListBox2;
@@ -77,7 +76,7 @@ public class Comparison extends Condition {
             @Override
             public void onValueChange(ValueChangeEvent<Operator> event) {
                 setOperator(op.getValue());
-                getSession().getMsgBus().fireEvent(new DirtyEvent());
+                fireDirty();
             }
         });
 
@@ -88,7 +87,7 @@ public class Comparison extends Condition {
             @Override
             public void onClick(ClickEvent event) {
                 remove();
-                getSession().getMsgBus().fireEvent(new DirtyEvent());
+                fireDirty();
             }
         });
 
@@ -99,7 +98,7 @@ public class Comparison extends Condition {
             @Override
             public void onClick(ClickEvent event) {
                 add();
-                getSession().getMsgBus().fireEvent(new DirtyEvent());
+                fireDirty();
             }
         });
 
@@ -141,7 +140,7 @@ public class Comparison extends Condition {
     }
 
     @Override
-    public void onDirty(DirtyEvent e) {
+    public void onDirty() {
         Column col = ((ExpressionColumn) getLeft()).getColumn();
 
         op.setValue(getOperator());

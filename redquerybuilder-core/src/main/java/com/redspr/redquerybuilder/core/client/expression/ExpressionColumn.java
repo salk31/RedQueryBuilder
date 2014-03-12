@@ -6,7 +6,6 @@ import java.util.List;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.engine.TableEvent;
 import com.redspr.redquerybuilder.core.client.engine.TableEventHandler;
@@ -75,7 +74,7 @@ public class ExpressionColumn extends Expression implements TableEventHandler {
     }
 
     @Override
-    public void onDirty(DirtyEvent e) {
+    public void onDirty() {
         hp.clear();
 
         TableFilter tf = null;

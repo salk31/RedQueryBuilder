@@ -9,7 +9,6 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.shared.meta.Column;
 import com.redspr.redquerybuilder.core.shared.meta.HasValue2;
@@ -84,7 +83,7 @@ public class Parameter extends Expression {
     }
 
     @Override
-    public void onDirty(DirtyEvent e) {
+    public void onDirty() {
         Comparison parent = (Comparison) this.getParentExpression();
 
         ExpressionColumn otherSide = (ExpressionColumn) parent.getOther(this);
@@ -107,7 +106,7 @@ public class Parameter extends Expression {
                     if (value instanceof HasValue2) {
                         value = ((HasValue2) value).getValue();
                     }
-                    fireChangeEvent();
+                    fireDirty();
                 }
             });
 

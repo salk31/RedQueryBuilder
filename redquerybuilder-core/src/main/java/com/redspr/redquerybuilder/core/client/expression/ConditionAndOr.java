@@ -15,7 +15,6 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
-import com.redspr.redquerybuilder.core.client.engine.DirtyEvent;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.util.XWidget;
 
@@ -142,7 +141,7 @@ public class ConditionAndOr extends Condition {
     @UiHandler("op")
     void handleChange(ChangeEvent e) {
         andOrType = op.getSelectedIndex();
-        getSession().getMsgBus().fireEvent(new DirtyEvent());
+        fireDirty();
     }
 
     @Override
@@ -151,7 +150,7 @@ public class ConditionAndOr extends Condition {
     }
 
     @Override
-    public void onDirty(DirtyEvent e) {
+    public void onDirty() {
         Scheduler.get().scheduleFixedDelay(new RepeatingCommand() {
             @Override
             public boolean execute() {

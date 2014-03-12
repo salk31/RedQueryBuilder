@@ -2,11 +2,14 @@ package com.redspr.redquerybuilder.core.client;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
@@ -354,7 +357,7 @@ public class GwtTestBasics extends AbstractTest {
         left.selectConstraintRef(personToLog);
 
       //  ValueChangeEvent.fire(left, left.getColumn());
-cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, async issue?
+cb.getSelect().onDirty();  // TODO 20 need this to make unit test work, async issue?
         cb.fireDirty(); // XXX bad encapsulation, causes garbage collection
 
         assertEquals(
@@ -605,6 +608,43 @@ cb.getSelect().onDirty(null);  // TODO 20 need this to make unit test work, asyn
 
         // check options in ListBox please, male, female
     }
+
+    @Test
+    public void testChangeFromStringToDateEditor() throws Exception {
+        Session sess = getSession();
+
+        String sql0 = "SELECT x.id FROM Log x"
+                + " WHERE x.id = ?";
+        CommandBuilder cb = new CommandBuilder(sess, sql0, args("A"));
+        RootPanel.get().add(cb);
+        Select s = cb.getSelect();
+
+        cb.fireDirty();
+
+        {
+            Comparison comp = (Comparison) s.getCondition();
+
+            // change to sex
+            ExpressionColumn left2 = (ExpressionColumn) comp.getLeft();
+            left2.updateColumn("X", sess.getDatabase().getMainSchema()
+                    .findTableOrView("LOG").getColumn("date"));
+
+
+            final List<Object> args = new ArrayList<Object>();
+            cb.addValueChangeHandler(new ValueChangeHandler<Select>() {
+                @Override
+                public void onValueChange(ValueChangeEvent<Select> event) {
+                    event.getValue().getSQL(args);
+                }
+            });
+
+            left2.fireDirty();
+
+            assertEquals(1, args.size());
+            assertTrue(args.get(0) instanceof Date);
+        }
+    }
+
 
     @Test
     public void testSingleSelectCorrectOptionsWithEditorOnColumn() throws Exception {

@@ -13,6 +13,11 @@ import com.redspr.redquerybuilder.core.shared.meta.Column;
 import com.redspr.redquerybuilder.core.shared.meta.Database;
 import com.redspr.redquerybuilder.core.shared.meta.Table;
 
+/**
+ * Communication bus for entire system.
+ *
+ * All nodes in the tree hold a reference to its Session.
+ */
 public class Session {
 
     private static IdentifierEscaper identifierEscaper = new IdentifierEscaper() {
@@ -36,8 +41,8 @@ public class Session {
       return identifierEscaper.quote(s);
   }
 
-    @Deprecated
-    private CommandBuilder cb;
+    // XXX need commandBuilder and select?
+    private CommandBuilder commandBuilder;
 
     private Select select;
 
@@ -66,19 +71,23 @@ public class Session {
         return config;
     }
 
-  @Deprecated
-  public void setCommandBuilder(CommandBuilder p) {
-      cb = p;
-  }
+    public CommandBuilder getCommandBuilder() {
+        return commandBuilder;
+    }
 
-  public Database getDatabase() {
-      return database;
-  }
+    public void setCommandBuilder(CommandBuilder p) {
+        commandBuilder = p;
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
 
 
   public HandlerManager getMsgBus() {
       return msgbus;
   }
+
 
 
   public void setSelect(Select p) {
@@ -130,11 +139,5 @@ public class Session {
     public ValueRegistry getValueRegistry() {
         return valueRegistry;
     }
-
-    public void fireChangeEvent() {
-        cb.onDirty(null);
-    }
-
-
 }
 
