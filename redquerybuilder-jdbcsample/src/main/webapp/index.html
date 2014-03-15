@@ -278,7 +278,7 @@ function setupSavedQueries() {
   ,{
 	label:'Large cities in the UK plus Oxford'
 	,sql:'SELECT "x0"."ID", "x0"."NAME", "x0"."COUNTRYCODE", "x0"."DISTRICT", "x0"."POPULATION" FROM "CITY" "x0" INNER JOIN "COUNTRY" "x1" ON "x0"."COUNTRYCODE" = "x1"."CODE" WHERE (("x1"."NAME" = ?) AND (("x0"."POPULATION" > ?) OR ("x0"."NAME" = ?)))'
-	,args:['United Kingdom', '100000', 'Oxford']
+	,args:['United Kingdom', 100000, 'Oxford']
   },
   {
     label:'Official languages',
