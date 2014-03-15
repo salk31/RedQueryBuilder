@@ -1,7 +1,6 @@
 package com.redspr.redquerybuilder.core.shared.meta;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,20 +13,18 @@ public class Editor implements HasStyleName, Serializable, IsSerializable {
         public Object getDefault() {
             return "";
         }
-    };
+    }
+
     public static class DateEditor extends Editor {
         public static final String FORMAT = "format";
-        @Override
-        public Object getDefault() {
-            return new Date();
-        }
-    };
+    }
+
     public static class BooleanEditor extends Editor {
         @Override
         public Object getDefault() {
             return Boolean.FALSE;
         }
-    };
+    }
 
     public static class SelectEditor extends Editor {
 
