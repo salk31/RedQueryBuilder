@@ -13,7 +13,7 @@ public class GwtTestDateEditor extends AbstractEditorTest<Date> {
 
     @Override
     protected Date getExample1() {
-        return new Date(12312323l);
+        return new Date(1971, 1, 6);
     }
 
 }
