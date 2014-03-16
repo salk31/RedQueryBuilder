@@ -87,6 +87,8 @@ public class SearchServlet extends HttpServlet {
             root.put("rows", rows);
             root.put("page", 1);
             // TODO 00 what if arg is null? At the moment blows up
+            // TODO 00 number field start with String
+
             int count = -1;
             while (rs.next()) {
                 count++;

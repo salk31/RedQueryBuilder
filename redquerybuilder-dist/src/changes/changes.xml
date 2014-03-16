@@ -28,9 +28,7 @@
             <action dev="salk31" type="add" due-to="Cody Lundquist">
                 * API to control the "add condition" button. Always have a condition.
             </action>
-            <action dev="salk31" type="add">
-                * Initial validation support.
-            </action>
+
         </release>
         
         <release version="0.7.0" date="2014-??-??" description="New types.">
@@ -39,6 +37,9 @@
             </action>
             <action dev="salk31" type="fix">
                 * Fix JDBC sample letting you search with missing args.
+            </action>
+            <action dev="salk31" type="add">
+                * Initial validation support.
             </action>
             <action dev="salk31" type="fix">
                 https://github.com/salk31/RedQueryBuilder/issues/19 problem with default Editor values.
