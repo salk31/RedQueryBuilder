@@ -39,7 +39,7 @@ public class RedQueryBuilder implements EntryPoint {
         $wnd.redQueryBuilder =
                 @com.redspr.redquerybuilder.js.client.RedQueryBuilder::configure(Lcom/redspr/redquerybuilder/js/client/JsConfiguration;Ljava/lang/String;Lcom/google/gwt/core/client/JsArrayMixed;);
     }-*/;
-
+// TODO 00 unit test, null args
     static CommandBuilder configure(JsConfiguration config, String sql,
             JsArrayMixed args) throws Exception {
         if (config == null) {

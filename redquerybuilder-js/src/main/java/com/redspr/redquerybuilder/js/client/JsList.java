@@ -84,8 +84,10 @@ public final class JsList extends JavaScriptObject {
 
     public List<Object> toList(JsArrayMixed args) {
         List<Object> result = new ArrayList<Object>();
-        for (int i = 0; i < args.length(); i++) {
-            result.add(get(args, i));
+        if (args != null) {
+            for (int i = 0; i < args.length(); i++) {
+                result.add(get(args, i));
+            }
         }
         return result;
     }

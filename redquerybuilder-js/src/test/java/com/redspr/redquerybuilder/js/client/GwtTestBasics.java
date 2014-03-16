@@ -162,6 +162,14 @@ public class GwtTestBasics extends GWTTestCase {
         assertEquals(13, dateOut.getUTCMinutes());
     }
 
+    public void testNullSqlAndNullArgs() throws Throwable {
+        String json = Resources.INSTANCE.synchronous().getText();
+
+        test(json, null, null, null);
+
+        builder.fireDirty();
+    }
+
     public void testJsList() throws Throwable {
         JsDate dateIn = JsDate.create();
         dateIn.setUTCFullYear(1914);
@@ -188,6 +196,8 @@ public class GwtTestBasics extends GWTTestCase {
         assertEquals("123", list.get(2));
         assertEquals("false", list.get(3));
     }
+
+
 
     @Override
     public String getModuleName() {
