@@ -2,7 +2,6 @@ package com.redspr.redquerybuilder.core.client;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -641,7 +640,7 @@ cb.getSelect().onDirty();  // TODO 20 need this to make unit test work, async is
             left2.fireDirty();
 
             assertEquals(1, args.size());
-            assertTrue(args.get(0) instanceof Date);
+            assertEquals(null, args.get(0));
         }
     }
 
