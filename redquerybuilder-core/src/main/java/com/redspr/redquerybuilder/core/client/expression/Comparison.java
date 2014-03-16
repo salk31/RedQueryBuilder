@@ -148,7 +148,7 @@ public class Comparison extends Condition {
     }
 
     @Override
-    public String getSQL(List args) {
+    public String getSQL(List<Object> args) {
         Operator op = getOperator();
         switch (op.getCardinality()) {
         case ZERO:

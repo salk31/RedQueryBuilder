@@ -14,7 +14,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import com.google.gwt.user.client.ui.Widget;
-import com.redspr.redquerybuilder.core.client.Configuration;
 import com.redspr.redquerybuilder.core.client.conf.IdentifierEscaper;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
@@ -151,7 +150,7 @@ public class AbstractTest extends GWTTestCase {
         Configuration config = new Configuration() {
             @Override
             public void fireEnumerate(EnumerateRequest request, AsyncCallback<Response> callback) {
-                Collection<Suggestion> s = new ArrayList();
+                Collection<Suggestion> s = new ArrayList<Suggestion>();
                 if ("category".equals(request.getColumnName())) {
                     s.add(new MultiWordSuggestion("A", "A"));
                     s.add(new MultiWordSuggestion("B", "B"));
@@ -182,7 +181,7 @@ public class AbstractTest extends GWTTestCase {
     }
 
     protected List<Element> find(Element elmt, String n) {
-        List<Element> x = new ArrayList();
+        List<Element> x = new ArrayList<Element>();
         find(elmt, n, x);
         return x;
     }
