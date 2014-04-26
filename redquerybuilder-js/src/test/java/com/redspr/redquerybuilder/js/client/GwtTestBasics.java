@@ -186,11 +186,12 @@ public class GwtTestBasics extends GWTTestCase {
 
         List<Object> list = JsList.get().toList(mixed);
         Date dateOut = (Date) list.get(0);
-        assertEquals(14, dateOut.getYear());
-        assertEquals(4, dateOut.getMonth());
-        assertEquals(15, dateOut.getDate());
-        assertEquals(22, dateOut.getHours());
-        assertEquals(13, dateOut.getMinutes());
+        Date dateOutUtc = new Date(dateOut.getTime() + 60 * 1000 * dateOut.getTimezoneOffset());
+        assertEquals(14, dateOutUtc.getYear());
+        assertEquals(4, dateOutUtc.getMonth());
+        assertEquals(15, dateOutUtc.getDate());
+        assertEquals(22, dateOutUtc.getHours());
+        assertEquals(13, dateOutUtc.getMinutes());
 
         assertEquals(new Double(123.12d), list.get(1));
         assertEquals("123", list.get(2));
