@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -20,6 +18,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItemSeparator;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -120,23 +119,16 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
                 final SuggestionCallback callback) {
             super.showSuggestions(suggestBox, suggestions, isDisplayStringHTML, isAutoSelectEnabled, callback);
             logger.warning("1");
-            MenuBar mb = getMenuBar(getPopupPanel());
-            NodeList<Element> nl = sm.getElement().getElementsByTagName("td");
-            logger.warning("1"  + nl);
-            for (int i = 0; i < nl.getLength(); i++) {
-
-                    Element e = nl.getItem(i);
-                    String label = e.getInnerText();
-                    logger.warning("Got text '" + label + "'");
-                    if (label.matches("^\\*.*\\*$")) {
-                        e.addClassName("tardisHeading");
-                        e.setInnerText(label.replaceAll("^\\*|\\*$", ""));
-                    }
+            MenuBar mb = findMenuBar(getPopupPanel());
+            //NodeList<Element> nl = mb.getElement().getElementsByTagName("td");
+           mb.insertSeparator(new MenuItemSeparator(), 0);
+           mb.insertSeparator(new MenuItemSeparator(), 1);
+           mb.insertSeparator(new MenuItemSeparator(), 3);
                     // TODO __ no roll over
                     // TODO __ not clickable
                     // TODO __ search
 
-            }
+// TODO 00 or remove DOM element?
             logger.warning("2");
         }
     });
