@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -15,10 +17,10 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.HasOneWidget;
 import com.google.gwt.user.client.ui.MenuBar;
-import com.google.gwt.user.client.ui.MenuItemSeparator;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -118,17 +120,24 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
                 boolean isDisplayStringHTML, boolean isAutoSelectEnabled,
                 final SuggestionCallback callback) {
             super.showSuggestions(suggestBox, suggestions, isDisplayStringHTML, isAutoSelectEnabled, callback);
-            logger.warning("1");
-            MenuBar mb = findMenuBar(getPopupPanel());
-            //NodeList<Element> nl = mb.getElement().getElementsByTagName("td");
-           mb.insertSeparator(new MenuItemSeparator(), 0);
-           mb.insertSeparator(new MenuItemSeparator(), 1);
-           mb.insertSeparator(new MenuItemSeparator(), 3);
-                    // TODO __ no roll over
-                    // TODO __ not clickable
-                    // TODO __ search
+            Widget sm = getPopupPanel().getWidget();
+            NodeList<Element> nl = sm.getElement().getElementsByTagName("td");
 
-// TODO 00 or remove DOM element?
+            logger.warning("1"  + nl);
+            for (int i = 0; i < nl.getLength(); i++) {
+
+                    Element e = nl.getItem(i);
+                    String label = e.getInnerText();
+                    logger.warning("Got text '" + label + "'");
+                    if (label.matches("^\\*.*\\*$")) {
+                        Element p = e.getParentElement();
+                        Element e2 = DOM.createTD();
+                        e2.addClassName("tardisHeading");
+                        e2.setInnerText(label.replaceAll("^\\*|\\*$", ""));
+                        p.replaceChild(e2, e);
+                    }
+                    // TODO __ search
+            }
             logger.warning("2");
         }
     });

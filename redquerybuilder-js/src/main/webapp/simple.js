@@ -13,10 +13,18 @@ RedQueryBuilderFactory.create({
 				"label" : "Date of birth",
 				"type" : "DATE"
 			}, {
+				"name" : "HEADING1",
+				"label" : "*Heading 1*",
+				"type" : "STRING"
+			}, {
 				"name" : "SEX",
 				"label" : "Sex",
 				"type" : "STRING",
 				"editor" : "SELECT"
+			}, {
+				"name" : "HEADING2",
+				"label" : "*Heading 2 goes on a bit*",
+				"type" : "STRING"
 			}, {
 				"name" : "CATEGORY",
 				"label" : "Category",
