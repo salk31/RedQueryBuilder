@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
@@ -16,6 +18,8 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
+import com.google.gwt.user.client.ui.HasOneWidget;
+import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SuggestBox;
@@ -33,6 +37,8 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
     private static final Logger logger = Logger.getLogger(CommandSuggestBox.class.getName());
 
     private Collection<Command> values;
+
+    private String stickyText;
 
     static class CommandSuggestion implements Suggestion {
         private final Command command;
@@ -59,7 +65,7 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
 
     SuggestOracle oracle = new SuggestOracle() {
      // TODO __ Ignore search string if exact match or just opened?
-     // TODO __ If lose focus clear if not exact match?
+
                  @Override
                  public void requestDefaultSuggestions(Request request, Callback callback) {
                      Response response = new Response();
@@ -96,6 +102,17 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
             return sp;
           }
 
+        private MenuBar findMenuBar(Widget w) {
+            while (w instanceof HasOneWidget) {
+                w = ((HasOneWidget) w).getWidget();
+
+            }
+            if (w instanceof MenuBar) {
+                return (MenuBar) w;
+            }
+            throw new RuntimeException("Couldn't find MenuBar");
+        }
+
         @Override
         protected void showSuggestions(final SuggestBox suggestBox,
                 Collection<? extends Suggestion> suggestions,
@@ -103,17 +120,22 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
                 final SuggestionCallback callback) {
             super.showSuggestions(suggestBox, suggestions, isDisplayStringHTML, isAutoSelectEnabled, callback);
             logger.warning("1");
-            Widget sm = getPopupPanel().getWidget();
+            MenuBar mb = getMenuBar(getPopupPanel());
             NodeList<Element> nl = sm.getElement().getElementsByTagName("td");
             logger.warning("1"  + nl);
             for (int i = 0; i < nl.getLength(); i++) {
-                nl.getItem(i).addClassName("Foo " + i);
-                if (i == 0) {
+
+                    Element e = nl.getItem(i);
+                    String label = e.getInnerText();
+                    logger.warning("Got text '" + label + "'");
+                    if (label.matches("^\\*.*\\*$")) {
+                        e.addClassName("tardisHeading");
+                        e.setInnerText(label.replaceAll("^\\*|\\*$", ""));
+                    }
                     // TODO __ no roll over
                     // TODO __ not clickable
                     // TODO __ search
-                    nl.getItem(i).setInnerHTML("<strong>Some heading</strong>");
-                }
+
             }
             logger.warning("2");
         }
@@ -126,7 +148,17 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
         suggestBox.getValueBox().addFocusHandler(new FocusHandler() {
             @Override
             public void onFocus(FocusEvent event) {
+                stickyText = suggestBox.getText();
                 suggestBox.showSuggestionList();
+            }
+        });
+
+        suggestBox.getValueBox().addBlurHandler(new BlurHandler() {
+            @Override
+            public void onBlur(BlurEvent event) {
+                if (stickyText != null) {
+                    suggestBox.setText(stickyText);
+                }
             }
         });
 
@@ -137,6 +169,7 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
                 if (cs != null) {
                     cs.getCommand().execute();
                     widget.fireDirty();
+                    setValue(cs.getCommand());
                 }
             }
         });
@@ -161,6 +194,7 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
             text = ((HasLabel) value).getLabel();
         }
         suggestBox.setText(text);
+        stickyText = text;
     }
 
     @Override
