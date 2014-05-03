@@ -11,7 +11,7 @@ import com.redspr.redquerybuilder.core.client.engine.TableEvent;
 import com.redspr.redquerybuilder.core.client.engine.TableEventHandler;
 import com.redspr.redquerybuilder.core.client.table.JoinHelper;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
-import com.redspr.redquerybuilder.core.client.util.CommandListBox;
+import com.redspr.redquerybuilder.core.client.util.CommandSuggestBox;
 import com.redspr.redquerybuilder.core.client.util.CommandWithLabel;
 import com.redspr.redquerybuilder.core.client.util.StringUtils;
 import com.redspr.redquerybuilder.core.shared.meta.Column;
@@ -91,9 +91,9 @@ public class ExpressionColumn extends Expression implements TableEventHandler {
 
         Command hotCommand = null;
         while (tf != null) {
-            final CommandListBox ght = new CommandListBox(this);
+            final CommandSuggestBox ght = new CommandSuggestBox(this);
             hp.insert(ght, 0);
-            List<Command> items = new ArrayList();
+            List<Command> items = new ArrayList<Command>();
 //           hotCommand = new ClearCommand();
 //            items.add(hotCommand);
 

@@ -3,6 +3,8 @@
     <inherits name="com.google.gwt.i18n.I18N"/>
     <inherits name="com.google.gwt.resources.Resources" />
 
+    <inherits name="com.google.gwt.logging.Logging"/>
+
     <inherits name="java/RedQueryBuilderCoreJre" />
 
     <source>

@@ -3,7 +3,7 @@
 	<parent>
 	    <groupId>com.redspr</groupId>
 		<artifactId>redquerybuilder-parent</artifactId>
-		<version>0.7.0</version>
+		<version>1.7.0</version>
 		<relativePath>../redquerybuilder-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>redquerybuilder-js</artifactId>
@@ -22,6 +22,8 @@
 							<module>com.redspr.redquerybuilder.js.RedQueryBuilder</module>
 							<mode>htmlunit</mode>
                             <timeOut>120</timeOut>
+                            
+                            <style>PRETTY</style>
 						</configuration>
 						<goals>
 							<goal>compile</goal>

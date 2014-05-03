@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.redspr</groupId>
 		<artifactId>redquerybuilder-parent</artifactId>
-		<version>0.7.0</version>
+		<version>1.7.0</version>
 		<relativePath>../redquerybuilder-parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>redquerybuilder-core</artifactId>
