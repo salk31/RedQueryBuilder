@@ -19,9 +19,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HasConstrainedValue;
-import com.google.gwt.user.client.ui.HasOneWidget;
-import com.google.gwt.user.client.ui.MenuBar;
-import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestBox.DefaultSuggestionDisplay;
@@ -40,6 +37,9 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
     private Collection<Command> values;
 
     private String stickyText;
+
+    private Widget foo;
+
 
     static class CommandSuggestion implements Suggestion {
         private final Command command;
@@ -67,52 +67,71 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
     SuggestOracle oracle = new SuggestOracle() {
      // TODO __ Ignore search string if exact match or just opened?
 
+
+
                  @Override
                  public void requestDefaultSuggestions(Request request, Callback callback) {
-                     Response response = new Response();
-                     response.setMoreSuggestions(false);
-                     List<Suggestion> suggestions = new ArrayList();
-                     for (int j = 0; j < 20; j++) {
-                     for (final Command cmd : values) {
-                         suggestions.add(new CommandSuggestion(cmd));
-                     }}
-                     response.setSuggestions(suggestions);
-                     callback.onSuggestionsReady(request, response);
+                     requestSuggestions(request, callback);
                  }
 
                  @Override
                  public void requestSuggestions(Request request, Callback callback) {
                      Response response = new Response();
-                     response.setMoreSuggestions(false);
-                     response.setMoreSuggestionsCount(100);
-                     List<Suggestion> suggestions = new ArrayList();
+                     String query = request.getQuery();
+                     if (query != null) {
+                         query = query.toLowerCase();
+                     }
+                     List<String> headings = new ArrayList<String>();
+                     List<Suggestion> suggestions = new ArrayList<Suggestion>();
+                     String lastHeading = null;
                      for (final Command cmd : values) {
-                         suggestions.add(new CommandSuggestion(cmd));
+                         CommandSuggestion cs = new CommandSuggestion(cmd);
+
+                         String label = cs.getReplacementString();
+                         logger.warning("Got text '" + label + "'");
+                         if (label.matches("^\\*.*\\*$")) {
+                             lastHeading = label.replaceAll("^\\*|\\*$", "");
+                         } else {
+                             if (query == null || label.toLowerCase().startsWith(query)) {
+                                 suggestions.add(cs);
+                                 headings.add(lastHeading);
+                                 lastHeading = null;
+                             }
+                         }
                      }
                      response.setSuggestions(suggestions);
                      callback.onSuggestionsReady(request, response);
+                     if (foo != null) {
+                         NodeList<Element> nl = foo.getElement().getElementsByTagName("td");
+
+                         logger.warning("1"  + nl);
+                         for (int i = nl.getLength() - 1; i >= 0 ; i--) {
+                                 Element e = nl.getItem(i);
+                                 String label = headings.get(i);
+                                 logger.warning("Got text '" + label + "'");
+                                 if (label != null) {
+                                     Element tr = e.getParentElement();
+                                     Element tbody = tr.getParentElement();
+                                     Element e2 = DOM.createTD();
+                                     e2.addClassName("tardisHeading");
+                                     e2.setInnerText(label);
+                                     tbody.insertBefore(e2, tr);
+
+                                 }
+                         }
+                         logger.warning("2");
+                     }
                  }
              };
 
     final SuggestBox suggestBox = new SuggestBox(oracle, new TextBox(), new DefaultSuggestionDisplay() {
-        @Override
-        protected Widget decorateSuggestionList(Widget suggestionList) {
-            ScrollPanel sp = new ScrollPanel(suggestionList);
-            sp.setHeight("150px");
-            sp.setWidth("150px");
-            return sp;
-          }
-
-        private MenuBar findMenuBar(Widget w) {
-            while (w instanceof HasOneWidget) {
-                w = ((HasOneWidget) w).getWidget();
-
-            }
-            if (w instanceof MenuBar) {
-                return (MenuBar) w;
-            }
-            throw new RuntimeException("Couldn't find MenuBar");
-        }
+//        @Override
+//        protected Widget decorateSuggestionList(Widget suggestionList) {
+//            ScrollPanel sp = new ScrollPanel(suggestionList);
+//            sp.setHeight("150px");
+//            sp.setWidth("150px");
+//            return sp;
+//          }
 
         @Override
         protected void showSuggestions(final SuggestBox suggestBox,
@@ -120,25 +139,9 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
                 boolean isDisplayStringHTML, boolean isAutoSelectEnabled,
                 final SuggestionCallback callback) {
             super.showSuggestions(suggestBox, suggestions, isDisplayStringHTML, isAutoSelectEnabled, callback);
-            Widget sm = getPopupPanel().getWidget();
-            NodeList<Element> nl = sm.getElement().getElementsByTagName("td");
 
-            logger.warning("1"  + nl);
-            for (int i = 0; i < nl.getLength(); i++) {
+            foo = getPopupPanel().getWidget();
 
-                    Element e = nl.getItem(i);
-                    String label = e.getInnerText();
-                    logger.warning("Got text '" + label + "'");
-                    if (label.matches("^\\*.*\\*$")) {
-                        Element p = e.getParentElement();
-                        Element e2 = DOM.createTD();
-                        e2.addClassName("tardisHeading");
-                        e2.setInnerText(label.replaceAll("^\\*|\\*$", ""));
-                        p.replaceChild(e2, e);
-                    }
-                    // TODO __ search
-            }
-            logger.warning("2");
         }
     });
 
@@ -150,6 +153,7 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
             @Override
             public void onFocus(FocusEvent event) {
                 stickyText = suggestBox.getText();
+                suggestBox.setText("");
                 suggestBox.showSuggestionList();
             }
         });
