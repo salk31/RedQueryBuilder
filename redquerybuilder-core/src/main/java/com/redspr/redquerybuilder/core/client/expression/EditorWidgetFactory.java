@@ -22,6 +22,7 @@ import com.redspr.redquerybuilder.core.client.util.NumberBox;
 import com.redspr.redquerybuilder.core.shared.meta.Cardinality;
 import com.redspr.redquerybuilder.core.shared.meta.Column;
 import com.redspr.redquerybuilder.core.shared.meta.Editor;
+import com.redspr.redquerybuilder.core.shared.meta.Editor.CustomEditor;
 import com.redspr.redquerybuilder.core.shared.meta.Editor.DateEditor;
 import com.redspr.redquerybuilder.core.shared.meta.Editor.SelectEditor;
 import com.redspr.redquerybuilder.core.shared.meta.Operator;
@@ -88,6 +89,13 @@ public class EditorWidgetFactory {
             @Override
             public Widget create(Session session, Column column) {
                 return new SelectEditorWidget(session, column, true);
+            }
+        });
+
+        add(CustomEditor.class, Cardinality.MULTI, new Factory() {
+            @Override
+            public Widget create(Session session, Column column) {
+                return new CustomEditorWidget(session, column);
             }
         });
     }

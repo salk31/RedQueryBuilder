@@ -89,6 +89,9 @@ public class ConfigurationAdapter extends Configuration {
                 if (jsEditor.getFormat() != null) {
                     e.setAttribute("format", jsEditor.getFormat());
                 }
+                if (jsEditor.getCreate() != null) {
+                    e.setAttribute("create", jsEditor.getCreate());
+                }
                 e.setStyleName(jsEditor.getStyleName());
             }
         }

@@ -15,6 +15,10 @@ public class Editor implements HasStyleName, Serializable, IsSerializable {
         }
     }
 
+    public static class CustomEditor extends Editor {
+        public static final String CREATE = "create";
+    }
+
     public static class DateEditor extends Editor {
         public static final String FORMAT = "format";
     }
@@ -48,6 +52,8 @@ public class Editor implements HasStyleName, Serializable, IsSerializable {
             return new SelectEditor();
         } else if ("NUMBER".equals(name)) {
             return new NumberEditor();
+        } else if ("CUSTOM".equals(name)) {
+            return new CustomEditor();
         } else {
             throw new RuntimeException("No editor for " + name);
         }

@@ -79,7 +79,7 @@ RedQueryBuilderFactory.create({
 			} ]
 		}, {
 			"name" : "REF",
-			"editor" : "SELECT",
+			"editor" : "CUSTOM",
 			"operators" : [ {
 				"name" : "IN",
 				"label" : "any of",
@@ -111,5 +111,27 @@ RedQueryBuilderFactory.create({
 	editors : [ {
 		name : 'DATE',
 		format : 'dd.MM.yyyy'
-	} ]
+	},
+	{
+		name : 'CUSTOM',
+		create : function(elmt) {
+
+			var obj = {
+				getValue: function() {
+					return this.input.value;
+				},
+				setValue: function(newValue) {
+					this.input.value = newValue;
+				},
+				addValueChangeHandler: function(handler) {
+					this.input.onchange = handler;
+				}
+			}
+			elmt.innerText='hello';
+			obj.input = document.createElement('input');
+			obj.input.setAttribute('type', 'text');
+			elmt.appendChild(obj.input);
+			return obj;
+		}
+	}]
 });
