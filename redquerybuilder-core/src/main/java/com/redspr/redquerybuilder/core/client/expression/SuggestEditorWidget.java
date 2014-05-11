@@ -10,6 +10,8 @@
 *******************************************************************************/
 package com.redspr.redquerybuilder.core.client.expression;
 
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -27,15 +29,38 @@ import com.redspr.redquerybuilder.core.shared.meta.SuggestRequest;
 public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
 
     class RqbSuggestOracle extends SuggestOracle {
-        @Override
-        public void requestSuggestions(final Request request,
-                final Callback callback) {
+        private SuggestRequest create(Request request) {
             SuggestRequest sr = new SuggestRequest();
             sr.setTableName(tableName);
             sr.setColumnName(columnName);
             sr.setColumnTypeName(columnType);
             sr.setQuery(request.getQuery());
             sr.setLimit(request.getLimit());
+            return sr;
+        }
+
+        @Override
+        public void requestDefaultSuggestions(final Request request,
+                final Callback callback) {
+            SuggestRequest sr = create(request);
+
+            session.getConfig().fireDefaultSuggest(sr, new AsyncCallback<Response>() {
+                @Override
+                public void onFailure(Throwable caught) {
+                    // XXX log?
+                }
+
+                @Override
+                public void onSuccess(Response result) {
+                    callback.onSuggestionsReady(request, result);
+                }
+            });
+        }
+
+        @Override
+        public void requestSuggestions(final Request request,
+                final Callback callback) {
+            SuggestRequest sr = create(request);
 
             session.getConfig().fireSuggest(sr, new AsyncCallback<Response>() {
                 @Override
@@ -48,7 +73,6 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
                     callback.onSuggestionsReady(request, result);
                 }
             });
-
         }
     }
 
@@ -81,6 +105,13 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
                 ValueChangeEvent.fire(SuggestEditorWidget.this, (T) event.getValue());
             }
 
+        });
+
+        suggestBox.getValueBox().addFocusHandler(new FocusHandler() {
+            @Override
+            public void onFocus(FocusEvent event) {
+                suggestBox.showSuggestionList();
+            }
         });
 
         initWidget(suggestBox);

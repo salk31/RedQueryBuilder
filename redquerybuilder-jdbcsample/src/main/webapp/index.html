@@ -194,6 +194,7 @@ function publish(sql, args) {
           onSqlChange:sqlChange,
           onTableChange:tableChange,
           enumerate:enumerate,
+          defaultSuggest:suggest,
           suggest:suggest},
       state.sql,
       state.args);
@@ -220,7 +221,7 @@ function enumerate(request, callback) {
 
 function suggest(args, callback) {
   var sql = 'SELECT DISTINCT ' + args.columnName + ' FROM ' + args.tableName + ' WHERE UPPER(' + args.columnName + ') LIKE ?';
-  var q = args.query.toUpperCase() + '%';
+  var q = args.query ? args.query.toUpperCase() : '' + '%';
   $.ajax({
     url: 'search',
     dataType: 'json',

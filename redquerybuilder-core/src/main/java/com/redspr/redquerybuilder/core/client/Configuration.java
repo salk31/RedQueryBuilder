@@ -28,6 +28,9 @@ public class Configuration {
     public void fireOnTableChange(ObjectArray<TableFilter> filters) {
     }
 
+    public void fireDefaultSuggest(SuggestRequest request, AsyncCallback<Response> callback) {
+    }
+
     public void fireSuggest(SuggestRequest request, AsyncCallback<Response> callback) {
     }
 

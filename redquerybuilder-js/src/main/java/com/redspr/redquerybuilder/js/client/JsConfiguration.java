@@ -58,6 +58,20 @@ public class JsConfiguration extends JavaScriptObject {
         }
     }-*/;
 
+    // XXX copy n paste
+    public final native void fireDefaultSuggest(String tableName, String columnName, String columnTypeName, String query,
+            int limit, JsCallback jsCallback) /*-{
+        if (this.defaultSuggest) {
+        var arg = {tableName: tableName,
+                columnName: columnName,
+                columnTypeName : columnTypeName,
+                query: query,
+                limit:limit};
+        this.defaultSuggest(arg, function response(s) {
+            jsCallback.@com.redspr.redquerybuilder.js.client.JsCallback::response(Lcom/google/gwt/core/client/JavaScriptObject;)(s);
+        });
+        }
+    }-*/;
 
     public final native void fireSuggest(String tableName, String columnName, String columnTypeName, String query,
             int limit, JsCallback jsCallback) /*-{
