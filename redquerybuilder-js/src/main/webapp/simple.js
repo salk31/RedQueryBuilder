@@ -7,6 +7,7 @@ RedQueryBuilderFactory.create({
 				"name" : "NAME",
 				"label" : "Name",
 				"type" : "STRING",
+				"editor" : "SUGGEST",
 				"size" : 10
 			}, {
 				"name" : "DOB",
@@ -107,6 +108,14 @@ RedQueryBuilderFactory.create({
 		} else {
 			response([{value:'M', label:'Male'}, {value:'F', label:'Female'}]);
 		}
+	},
+	suggest : function(request, response) {
+		var result = [];
+		for (var i = 0; i < request.limit; i++) {
+			result.push("X" + i);
+		}
+		
+		response(result);
 	},
 	editors : [ {
 		name : 'DATE',

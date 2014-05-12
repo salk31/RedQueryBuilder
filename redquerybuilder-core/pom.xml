@@ -34,6 +34,7 @@
 							<module>com.redspr.redquerybuilder.core.RedQueryBuilderCore</module>
 							<mode>htmlunit</mode>
                             <timeOut>120</timeOut>
+                            <localWorkers>1</localWorkers>
 						</configuration>
 						<goals>
 							<goal>compile</goal>

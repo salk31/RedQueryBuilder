@@ -221,7 +221,7 @@ function enumerate(request, callback) {
 
 function suggest(args, callback) {
   var sql = 'SELECT DISTINCT ' + args.columnName + ' FROM ' + args.tableName + ' WHERE UPPER(' + args.columnName + ') LIKE ?';
-  var q = args.query ? args.query.toUpperCase() : '' + '%';
+  var q = (args.query ? args.query.toUpperCase() : '') + '%';
   $.ajax({
     url: 'search',
     dataType: 'json',

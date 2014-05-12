@@ -30,6 +30,7 @@ public class RedQueryBuilder implements EntryPoint {
     private final SimplePanel builderContainer = new SimplePanel();
 
 
+
     @Override
     public void onModuleLoad() {
         publish();
