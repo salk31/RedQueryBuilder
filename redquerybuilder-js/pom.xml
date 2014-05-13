@@ -21,7 +21,7 @@
 						<configuration>
 							<module>com.redspr.redquerybuilder.js.RedQueryBuilder</module>
 							<mode>htmlunit</mode>
-                            <timeOut>120</timeOut>
+                            <timeOut>240</timeOut>
                             <localWorkers>1</localWorkers>
                             <style>PRETTY</style>
 						</configuration>
