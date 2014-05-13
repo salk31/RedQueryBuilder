@@ -23,6 +23,8 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
@@ -42,6 +44,32 @@ import com.redspr.redquerybuilder.core.shared.meta.Column;
 import com.redspr.redquerybuilder.core.shared.meta.SuggestRequest;
 
 public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
+
+    private static class SuggestionMenuItem extends MenuItem {
+
+        private static final String STYLENAME_DEFAULT = "item";
+
+        private Suggestion suggestion;
+
+        public SuggestionMenuItem(Suggestion suggestion, boolean asHTML, Command command) {
+          super(suggestion.getDisplayString(), asHTML, command);
+          // Each suggestion should be placed in a single row in the suggestion
+          // menu. If the window is resized and the suggestion cannot fit on a
+          // single row, it should be clipped (instead of wrapping around and
+          // taking up a second row).
+          DOM.setStyleAttribute(getElement(), "whiteSpace", "nowrap");
+          setStyleName(STYLENAME_DEFAULT);
+          setSuggestion(suggestion);
+        }
+
+        public Suggestion getSuggestion() {
+          return suggestion;
+        }
+
+        public void setSuggestion(Suggestion suggestion) {
+          this.suggestion = suggestion;
+        }
+      }
 
     private static final Logger logger = Logger.getLogger(SuggestEditorWidget.class.getName());
 
@@ -95,12 +123,13 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
 
             return scrollPanel;
         }
-
+        SuggestionCallback callback;
         @Override
         protected  void showSuggestions(SuggestBox suggestBox,
                 Collection<? extends Suggestion> suggestions,
                 boolean isDisplayStringHTML, boolean isAutoSelectEnabled,
                 SuggestionCallback callback) {
+            this.callback = callback;
             super.showSuggestions(suggestBox, suggestions, isDisplayStringHTML, isAutoSelectEnabled, callback);
 // TODO 00 not just call this with more suggestions? grab/restore state when results arrive?
             if (lastState != null) {
@@ -124,20 +153,44 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
         }
 
         private void requestMore() {
-            if (lastState == null) {
+            final Suggestion curSuggestion = new Suggestion() {
 
-                lastState = new LastState();
-                lastState.scollY = scrollPanel.getVerticalScrollPosition();
-                MenuItem item = bar(sm);
-                if (item != null) {
-                    List<MenuItem> items = foo(sm);
-
-                    lastState.selectedIndex = items.indexOf(item);
+                @Override
+                public String getDisplayString() {
+                    return "Foo";
                 }
-                logger.warning("Request more " + lastState.scollY + " " + lastState.selectedIndex);
-                // TODO __ won't do it if text is the same, smuggle page in text?
-                bam(suggestBox, suggestBox.getText());
-            }
+
+                @Override
+                public String getReplacementString() {
+                    return "Foo";
+                }
+
+            };
+            Command cmd = new Command() {
+
+                @Override
+                public void execute() {
+                    callback.onSuggestionSelected(curSuggestion);
+
+                }};
+
+            SuggestionMenuItem smi = new SuggestionMenuItem(curSuggestion, false, cmd);
+            sm.addItem(smi);
+
+//            if (lastState == null) {
+//
+//                lastState = new LastState();
+//                lastState.scollY = scrollPanel.getVerticalScrollPosition();
+//                MenuItem item = bar(sm);
+//                if (item != null) {
+//                    List<MenuItem> items = foo(sm);
+//
+//                    lastState.selectedIndex = items.indexOf(item);
+//                }
+//                logger.warning("Request more " + lastState.scollY + " " + lastState.selectedIndex);
+//                // TODO __ won't do it if text is the same, smuggle page in text?
+//                bam(suggestBox, suggestBox.getText());
+//            }
         }
 
         @Override
