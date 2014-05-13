@@ -232,7 +232,7 @@ function suggest(args, callback) {
   		var row = r.rows[i]; 
   		s.push(row.cell[0]);
   	  };
-  	  callback(s);
+  	  callback(s, false);
     }
     });
 }

@@ -10,15 +10,11 @@
 *******************************************************************************/
 package com.redspr.redquerybuilder.js.client;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
-import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import com.redspr.redquerybuilder.core.client.Configuration;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
 import com.redspr.redquerybuilder.core.client.util.JsStringArray;
@@ -36,29 +32,6 @@ import com.redspr.redquerybuilder.core.shared.meta.Type;
 import com.redspr.redquerybuilder.js.client.conf.JsFrom;
 
 public class ConfigurationAdapter extends Configuration {
-    private static class EnumerateCallback implements JsCallback {
-        private final AsyncCallback<Response> callback;
-
-        EnumerateCallback(AsyncCallback<Response> callback2) {
-            this.callback = callback2;
-        }
-
-        @Override
-        public void response(JavaScriptObject raw2) {
-            JsArray<JsSuggestion> raw = (JsArray<JsSuggestion>) raw2;
-            List<Suggestion> suggestions = new ArrayList<Suggestion>();
-
-            for (int i = 0; i < raw.length(); i++) {
-                JsSuggestion jss = raw.get(i);
-                Suggestion s = new MultiWordSuggestion(jss.getValue(), jss.getLabel());
-                suggestions.add(s);
-            }
-
-            Response response = new Response(suggestions);
-            callback.onSuccess(response);
-        }
-
-    }
 
     private final JsConfiguration config;
 
@@ -203,14 +176,14 @@ public class ConfigurationAdapter extends Configuration {
     public void fireDefaultSuggest(SuggestRequest sr,
             final AsyncCallback<Response> callback) {
         config.fireSuggest(sr.getTableName(), sr.getColumnName(), sr.getColumnTypeName(),
-                sr.getQuery(), sr.getLimit(), new EnumerateCallback(callback));
+                sr.getQuery(), sr.getLimit(), sr.getPage(), new EnumerateCallback(callback));
     }
 
     @Override
     public void fireSuggest(SuggestRequest sr,
             final AsyncCallback<Response> callback) {
         config.fireSuggest(sr.getTableName(), sr.getColumnName(), sr.getColumnTypeName(),
-                sr.getQuery(), sr.getLimit(), new EnumerateCallback(callback));
+                sr.getQuery(), sr.getLimit(), sr.getPage(), new EnumerateCallback(callback));
     }
 
     @Override

@@ -1,9 +1,13 @@
 package com.redspr.redquerybuilder.core.shared.meta;
 
 public class SuggestRequest extends EnumerateRequest {
-    private int limit;
+
 
     private String query;
+
+    private int limit;
+
+    private int page;
 
     public int getLimit() {
         return limit;
@@ -21,5 +25,11 @@ public class SuggestRequest extends EnumerateRequest {
         this.query = p;
     }
 
+    public int getPage() {
+        return page;
+    }
 
+    public void setPage(int page) {
+        this.page = page;
+    }
 }

@@ -36,6 +36,8 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestBox.DefaultSuggestionDisplay;
 import com.google.gwt.user.client.ui.SuggestBox.SuggestionCallback;
 import com.google.gwt.user.client.ui.SuggestOracle;
+import com.google.gwt.user.client.ui.SuggestOracle.Request;
+import com.google.gwt.user.client.ui.SuggestOracle.Response;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -86,16 +88,8 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
 }-*/;
 
 
-    class LastState {
-        int scollY;
-        int selectedIndex;
-        int page;
-    }
-
-    private LastState lastState;
-
-
     class ScrollDisplay extends DefaultSuggestionDisplay {
+        int page;
         ScrollPanel scrollPanel ;
         MenuBar sm;
         @Override
@@ -113,9 +107,11 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
             scrollPanel.addScrollHandler(new ScrollHandler() {
                 @Override
                 public void onScroll(ScrollEvent event) {
+                    if (hasMoreSuggestions) {
                    if (scrollPanel.getMaximumVerticalScrollPosition() - scrollPanel.getVerticalScrollPosition() < 40) {
                        requestMore();
                    }
+                    }
                 }
             });
 
@@ -123,6 +119,17 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
 
             return scrollPanel;
         }
+
+        private boolean hasMoreSuggestions;
+
+        @Override
+        protected void setMoreSuggestions(boolean hasMoreSuggestions,
+                int numMoreSuggestions) {
+            this.hasMoreSuggestions = hasMoreSuggestions;
+            logger.warning("More suggestions " + hasMoreSuggestions);
+              // Subclasses may optionally implement.
+            }
+
         SuggestionCallback callback;
         @Override
         protected  void showSuggestions(SuggestBox suggestBox,
@@ -131,21 +138,10 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
                 SuggestionCallback callback) {
             this.callback = callback;
             super.showSuggestions(suggestBox, suggestions, isDisplayStringHTML, isAutoSelectEnabled, callback);
-// TODO 00 not just call this with more suggestions? grab/restore state when results arrive?
-            if (lastState != null) {
-                logger.warning("Last state foo " + lastState.selectedIndex);
-                scrollPanel.setVerticalScrollPosition(lastState.scollY);
-                if (lastState.selectedIndex > 0) {
-                    List<MenuItem> items = foo(sm);
-                    sm.selectItem(items.get(lastState.selectedIndex));
-                }
-                //lastState = null;
-            }
         }
 
         private void scrollInToView() {
             MenuItem item = bar(sm);
-
 
             if (item != null) {
                 scrollPanel.ensureVisible(item);
@@ -153,44 +149,30 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
         }
 
         private void requestMore() {
-            final Suggestion curSuggestion = new Suggestion() {
+            RqbSuggestOracle suggestOracle = new RqbSuggestOracle();
+            suggestOracle.setPage(++page);
+            Request sr = new Request();
 
+            // TODO 00 set query
+            suggestOracle.requestSuggestions(sr, new SuggestOracle.Callback() {
                 @Override
-                public String getDisplayString() {
-                    return "Foo";
+                public void onSuggestionsReady(Request request, Response response) {
+                    for (final Suggestion curSuggestion : response.getSuggestions()) {
+                        Command cmd = new Command() {
+                            @Override
+                            public void execute() {
+                                callback.onSuggestionSelected(curSuggestion);
+                            }};
+                        SuggestionMenuItem smi = new SuggestionMenuItem(curSuggestion, false, cmd);
+                        sm.addItem(smi);
+                    }
+                    setMoreSuggestions(response.hasMoreSuggestions(), 0);
                 }
+            });
 
-                @Override
-                public String getReplacementString() {
-                    return "Foo";
-                }
 
-            };
-            Command cmd = new Command() {
 
-                @Override
-                public void execute() {
-                    callback.onSuggestionSelected(curSuggestion);
 
-                }};
-
-            SuggestionMenuItem smi = new SuggestionMenuItem(curSuggestion, false, cmd);
-            sm.addItem(smi);
-
-//            if (lastState == null) {
-//
-//                lastState = new LastState();
-//                lastState.scollY = scrollPanel.getVerticalScrollPosition();
-//                MenuItem item = bar(sm);
-//                if (item != null) {
-//                    List<MenuItem> items = foo(sm);
-//
-//                    lastState.selectedIndex = items.indexOf(item);
-//                }
-//                logger.warning("Request more " + lastState.scollY + " " + lastState.selectedIndex);
-//                // TODO __ won't do it if text is the same, smuggle page in text?
-//                bam(suggestBox, suggestBox.getText());
-//            }
         }
 
         @Override
@@ -207,6 +189,12 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
     }
 
     class RqbSuggestOracle extends SuggestOracle {
+        private int page;
+
+        public void setPage(int page) {
+            this.page = page;
+        }
+
         private SuggestRequest create(Request request) {
             SuggestRequest sr = new SuggestRequest();
             sr.setTableName(tableName);
@@ -214,6 +202,7 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
             sr.setColumnTypeName(columnType);
             sr.setQuery(request.getQuery());
             sr.setLimit(request.getLimit());
+            sr.setPage(page);
             return sr;
         }
 

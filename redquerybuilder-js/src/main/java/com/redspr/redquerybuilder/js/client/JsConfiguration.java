@@ -60,13 +60,14 @@ public class JsConfiguration extends JavaScriptObject {
 
     // XXX copy n paste
     public final native void fireDefaultSuggest(String tableName, String columnName, String columnTypeName, String query,
-            int limit, JsCallback jsCallback) /*-{
+            int limit, int page, JsCallback jsCallback) /*-{
         if (this.defaultSuggest) {
         var arg = {tableName: tableName,
                 columnName: columnName,
                 columnTypeName : columnTypeName,
                 query: query,
-                limit:limit};
+                limit:limit,
+                page:page};
         this.defaultSuggest(arg, function response(s) {
             jsCallback.@com.redspr.redquerybuilder.js.client.JsCallback::response(Lcom/google/gwt/core/client/JavaScriptObject;)(s);
         });
@@ -74,14 +75,15 @@ public class JsConfiguration extends JavaScriptObject {
     }-*/;
 
     public final native void fireSuggest(String tableName, String columnName, String columnTypeName, String query,
-            int limit, JsCallback jsCallback) /*-{
+            int limit, int page, JsCallback jsCallback) /*-{
         var arg = {tableName: tableName,
                 columnName: columnName,
                 columnTypeName : columnTypeName,
                 query: query,
-                limit:limit};
-        this.suggest(arg, function response(s) {
-            jsCallback.@com.redspr.redquerybuilder.js.client.JsCallback::response(Lcom/google/gwt/core/client/JavaScriptObject;)(s);
+                limit:limit,
+                page:page};
+        this.suggest(arg, function response(s, more) {
+            jsCallback.@com.redspr.redquerybuilder.js.client.EnumerateCallback::response(Lcom/google/gwt/core/client/JavaScriptObject;Z)(s, more);
         });
     }-*/;
 
@@ -91,8 +93,8 @@ public class JsConfiguration extends JavaScriptObject {
             var arg = {tableName: tableName,
                     columnName: columnName,
                     columnTypeName : columnTypeName};
-            this.enumerate(arg, function response(s) {
-                jsCallback.@com.redspr.redquerybuilder.js.client.JsCallback::response(Lcom/google/gwt/core/client/JavaScriptObject;)(s);
+            this.enumerate(arg, function response(s, more) {
+                jsCallback.@com.redspr.redquerybuilder.js.client.EnumerateCallback::response(Lcom/google/gwt/core/client/JavaScriptObject;Z)(s, more);
             });
         }
     }-*/;

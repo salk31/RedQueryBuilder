@@ -112,10 +112,10 @@ RedQueryBuilderFactory.create({
 	suggest : function(request, response) {
 		var result = [];
 		for (var i = 0; i < request.limit; i++) {
-			result.push("X" + i);
+			result.push("X" + (request.page * request.limit + i));
 		}
 		
-		response(result);
+		response(result, true);
 	},
 	editors : [ {
 		name : 'DATE',
