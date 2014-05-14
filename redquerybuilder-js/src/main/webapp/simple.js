@@ -112,7 +112,7 @@ RedQueryBuilderFactory.create({
 	suggest : function(request, response) {
 		var result = [];
 		for (var i = 0; i < request.limit; i++) {
-			result.push("X" + (request.page * request.limit + i));
+			result.push("X" + (request.page * request.limit + i) + ' ' + request.query);
 		}
 		
 		response(result, true);

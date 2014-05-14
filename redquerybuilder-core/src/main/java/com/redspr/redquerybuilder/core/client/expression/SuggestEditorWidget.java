@@ -152,8 +152,8 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
             RqbSuggestOracle suggestOracle = new RqbSuggestOracle();
             suggestOracle.setPage(++page);
             Request sr = new Request();
+            sr.setQuery(suggestBox.getText());
 
-            // TODO 00 set query
             suggestOracle.requestSuggestions(sr, new SuggestOracle.Callback() {
                 @Override
                 public void onSuggestionsReady(Request request, Response response) {
