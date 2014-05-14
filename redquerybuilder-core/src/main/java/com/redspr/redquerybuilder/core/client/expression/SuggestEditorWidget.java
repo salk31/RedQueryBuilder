@@ -12,7 +12,6 @@ package com.redspr.redquerybuilder.core.client.expression;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
@@ -73,28 +72,29 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
         }
       }
 
-    private static final Logger logger = Logger.getLogger(SuggestEditorWidget.class.getName());
+    private static native List<MenuItem> getItems(MenuBar mb) /*-{
+        return mb.@com.google.gwt.user.client.ui.MenuBar::getItems()();
+    }-*/;
 
-    private static native List<MenuItem> foo(MenuBar mb) /*-{
-    return mb.@com.google.gwt.user.client.ui.MenuBar::getItems()();
-}-*/;
+    private static native MenuItem getSelectedItem(MenuBar mb) /*-{
+        return mb.@com.google.gwt.user.client.ui.MenuBar::getSelectedItem()();
+    }-*/;
 
-    private static native MenuItem bar(MenuBar mb) /*-{
-    return mb.@com.google.gwt.user.client.ui.MenuBar::getSelectedItem()();
-}-*/;
-// XXX could just pass page via the text/query?
-    private static native MenuItem bam(SuggestBox mb, String x) /*-{
-    return mb.@com.google.gwt.user.client.ui.SuggestBox::showSuggestions(Ljava/lang/String;)(x);
-}-*/;
+    private static native MenuItem showSuggestions(SuggestBox mb, String x) /*-{
+        return mb.@com.google.gwt.user.client.ui.SuggestBox::showSuggestions(Ljava/lang/String;)(x);
+    }-*/;
 
 
     class ScrollDisplay extends DefaultSuggestionDisplay {
-        int page;
-        ScrollPanel scrollPanel ;
-        MenuBar sm;
+        private int page;
+        private ScrollPanel scrollPanel ;
+        private MenuBar sm;
+
+        private boolean hasMoreSuggestions;
+        private SuggestionCallback callback;
+
         @Override
         protected Widget decorateSuggestionList(Widget suggestionList) {
-            logger.warning("Decorating " + suggestionList);
             scrollPanel = new ScrollPanel();
 
             sm = (MenuBar) suggestionList;
@@ -120,17 +120,15 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
             return scrollPanel;
         }
 
-        private boolean hasMoreSuggestions;
 
         @Override
         protected void setMoreSuggestions(boolean hasMoreSuggestions,
                 int numMoreSuggestions) {
             this.hasMoreSuggestions = hasMoreSuggestions;
-            logger.warning("More suggestions " + hasMoreSuggestions);
               // Subclasses may optionally implement.
-            }
+        }
 
-        SuggestionCallback callback;
+
         @Override
         protected  void showSuggestions(SuggestBox suggestBox,
                 Collection<? extends Suggestion> suggestions,
@@ -141,7 +139,7 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
         }
 
         private void scrollInToView() {
-            MenuItem item = bar(sm);
+            MenuItem item = getSelectedItem(sm);
 
             if (item != null) {
                 scrollPanel.ensureVisible(item);
@@ -169,10 +167,6 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
                     setMoreSuggestions(response.hasMoreSuggestions(), 0);
                 }
             });
-
-
-
-
         }
 
         @Override
@@ -219,7 +213,6 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
 
                 @Override
                 public void onSuccess(Response result) {
-                    logger.warning("Default results");
                     callback.onSuggestionsReady(request, result);
                 }
             });
@@ -238,7 +231,6 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
 
                 @Override
                 public void onSuccess(Response result) {
-                    logger.warning("Search results");
                     callback.onSuggestionsReady(request, result);
                 }
             });
