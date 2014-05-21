@@ -180,6 +180,18 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
             super.moveSelectionUp();
             scrollInToView();
         }
+
+        protected void block() {
+            if (scrollPanel != null) {
+                scrollPanel.addStyleName("rqbBusy");
+            }
+        }
+
+        protected void unblock() {
+            if (scrollPanel != null) {
+                scrollPanel.removeStyleName("rqbBusy");
+            }
+        }
     }
 
     class RqbSuggestOracle extends SuggestOracle {
@@ -226,12 +238,14 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
             session.getConfig().fireSuggest(sr, new AsyncCallback<Response>() {
                 @Override
                 public void onFailure(Throwable caught) {
-                    // XXX log?
+                    scrollDisplay.unblock();
                 }
 
                 @Override
                 public void onSuccess(Response result) {
+                    scrollDisplay.block();
                     callback.onSuggestionsReady(request, result);
+                    scrollDisplay.unblock();
                 }
             });
         }
@@ -244,13 +258,15 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
 
     private final SuggestBox suggestBox;
 
+    private final ScrollDisplay scrollDisplay = new ScrollDisplay();
+
     SuggestEditorWidget(Session session2, Column col) {
         this.session = session2;
         tableName = col.getTable().getName();
         columnName = col.getName();
         columnType = col.getType().getName();
 
-        suggestBox = new SuggestBox(new RqbSuggestOracle(), new TextBox(), new ScrollDisplay());
+        suggestBox = new SuggestBox(new RqbSuggestOracle(), new TextBox(), scrollDisplay);
         suggestBox.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
             @Override
             public void onSelection(SelectionEvent<SuggestOracle.Suggestion> event) {
