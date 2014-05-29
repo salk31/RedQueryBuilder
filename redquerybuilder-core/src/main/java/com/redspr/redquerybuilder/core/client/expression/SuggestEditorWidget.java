@@ -13,6 +13,8 @@ package com.redspr.redquerybuilder.core.client.expression;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.ScrollEvent;
@@ -134,8 +136,10 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
                 Collection<? extends Suggestion> suggestions,
                 boolean isDisplayStringHTML, boolean isAutoSelectEnabled,
                 SuggestionCallback callback) {
-            this.callback = callback;
-            super.showSuggestions(suggestBox, suggestions, isDisplayStringHTML, isAutoSelectEnabled, callback);
+            if (active) {
+                this.callback = callback;
+                super.showSuggestions(suggestBox, suggestions, isDisplayStringHTML, isAutoSelectEnabled, callback);
+            }
         }
 
         private void scrollInToView() {
@@ -260,6 +264,8 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
 
     private final ScrollDisplay scrollDisplay = new ScrollDisplay();
 
+    private boolean active;
+
     SuggestEditorWidget(Session session2, Column col) {
         this.session = session2;
         tableName = col.getTable().getName();
@@ -287,9 +293,18 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
         suggestBox.getValueBox().addFocusHandler(new FocusHandler() {
             @Override
             public void onFocus(FocusEvent event) {
+                active = true;
                 suggestBox.showSuggestionList();
             }
         });
+
+        suggestBox.getValueBox().addBlurHandler(new BlurHandler() {
+            @Override
+            public void onBlur(BlurEvent event) {
+                active = false;
+            }
+        });
+
         //suggestBox.setLimit(1000);
 
         initWidget(suggestBox);

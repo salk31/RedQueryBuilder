@@ -114,8 +114,7 @@ RedQueryBuilderFactory.create({
 		for (var i = 0; i < request.limit; i++) {
 			result.push("X" + (request.page * request.limit + i) + ' ' + request.query);
 		}
-		
-		response(result, true);
+		window.setTimeout(function() {response(result, true)}, 2000);
 	},
 	editors : [ {
 		name : 'DATE',
