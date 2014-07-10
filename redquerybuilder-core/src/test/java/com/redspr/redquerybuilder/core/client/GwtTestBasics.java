@@ -732,7 +732,7 @@ cb.getSelect().onDirty();  // TODO 20 need this to make unit test work, async is
         Parameter right = (Parameter) comp.getRight();
         Element selectElmt = right.getElement();
 
-        String html = "<input type='text' class='gwt-TextBox' value='13'></input>";
+        String html = "<input type='text' class='gwt-TextBox' value='13'>";
         assertEquals(html, selectElmt);
     }
 
