@@ -28,18 +28,20 @@
             <action dev="salk31" type="add" due-to="Cody Lundquist">
                 * API to control the "add condition" button. Always have a condition.
             </action>
-
-        </release>
-        
-        <release version="0.7.0" date="2014-??-??" description="New types.">
-            <action dev="salk31" type="add">
-                New Number type/editor.
-            </action>
             <action dev="salk31" type="fix">
                 * Fix JDBC sample letting you search with missing args.
             </action>
             <action dev="salk31" type="add">
                 * Initial validation support.
+            </action>
+        </release>
+        
+        <release version="0.7.0" date="2014-07-10" description="New types and better IE10 support.">
+            <action dev="salk31" type="add">
+                New Number type/editor.
+            </action>
+            <action dev="salk31" type="fix">
+                https://github.com/salk31/RedQueryBuilder/issues/32 upgrade to GWT 2.6.1 for IE10 support.
             </action>
             <action dev="salk31" type="fix">
                 https://github.com/salk31/RedQueryBuilder/issues/19 problem with default Editor values.
