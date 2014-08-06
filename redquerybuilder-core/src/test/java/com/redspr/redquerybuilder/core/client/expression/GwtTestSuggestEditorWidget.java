@@ -39,10 +39,11 @@ public class GwtTestSuggestEditorWidget extends AbstractTest {
 
         Element elmt = sew.getElement();
 
+        elmt.dispatchEvent(Document.get().createFocusEvent());
+
         elmt.setAttribute("value", "A");
         elmt.dispatchEvent(Document.get().createKeyUpEvent(false, false, false, false, 'C'));
 
-        //System.out.println("X=" + box.getElement().getParentElement().getInnerHTML());
         List<Element> elmts = find(elmt.getParentElement(), "item");
         assertEquals(3, elmts.size());
         elmts.get(0).dispatchEvent(Document.get().createClickEvent(0, 0, 0, 0, 0, false, false, false, false));
