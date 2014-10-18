@@ -2,14 +2,14 @@ package com.redspr.redquerybuilder.core.shared.meta;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 
 
 public class Schema extends DbObjectBase {
-    private Map<String, Table> tables = new HashMap<String, Table>();
+    private final Map<String, Table> tables = new LinkedHashMap<String, Table>();
 
     public Table findTableOrView(String name) {
         return tables.get(name.toUpperCase());

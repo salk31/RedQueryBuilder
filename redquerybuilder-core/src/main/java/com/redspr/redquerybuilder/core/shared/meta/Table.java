@@ -2,7 +2,7 @@ package com.redspr.redquerybuilder.core.shared.meta;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +11,9 @@ import java.util.Map;
 
 public class Table extends SchemaObjectBase implements HasLabel {
 
-    private Map<String, Column> columns = new HashMap<String, Column>();
+    private final Map<String, Column> columns = new LinkedHashMap<String, Column>();
 
-    private List<Constraint> constraints = new ArrayList<Constraint>();
+    private final List<Constraint> constraints = new ArrayList<Constraint>();
 
     private boolean hidden;
 
@@ -40,6 +40,15 @@ public class Table extends SchemaObjectBase implements HasLabel {
 
     public List<Constraint> getConstraints() {
         return constraints;
+    }
+
+    public Constraint getConstraintByName(String name) {
+        for (Constraint c : constraints) {
+            if (c.getName().equals(name)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException("Unable to find constraint '" + name + "'");
     }
 
     public void add(Constraint c) {

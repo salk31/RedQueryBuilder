@@ -329,12 +329,11 @@ public class GwtTestBasics extends AbstractTest {
 
         Table log = s.getDatabase().getMainSchema().findTableOrView("Log");
         ConstraintReferential logToPerson = (ConstraintReferential) log
-        .getConstraints().get(0);
-        assertEquals("parentfk", logToPerson.getName());
+                .getConstraintByName("parentfk");
+
         Table person = s.getDatabase().getMainSchema().findTableOrView("PERSON");
         ConstraintReferential personToLog = (ConstraintReferential) person
-        .getConstraints().get(1);
-        assertEquals("Rev parentfk", personToLog.getName());
+                .getConstraintByName("Rev parentfk");
 
         cb.getSelect().updateTable(log);
         cb.fireDirty();
@@ -350,7 +349,7 @@ public class GwtTestBasics extends AbstractTest {
         cb.fireDirty();
 
         assertEquals(
-                "SELECT \nFROM Log x0\nINNER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.county = ?)",
+                "SELECT \nFROM Log x0\nINNER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.id = ?)",
                 cb.getSelect().getSQL(new ArrayList()));
 
         left.selectConstraintRef(personToLog);
@@ -360,7 +359,7 @@ cb.getSelect().onDirty();  // TODO 20 need this to make unit test work, async is
         cb.fireDirty(); // XXX bad encapsulation, causes garbage collection
 
         assertEquals(
-                "SELECT \nFROM Log x0\nWHERE (x0.parent = ?)",
+                "SELECT \nFROM Log x0\nWHERE (x0.id = ?)",
                 cb.getSelect().getSQL(new ArrayList()));
     }
 
