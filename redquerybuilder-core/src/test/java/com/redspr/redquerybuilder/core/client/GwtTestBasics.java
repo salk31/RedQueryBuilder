@@ -552,7 +552,7 @@ cb.getSelect().onDirty();  // TODO 20 need this to make unit test work, async is
             Parameter right = (Parameter) comp.getRight();
             Element selectElmt = right.getElement();
 
-            String html = "<select multiple='multiple' class='gwt-ListBox' size='2'>"
+            String html = "<select class='gwt-ListBox' multiple='multiple' size='2'>"
                     + "<option value='A'>A</option>"
                     + "<option value='B'>B</option>"
                     + "<option value='C'>C</option>" + "</select>";
@@ -573,7 +573,7 @@ cb.getSelect().onDirty();  // TODO 20 need this to make unit test work, async is
             Parameter right = (Parameter) comp.getRight();
             Element selectElmt = right.getElement();
 
-            String html = "<select multiple='multiple' class='gwt-ListBox' size='2'>"
+            String html = "<select class='gwt-ListBox' multiple='multiple' size='2'>"
                     + "<option value='X'>X</option>"
                     + "<option value='Y'>Y</option>"
                     + "<option value='Z'>Z</option>" + "</select>";
