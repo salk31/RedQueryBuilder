@@ -96,9 +96,8 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
             response.setSuggestions(suggestions);
             callback.onSuggestionsReady(request, response);
 
-            Widget menu = ((LocalSuggestionDisplay) suggestBox
-                    .getSuggestionDisplay()).getMenu();
-            if (menu != null) {
+            if (suggestionDisplay.isSuggestionListShowing()) {
+                Widget menu = suggestionDisplay.getMenu();
                 NodeList<Element> nl = menu.getElement().getElementsByTagName(
                         "td");
 
@@ -126,7 +125,9 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
         }
     }
 
-    final SuggestBox suggestBox = new SuggestBox(oracle, new TextBox(), new LocalSuggestionDisplay());
+    final LocalSuggestionDisplay suggestionDisplay = new LocalSuggestionDisplay();
+
+    final SuggestBox suggestBox = new SuggestBox(oracle, new TextBox(), suggestionDisplay);
 
 
     public CommandSuggestBox(BaseSqlWidget p) {
