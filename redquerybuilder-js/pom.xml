@@ -9,9 +9,9 @@
 	<artifactId>redquerybuilder-js</artifactId>
 	<packaging>war</packaging>
 
+
 	<build>
 		<plugins>
-		
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
@@ -21,6 +21,7 @@
 							<module>com.redspr.redquerybuilder.js.RedQueryBuilder</module>
 							<mode>htmlunit</mode>
                             <timeOut>120</timeOut>
+                            <jsInteropMode>JS</jsInteropMode>
 						</configuration>
 						<goals>
 							<goal>compile</goal>

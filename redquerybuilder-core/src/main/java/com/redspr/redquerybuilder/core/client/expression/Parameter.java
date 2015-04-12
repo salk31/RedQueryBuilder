@@ -6,9 +6,13 @@ import java.util.List;
 
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.redspr.redquerybuilder.core.client.HasMessages;
+import com.redspr.redquerybuilder.core.client.Message;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.shared.meta.Column;
 import com.redspr.redquerybuilder.core.shared.meta.HasValue2;
@@ -16,7 +20,7 @@ import com.redspr.redquerybuilder.core.shared.meta.HasValue2;
 /**
  * A parameter of a prepared statement.
  */
-public class Parameter extends Expression {
+public class Parameter extends Expression implements HasMessages {
 
     private Object value;
 
@@ -128,5 +132,12 @@ public class Parameter extends Expression {
 
     public Widget getEditorWidget() {
         return lb.getWidget();
+    }
+
+    @Override
+    public void showMessage(Message message) {
+        if (message != null) {
+            lb.setTitle(message.getText());
+        }
     }
 }

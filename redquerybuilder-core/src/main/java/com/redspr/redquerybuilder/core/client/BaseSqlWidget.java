@@ -52,14 +52,16 @@ public class BaseSqlWidget extends Composite {
         getSession().getCommandBuilder().fireDirty();
     }
 
-    public void traverse(Callback callback) {
+    public final void traverse(Visitor callback) {
+        VisitorContext context = new BaseVisitorContext(this);
+        callback.visit(context);
+        acceptChildren(callback);
         callback.handle(this);
+        callback.endVisit(context);
     }
 
-    public interface Callback {
-        void handle(BaseSqlWidget w);
-        //startVisit
-        //endVisit
+    protected void acceptChildren(Visitor callback) {
+
     }
 
     public int hook() {

@@ -167,8 +167,8 @@ return true;
     }
 
     private boolean isSimple() {
-        List<Column> parentCols = new ArrayList();
-        List<Column> childCols = new ArrayList();
+        List<Column> parentCols = new ArrayList<Column>();
+        List<Column> childCols = new ArrayList<Column>();
         if (
            !foo(joinCondition, parentCols, childCols)) {
 

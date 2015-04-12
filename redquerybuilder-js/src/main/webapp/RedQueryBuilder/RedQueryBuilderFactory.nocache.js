@@ -43,8 +43,8 @@ RedQueryBuilderFactory.prototype.waitForLoad = function() {
 }
 
 RedQueryBuilderFactory.prototype.ready = function() {
-  window.redQueryBuilder(this.config, this.sql, this.args);
+  var instance = window.redQueryBuilder(this.config, this.sql, this.args);
   if (this.config.onLoad) {
-	  this.config.onLoad();
+	  this.config.onLoad(instance);
   }
 }

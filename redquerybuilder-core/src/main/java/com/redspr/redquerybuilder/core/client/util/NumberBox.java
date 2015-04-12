@@ -36,10 +36,5 @@ public class NumberBox extends ValueBox<Double> {
             step = ONE;
         }
         getElement().setAttribute("step", step.toString());
-        // TODO 05 min, max
-        // TODO 05 validators that can contribute html5 values?
-        // TODO __ just onkeyup validator?
     }
-
-
 }

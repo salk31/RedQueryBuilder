@@ -3,19 +3,22 @@ package com.redspr.redquerybuilder.core.client.command;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.google.gwt.core.client.js.JsType;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
-import com.redspr.redquerybuilder.core.client.BaseSqlWidget.Callback;
+import com.redspr.redquerybuilder.core.client.Visitor;
+import com.redspr.redquerybuilder.core.client.VisitorBase;
 import com.redspr.redquerybuilder.core.client.command.dml.Select;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 
 /**
  * Container for the command - currently only ever SELECT
  */
+@JsType
 public class CommandBuilder extends SimplePanel implements
         HasValueChangeHandlers<Select> {
 
@@ -52,7 +55,7 @@ public class CommandBuilder extends SimplePanel implements
     }
 
     public void fireDirty() {
-        select.traverse(new Callback() {
+        select.traverse(new VisitorBase() {
             @Override
             public void handle(BaseSqlWidget w) {
                 w.onDirty();
@@ -66,5 +69,9 @@ public class CommandBuilder extends SimplePanel implements
     public HandlerRegistration addValueChangeHandler(
             ValueChangeHandler<Select> handler) {
         return addHandler(handler, ValueChangeEvent.getType());
+    }
+
+    public void accept(Visitor visitor) {
+        select.traverse(visitor);
     }
 }

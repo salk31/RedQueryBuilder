@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
+import com.redspr.redquerybuilder.core.client.Visitor;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
 import com.redspr.redquerybuilder.core.client.util.ListBox2;
@@ -205,8 +206,7 @@ public class Comparison extends Condition {
     }
 
     @Override
-    public void traverse(Callback callback) {
-        super.traverse(callback);
+    public void acceptChildren(Visitor callback) {
         if (xleft.getValue() != null) {
             xleft.getValue().traverse(callback);
         }

@@ -20,6 +20,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
+import com.redspr.redquerybuilder.core.client.Visitor;
+import com.redspr.redquerybuilder.core.client.VisitorBase;
 import com.redspr.redquerybuilder.core.client.engine.ColumnResolver;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.engine.TableEvent;
@@ -400,7 +402,7 @@ public class Select extends Query implements ColumnResolver {
             // XXX identity?
             final Set<TableFilter> used = new HashSet<TableFilter>();
             used.add(null);
-            Callback counter = new BaseSqlWidget.Callback() {
+            Visitor counter = new VisitorBase() {
                 @Override
                 public void handle(BaseSqlWidget w) {
                     if (w instanceof ExpressionColumn) {
@@ -445,8 +447,7 @@ public class Select extends Query implements ColumnResolver {
     }
 
     @Override
-    public void traverse(Callback callback) {
-        super.traverse(callback);
+    public void acceptChildren(Visitor callback) {
         Expression condition = getCondition();
         if (condition != null) {
             condition.traverse(callback);

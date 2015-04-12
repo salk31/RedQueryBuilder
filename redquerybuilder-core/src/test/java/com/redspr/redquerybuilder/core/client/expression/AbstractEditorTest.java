@@ -1,8 +1,11 @@
 package com.redspr.redquerybuilder.core.client.expression;
 
+import java.util.Date;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.Widget;
 import com.redspr.redquerybuilder.core.client.AbstractTest;
@@ -58,6 +61,12 @@ public abstract class AbstractEditorTest<T> extends AbstractTest {
     public void testValueInAndOut() {
         HasValue<T> hasValue = asHasValue();
         hasValue.setValue(getExample1());
+        T a = getExample1();
+        if (a instanceof Date) {
+            Date x = (Date) a;
+            Date y = (Date) hasValue.getValue();
+            Window.alert("x.time=" + x.getTime() + " y.time=" + y.getTime());
+        }
         assertEquals(getExample1(), hasValue.getValue());
     }
 }

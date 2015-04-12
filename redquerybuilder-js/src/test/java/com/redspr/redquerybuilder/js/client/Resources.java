@@ -6,7 +6,7 @@ import com.google.gwt.resources.client.TextResource;
 
 interface Resources extends ClientBundle {
     Resources INSTANCE = GWT.create(Resources.class);
-
+// TODO 00 use JSNI?
     @Source("SampleConfig1.js")
     TextResource synchronous();
 

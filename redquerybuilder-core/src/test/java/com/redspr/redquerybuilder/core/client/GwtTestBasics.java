@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
@@ -734,5 +735,4 @@ cb.getSelect().onDirty();  // TODO 20 need this to make unit test work, async is
         String html = "<input type='text' class='gwt-TextBox' value='13'>";
         assertEquals(html, selectElmt);
     }
-
 }

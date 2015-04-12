@@ -15,6 +15,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
+import com.redspr.redquerybuilder.core.client.Visitor;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.util.XWidget;
 
@@ -132,10 +133,9 @@ public class ConditionAndOr extends Condition {
     }
 
     @Override
-    public void traverse(Callback callback) {
+    public void acceptChildren(Visitor callback) {
         getLeft().traverse(callback);
         getRight().traverse(callback);
-        super.traverse(callback);
     }
 
     @UiHandler("op")

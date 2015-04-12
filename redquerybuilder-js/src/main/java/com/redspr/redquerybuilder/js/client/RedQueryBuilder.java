@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.JsArrayMixed;
+import com.google.gwt.core.client.js.JsExport;
+import com.google.gwt.core.client.js.JsNamespace;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -25,6 +27,8 @@ import com.redspr.redquerybuilder.core.shared.meta.Column;
  *
  * NB methods in order or lifecycle rather than normal rules.
  */
+@JsNamespace("$wnd.rqb")
+@com.google.gwt.core.client.js.JsType
 public class RedQueryBuilder implements EntryPoint {
 
     private final SimplePanel builderContainer = new SimplePanel();
@@ -32,14 +36,11 @@ public class RedQueryBuilder implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-        publish();
+
     }
 
-    private native void publish() /*-{
-        $wnd.redQueryBuilder =
-                @com.redspr.redquerybuilder.js.client.RedQueryBuilder::configure(Lcom/redspr/redquerybuilder/js/client/JsConfiguration;Ljava/lang/String;Lcom/google/gwt/core/client/JsArrayMixed;);
-    }-*/;
 // TODO 00 unit test, null args
+    @JsExport("$wnd.redQueryBuilder")
     static CommandBuilder configure(JsConfiguration config, String sql,
             JsArrayMixed args) throws Exception {
         if (config == null) {
