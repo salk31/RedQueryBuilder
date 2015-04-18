@@ -11,7 +11,7 @@ public class JsTable extends JavaScriptObject {
 
     public final native String getLabel() /*-{ return this.label; }-*/;
 
-    public final native JsArray<JsColumn> getColumns() /*-{ return this.columns; }-*/;
+    public final native JsArray<JsColumn> getColumns() /*-{ return this.columns || []; }-*/;
 
-    public final native JsArray<JsFk> getFks() /*-{ return this.fks; }-*/;
+    public final native JsArray<JsFk> getFks() /*-{ return this.fks || []; }-*/;
 }

@@ -20,6 +20,7 @@
 						<configuration>
 							<module>com.redspr.redquerybuilder.js.RedQueryBuilder</module>
 							<mode>htmlunit</mode>
+                            <productionMode>true</productionMode>
                             <timeOut>120</timeOut>
                             <jsInteropMode>JS</jsInteropMode>
 						</configuration>
