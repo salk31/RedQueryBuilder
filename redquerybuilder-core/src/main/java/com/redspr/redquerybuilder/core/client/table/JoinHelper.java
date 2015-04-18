@@ -96,7 +96,7 @@ public class JoinHelper {
                         .getColumns()[0].getName()), new ExpressionColumn(
                         session, null, refTableFilter.getAlias(), ref
                                 .getRefColumns()[0].getName()));
-        tableFilter.addJoin(refTableFilter, false, joinCond);
+        tableFilter.addJoin(refTableFilter, true, joinCond);
         return refTableFilter;
     }
 

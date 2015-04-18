@@ -278,7 +278,7 @@ public class GwtTestBasics extends AbstractTest {
 
             assertEquals(
                     "try " + i,
-                    "SELECT \nFROM Log x0\nINNER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
+                    "SELECT \nFROM Log x0\nLEFT OUTER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
                     cb.getSelect().getSQL(new ArrayList()));
         }
     }
@@ -312,7 +312,7 @@ public class GwtTestBasics extends AbstractTest {
 
 
         assertEquals(
-                "SELECT \nFROM Log x0\nINNER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
+                "SELECT \nFROM Log x0\nLEFT OUTER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
                 cb.getSelect().getSQL(new ArrayList()));
 
         // change back to simple column
@@ -350,7 +350,7 @@ public class GwtTestBasics extends AbstractTest {
         cb.fireDirty();
 
         assertEquals(
-                "SELECT \nFROM Log x0\nINNER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.county = ?)",
+                "SELECT \nFROM Log x0\nLEFT OUTER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.county = ?)",
                 cb.getSelect().getSQL(new ArrayList()));
 
         left.selectConstraintRef(personToLog);
