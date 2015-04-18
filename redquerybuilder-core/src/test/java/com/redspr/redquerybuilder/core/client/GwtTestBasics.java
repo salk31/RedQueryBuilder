@@ -9,7 +9,6 @@ import org.junit.Test;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle.MultiWordSuggestion;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestOracle.Response;
@@ -279,7 +278,7 @@ public class GwtTestBasics extends AbstractTest {
 
             assertEquals(
                     "try " + i,
-                    "SELECT \nFROM Log x0\nINNER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
+                    "SELECT \nFROM Log x0\nLEFT OUTER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
                     cb.getSelect().getSQL(new ArrayList()));
         }
     }
@@ -313,7 +312,7 @@ public class GwtTestBasics extends AbstractTest {
 
 
         assertEquals(
-                "SELECT \nFROM Log x0\nINNER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
+                "SELECT \nFROM Log x0\nLEFT OUTER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
                 cb.getSelect().getSQL(new ArrayList()));
 
         // change back to simple column
@@ -350,7 +349,7 @@ public class GwtTestBasics extends AbstractTest {
         cb.fireDirty();
 
         assertEquals(
-                "SELECT \nFROM Log x0\nINNER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.id = ?)",
+                "SELECT \nFROM Log x0\nLEFT OUTER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.id = ?)",
                 cb.getSelect().getSQL(new ArrayList()));
 
         left.selectConstraintRef(personToLog);

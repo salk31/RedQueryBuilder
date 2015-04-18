@@ -158,7 +158,6 @@ public class ExpressionColumn extends Expression implements TableEventHandler {
     public TableFilter getTableFilter() {
         // return resolver == null ? null : resolver.getTableFilter();
         for (TableFilter tf2 : getSession().getFilters()) {
-            // Window.alert("Got tf " + tf2.getAlias() + " want " + tableAlias);
 
             if (StringUtils.equals(tableAlias, tf2.getAlias())) {
                 return tf2;
