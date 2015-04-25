@@ -26,34 +26,32 @@ public class Parameter extends Expression {
 
     private final SimplePanel lb = new SimplePanel();
 
+    private Parameter(Session session, Object value) {
+      super(session);
+      this.value = value;
+
+      lb.addStyleName("rqbParam");
+      initWidget(lb);
+    }
+
     public Parameter(Session session) {
-        super(session);
-
-        initWidget(lb);
-
-        value = session.getValueRegistry().getY().getValue();
+        this(session, session.getValueRegistry().getY().getValue());
     }
 
     public Parameter(Session session, int index) {
-        super(session);
-
-        initWidget(lb);
-
-        value = session.getValueRegistry().getY(index).getValue();
+        this(session, session.getValueRegistry().getY(index).getValue());
     }
 
     public Parameter(Session session, Collection<Expression> children) {
-        super(session);
+        this(session, new ArrayList<Object>());
 
-        initWidget(lb); // XXX three times now
-        List<Object> value2 = new ArrayList<Object>();
+        List<Object> value2 = (List<Object>) value;
         for (Expression child : children) {
             if (child instanceof Null) {
                 continue;
             }
             value2.add(((Parameter) child).value);
         }
-        value = value2;
     }
 
     @Override
