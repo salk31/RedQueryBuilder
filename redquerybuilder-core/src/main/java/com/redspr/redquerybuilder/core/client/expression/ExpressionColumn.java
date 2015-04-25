@@ -30,6 +30,8 @@ public class ExpressionColumn extends Expression implements TableEventHandler {
 
     private final HorizontalPanel hp = new HorizontalPanel();
 
+    private final HandlerRegistration reg2;
+
     public ExpressionColumn(Session session2, String schemaName2,
             String tableAlias2, String columnName2) {
         super(session2);
@@ -39,6 +41,7 @@ public class ExpressionColumn extends Expression implements TableEventHandler {
 
         initWidget(hp);
 
+        hp.addStyleName("rqbExpCol");
         reg2 = getSession().getMsgBus().addHandler(TableEvent.TYPE, this);
     }
 
@@ -54,8 +57,6 @@ public class ExpressionColumn extends Expression implements TableEventHandler {
         this.tableAlias = alias;
         this.columnName = col2.getName();
     }
-
-    private final HandlerRegistration reg2;
 
     @Override
     public void onUnload() {
