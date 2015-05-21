@@ -115,7 +115,7 @@ public class TableFilter {
         StringBuilder buff = new StringBuilder();
         if (isJoin) {
             if (outerJoin) {
-                buff.append("LEFT OUTER JOIN ");
+                buff.append("LEFT JOIN ");
             } else {
                 buff.append("INNER JOIN ");
             }

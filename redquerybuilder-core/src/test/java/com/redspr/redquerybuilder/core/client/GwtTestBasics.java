@@ -278,7 +278,7 @@ public class GwtTestBasics extends AbstractTest {
 
             assertEquals(
                     "try " + i,
-                    "SELECT \nFROM Log x0\nLEFT OUTER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
+                    "SELECT \nFROM Log x0\nLEFT JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
                     cb.getSelect().getSQL(new ArrayList()));
         }
     }
@@ -312,7 +312,7 @@ public class GwtTestBasics extends AbstractTest {
 
 
         assertEquals(
-                "SELECT \nFROM Log x0\nLEFT OUTER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
+                "SELECT \nFROM Log x0\nLEFT JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.sex = ?)",
                 cb.getSelect().getSQL(new ArrayList()));
 
         // change back to simple column
@@ -350,7 +350,7 @@ public class GwtTestBasics extends AbstractTest {
         cb.fireDirty();
 
         assertEquals(
-                "SELECT \nFROM Log x0\nLEFT OUTER JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.county = ?)",
+                "SELECT \nFROM Log x0\nLEFT JOIN PERSON x1 ON x0.parent = x1.id\nWHERE (x1.county = ?)",
                 cb.getSelect().getSQL(new ArrayList()));
 
         left.selectConstraintRef(personToLog);
@@ -461,8 +461,8 @@ cb.getSelect().onDirty();  // TODO 20 need this to make unit test work, async is
 
         // collect initial non-sense...
         String sql1 = "SELECT X.ID\nFROM PERSON X\n"
-            + "LEFT OUTER JOIN PERSON X0 ON X0.ID = X.ID\n"
-            + "LEFT OUTER JOIN Log X1 ON X1.PARENT = X0.ID\n"
+            + "LEFT JOIN PERSON X0 ON X0.ID = X.ID\n"
+            + "LEFT JOIN Log X1 ON X1.PARENT = X0.ID\n"
             + "WHERE (X1.ID = ?)";
         assertEquals(sql1, s.getSQL(new ArrayList()));
 
