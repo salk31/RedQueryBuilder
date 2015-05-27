@@ -220,18 +220,18 @@ public class Select extends Query implements ColumnResolver {
             buff.resetCount();
             int i = 0;
             do {
-            buff.appendExceptFirst("\n");
-            buff.append(filter.getSQL(i++ > 0, args));
-            filter = filter.getJoin();
+                buff.appendExceptFirst("\n");
+                buff.append(filter.getSQL(i++ > 0, args));
+                filter = filter.getJoin();
             } while (filter != null);
         } else {
-         buff.resetCount();
-         int i = 0;
-         for (TableFilter f : filters) {
-         buff.appendExceptFirst("\n");
-         buff.append(f.getSQL(i++ > 0, args));
-         }
-         }
+            buff.resetCount();
+            int i = 0;
+            for (TableFilter f : filters) {
+                buff.appendExceptFirst("\n");
+                buff.append(f.getSQL(i++ > 0, args));
+            }
+        }
         if (xcondition.getValue() != null) {
             buff.append("\nWHERE ").append(xcondition.getValue().getSQL(args));
         }
