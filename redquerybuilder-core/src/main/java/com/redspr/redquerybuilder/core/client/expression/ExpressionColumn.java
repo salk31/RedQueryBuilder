@@ -73,6 +73,13 @@ public class ExpressionColumn extends Expression implements TableEventHandler {
         return columnName;
     }
 
+    public String getQualifiedColumnName() {
+        if (tableAlias == null) {
+            return getColumnName();
+        }
+        return tableAlias + "." + getColumnName();
+    }
+
     @Override
     public void onDirty() {
         hp.clear();

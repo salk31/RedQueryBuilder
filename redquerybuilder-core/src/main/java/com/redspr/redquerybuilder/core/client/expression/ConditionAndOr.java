@@ -83,7 +83,7 @@ public class ConditionAndOr extends Condition {
         right.setValue(e);
     }
 
-    private String getString() {
+    public String getString() {
         switch (andOrType) {
         case AND:
             return "AND";

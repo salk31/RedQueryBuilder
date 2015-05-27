@@ -25,6 +25,11 @@ public class VisitorJs {
                 "name" : "IN",
                 "label" : "any of",
                 "cardinality" : "MULTI"
+            },
+            {
+                "name" : "=",
+                "label" : "equals",
+                "cardinality" : "ONE"
             }]
         }  ]
             }
@@ -58,6 +63,23 @@ public class VisitorJs {
 
                 hasMessages.showMessage(message);
             }
+        }
+
+        cb.accept(visitor);
+
+        return result;
+    }-*/;
+
+    public final native String visitSerialise(JavaScriptObject cb) /*-{
+        var visitor = new $wnd.rqb.Visitor();
+
+        var result = '';
+
+        visitor.visit = function(context) {
+            result += "(" + context.getNodeType() + ":" + context.getNodeName();
+        }
+        visitor.endVisit = function(context) {
+            result += ")";
         }
 
         cb.accept(visitor);

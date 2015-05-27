@@ -3,7 +3,6 @@ package com.redspr.redquerybuilder.js.client;
 import org.junit.Test;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class GwtTestJsVisitor extends AbstractTest {
@@ -40,5 +39,17 @@ public class GwtTestJsVisitor extends AbstractTest {
         assertTrue(html.contains("Magical message"));
     }
 
+    @Test
+    public void testSerialise() throws Exception {
+        // XXX copy n paste
+        RootPanel.get().getElement().setAttribute("id", "rqb");
 
+        JsConfiguration config = new VisitorJs().config();
+        JavaScriptObject result2 = new VisitorJs().start(config, "SELECT priority FROM ticket WHERE priority IN (?, ?) AND priority = ?",
+              args("foo", "bar"));
+
+        String result = new VisitorJs().visitSerialise(result2);
+
+        assertEquals("(SELECT:WIP(LOGIC:AND(COMPARISON:IN(COLUMN:PRIORITY)(PARAMETER:?))(COMPARISON:=(COLUMN:PRIORITY)(PARAMETER:?))))", result);
+    }
 }
