@@ -26,6 +26,7 @@ import com.redspr.redquerybuilder.core.client.expression.Expression;
 import com.redspr.redquerybuilder.core.client.expression.ExpressionColumn;
 import com.redspr.redquerybuilder.core.client.expression.Null;
 import com.redspr.redquerybuilder.core.client.expression.Parameter;
+import com.redspr.redquerybuilder.core.client.expression.Wildcard;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
 import com.redspr.redquerybuilder.core.client.util.ObjectArray;
 import com.redspr.redquerybuilder.core.client.util.StatementBuilder;
@@ -893,7 +894,7 @@ public class Parser {
         ObjectArray<Expression> expressions = ObjectArray.newInstance();
         do {
             if (readIf("*")) {
-          //      expressions.add(new Wildcard(null, null));
+                expressions.add(new Wildcard(session, null, null));
             } else {
                 Expression expr = readExpression();
                 if (readIf("AS") || currentTokenType == IDENTIFIER) {
@@ -1429,9 +1430,9 @@ public class Parser {
     }
 
     private Expression readWildcardOrSequenceValue(String schema, String objectName) throws SQLException {
-//        if (readIf("*")) {
-//            return new Wildcard(schema, objectName);
-//        }
+        if (readIf("*")) {
+            return new Wildcard(session, schema, objectName);
+        }
 //        if (schema == null) {
 //            schema = session.getCurrentSchemaName();
 //        }
@@ -1454,10 +1455,10 @@ public class Parser {
     }
 
     private Expression readTermObjectDot(String objectName) throws SQLException {
-//        Expression expr = readWildcardOrSequenceValue(null, objectName);
-//        if (expr != null) {
-//            return expr;
-//        }
+        Expression expr = readWildcardOrSequenceValue(null, objectName);
+        if (expr != null) {
+            return expr;
+        }
         String name = readColumnIdentifier();
 //        if (readIf(".")) {
 //            String schema = objectName;
