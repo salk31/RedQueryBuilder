@@ -195,6 +195,14 @@ public class ConfigurationAdapter extends Configuration {
         config.fireOnTableChange(filters);
     }
 
+    // XXX copy n paste, JSO for request object?
+    @Override
+    public void fireDefaultSuggest(SuggestRequest sr,
+            final AsyncCallback<Response> callback) {
+        config.fireDefaultSuggest(sr.getTableName(), sr.getColumnName(), sr.getColumnTypeName(),
+                sr.getQuery(), sr.getLimit(), new EnumerateCallback(callback));
+    }
+
     @Override
     public void fireSuggest(SuggestRequest sr,
             final AsyncCallback<Response> callback) {

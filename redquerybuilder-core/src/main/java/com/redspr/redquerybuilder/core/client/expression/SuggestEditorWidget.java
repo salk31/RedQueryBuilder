@@ -10,6 +10,10 @@
 *******************************************************************************/
 package com.redspr.redquerybuilder.core.client.expression;
 
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -19,6 +23,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.SuggestBox.DefaultSuggestionDisplay;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.shared.meta.Column;
@@ -27,17 +32,23 @@ import com.redspr.redquerybuilder.core.shared.meta.SuggestRequest;
 public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
 
     class RqbSuggestOracle extends SuggestOracle {
-        @Override
-        public void requestSuggestions(final Request request,
-                final Callback callback) {
+
+        private SuggestRequest create(Request request) {
             SuggestRequest sr = new SuggestRequest();
             sr.setTableName(tableName);
             sr.setColumnName(columnName);
             sr.setColumnTypeName(columnType);
             sr.setQuery(request.getQuery());
             sr.setLimit(request.getLimit());
+            return sr;
+        }
 
-            session.getConfig().fireSuggest(sr, new AsyncCallback<Response>() {
+        @Override
+        public void requestDefaultSuggestions(final Request request,
+                final Callback callback) {
+            SuggestRequest sr = create(request);
+
+            session.getConfig().fireDefaultSuggest(sr, new AsyncCallback<Response>() {
                 @Override
                 public void onFailure(Throwable caught) {
                     // XXX log?
@@ -48,7 +59,24 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
                     callback.onSuggestionsReady(request, result);
                 }
             });
+        }
 
+        @Override
+        public void requestSuggestions(final Request request,
+                final Callback callback) {
+            SuggestRequest sr = create(request);
+
+            session.getConfig().fireSuggest(sr, new AsyncCallback<Response>() {
+                @Override
+                public void onFailure(Throwable caught) {
+                    // XXX
+                }
+
+                @Override
+                public void onSuccess(Response result) {
+                    callback.onSuggestionsReady(request, result);
+                }
+            });
         }
     }
 
@@ -82,6 +110,26 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
             }
 
         });
+
+        suggestBox.getValueBox().addFocusHandler(new FocusHandler() {
+            @Override
+            public void onFocus(FocusEvent event) {
+                //active = true;
+                DefaultSuggestionDisplay d = (DefaultSuggestionDisplay) suggestBox.getSuggestionDisplay();
+                if (!d.isSuggestionListShowing()) {
+                    suggestBox.showSuggestionList();
+                }
+            }
+        });
+
+        suggestBox.getValueBox().addBlurHandler(new BlurHandler() {
+            @Override
+            public void onBlur(BlurEvent event) {
+                //active = false;
+            }
+        });
+
+        //suggestBox.setLimit(1000);
 
         initWidget(suggestBox);
     }

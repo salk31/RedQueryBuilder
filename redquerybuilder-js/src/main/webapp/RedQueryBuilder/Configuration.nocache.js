@@ -30,6 +30,13 @@ function Configuration(meta) {
 	this.onLoad = function() {}
 	
 	/** 
+	 * Initial request from the Suggestion Oracle.
+	 * @function
+	 * @param {SuggestRequest} request details.
+	 * @param {function} callback to return any suggestions.*/
+	this.defaultSuggest = function(request, callback) {}
+	
+	/** 
 	 * Request from the Suggestion Oracle.
 	 * @function
 	 * @param {SuggestRequest} request details.
