@@ -36,6 +36,15 @@
             </action>
         </release>
         
+        <release version="0.8.0" date="2015-08-22" description="Tree visitor">
+            <action dev="salk31" type="add">
+                Major new feature of tree visitor.
+            </action>
+            <action dev="salk31" type="add">
+                https://github.com/salk31/RedQueryBuilder/issues/26 default suggestions.
+            </action>
+        </release>
+        
         <release version="0.7.0" date="2014-07-10" description="New types and better IE10 support.">
             <action dev="salk31" type="add">
                 New Number type/editor.
