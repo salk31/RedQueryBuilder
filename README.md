@@ -13,4 +13,11 @@ Build
 * mvn clean install
 * The JavaScript friendly files will be in js/target/js-{version}
 
+Eclipse JUnit
+-------------
+Known to be good: Eclipse 4.4.2, Google plugin 3.8.0, GWT 2.7.0
+
+JSInterop tests need:
+-Dgwt.args="-XjsInteropMode JS -nodevMode"
+
 
