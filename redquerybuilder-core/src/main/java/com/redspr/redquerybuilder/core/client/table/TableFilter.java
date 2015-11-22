@@ -162,20 +162,20 @@ public class TableFilter {
      }
 
      public void removeJoinCondition() {
-                 this.joinCondition = null;
-            }
+         this.joinCondition = null;
+     }
 
      public void removeJoin() {
-                 this.join = null;
-             }
+         this.join = null;
+     }
 
      public Session getSession() {
          return session;
      }
 
      public boolean isJoinOuter() {
-                return outerJoin; // XXX
-            }
+         return outerJoin; // XXX
+     }
 
      // XXX not sure about this
      public void setJoin(TableFilter p) {
