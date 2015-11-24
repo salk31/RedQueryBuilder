@@ -20,8 +20,10 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
+import com.redspr.redquerybuilder.core.client.BaseVisitorContext;
 import com.redspr.redquerybuilder.core.client.Visitor;
 import com.redspr.redquerybuilder.core.client.VisitorBase;
+import com.redspr.redquerybuilder.core.client.VisitorContext;
 import com.redspr.redquerybuilder.core.client.engine.ColumnResolver;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.engine.TableEvent;
@@ -448,10 +450,25 @@ public class Select extends Query implements ColumnResolver {
 
     @Override
     public void acceptChildren(Visitor callback) {
+        if (this.filters.size() > 0) {
+            BaseVisitorContext ctx = new BaseVisitorContext(VisitorContext.NodeType.FROM, null);
+            callback.visit(ctx);
+            for (TableFilter tf : filters) {
+                tf.traverse(callback);
+            }
+
+            callback.endVisit(ctx);
+        }
+
         Expression condition = getCondition();
         if (condition != null) {
+            VisitorContext ctx = new BaseVisitorContext(VisitorContext.NodeType.WHERE, null);
+            callback.visit(ctx);
             condition.traverse(callback);
+            callback.endVisit(ctx);
         }
+
+
     }
 
     @Override

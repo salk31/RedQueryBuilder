@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.redspr.redquerybuilder.core.client.BaseVisitorContext;
+import com.redspr.redquerybuilder.core.client.Visitor;
+import com.redspr.redquerybuilder.core.client.VisitorContext;
 import com.redspr.redquerybuilder.core.client.command.dml.Select;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.expression.ConditionAndOr;
@@ -186,4 +189,15 @@ public class TableFilter {
      public String toString() {
          return table.getName() + " " + this.alias;
      }
+
+    /**
+     *
+     * @param callback
+     */
+    public void traverse(Visitor callback) {
+        // TODO __ alias, join condition?
+        VisitorContext ctx = new BaseVisitorContext(VisitorContext.NodeType.TABLE, table.getName());
+        callback.visit(ctx);
+        callback.endVisit(ctx);
+    }
 }

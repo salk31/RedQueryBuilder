@@ -17,6 +17,9 @@ public interface VisitorContext<T> {
         String COMPARISON = "COMPARISON";
         String LOGIC = "LOGIC"; // XXX not sure about this
         String SELECT = "SELECT";
+        String FROM = "FROM";
+        String WHERE = "WHERE";
+        String TABLE = "TABLE";
     };
 
     String getNodeType(); // TODO __ enum and JS?

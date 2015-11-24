@@ -8,7 +8,7 @@ import com.redspr.redquerybuilder.core.client.expression.ConditionAndOr;
 import com.redspr.redquerybuilder.core.client.expression.ExpressionColumn;
 import com.redspr.redquerybuilder.core.client.expression.Parameter;
 
-
+// TODO __ not extended or abstract? What is it really?
 public class BaseVisitorContext implements VisitorContext {
 
     private HasValue hv;
@@ -18,6 +18,11 @@ public class BaseVisitorContext implements VisitorContext {
     private String nodeType;
 
     private String nodeValue;
+
+    public BaseVisitorContext(String type, String value) {
+        this.nodeType = type;
+        this.nodeValue = value;
+    }
 
     public BaseVisitorContext(BaseSqlWidget baseSqlWidget) {
         if (baseSqlWidget instanceof Parameter) {
@@ -41,7 +46,7 @@ public class BaseVisitorContext implements VisitorContext {
         } else if (baseSqlWidget instanceof Select){
             Select select = (Select) baseSqlWidget;
             nodeType = NodeType.SELECT;
-            nodeValue = "WIP";
+            nodeValue = null;
         } else {
             throw new RuntimeException("What is " + baseSqlWidget.getClass());
         }

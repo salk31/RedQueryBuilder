@@ -76,7 +76,10 @@ public class VisitorJs {
         var result = '';
 
         visitor.visit = function(context) {
-            result += "(" + context.getNodeType() + ":" + context.getNodeName();
+            result += "(" + context.getNodeType();
+            if (context.getNodeName() != null) {
+                 result += ":" + context.getNodeName();
+            }
         }
         visitor.endVisit = function(context) {
             result += ")";
