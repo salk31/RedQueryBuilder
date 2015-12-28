@@ -109,7 +109,7 @@ public class GwtTestBasics extends AbstractTest {
 
         JsArrayMixed mixed = (JsArrayMixed) JsArrayMixed.createArray();
         mixed.push(dateIn);
-        mixed.push(new Double(123.12d));
+        mixed.push(123.12d);
         mixed.push("123");
         mixed.push("false");
 

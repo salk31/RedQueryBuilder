@@ -5,6 +5,14 @@ import com.google.gwt.core.client.JsArrayMixed;
 
 
 public class VisitorJs {
+    public final native JsConfiguration config(String json) /*-{
+        var x=  eval("(" + json + ")");
+        alert(x);
+        return x;
+    }-*/;
+
+
+    @Deprecated // use JSNI is going away
     public final native JsConfiguration config() /*-{
         return {meta : {
             tables : [ {

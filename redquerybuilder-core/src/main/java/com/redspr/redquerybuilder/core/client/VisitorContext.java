@@ -19,10 +19,12 @@ public interface VisitorContext<T> {
         String SELECT = "SELECT";
         String FROM = "FROM";
         String WHERE = "WHERE";
+        String ON = "ON";
         String TABLE = "TABLE";
     };
 
     String getNodeType(); // TODO __ enum and JS?
+    // TODO __ what is the definition of this?
     String getNodeName();
 
     HasMessages asHasMessages();

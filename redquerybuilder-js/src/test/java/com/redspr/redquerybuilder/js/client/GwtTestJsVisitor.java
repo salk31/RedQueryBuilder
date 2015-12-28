@@ -51,4 +51,21 @@ public class GwtTestJsVisitor extends AbstractTest {
         String result = new VisitorJs().visitSerialise(result2);
         assertEquals("(SELECT(FROM(TABLE:ticket))(WHERE(LOGIC:AND(COMPARISON:IN(COLUMN:PRIORITY)(PARAMETER:?))(COMPARISON:=(COLUMN:PRIORITY)(PARAMETER:?)))))", result);
     }
+
+    @Test
+    public void testSerialiseFrom() throws Exception {
+        // XXX copy n paste
+        RootPanel.get().getElement().setAttribute("id", "rqb");
+
+        String json = Resources.INSTANCE.synchronous().getText();
+
+        JsConfiguration config = new VisitorJs().config(json);
+
+        JavaScriptObject result2b = new VisitorJs().start(config, "SELECT priority FROM ticket t JOIN user u ON t.owner_id = u.id WHERE u.id = ?",
+              args("foo", "bar"));
+
+        String result = new VisitorJs().visitSerialise(result2b);
+        // TODO __ WHERE is out vs inner join?
+        assertEquals("(SELECT(FROM(TABLE:ticket T)(TABLE:user U(ON(COMPARISON:=(COLUMN:T.OWNER_ID)(COLUMN:U.ID)))))(WHERE(COMPARISON:=(COLUMN:U.ID)(PARAMETER:?))))", result);
+    }
 }

@@ -187,7 +187,10 @@ public class TableFilter {
 
      @Override
      public String toString() {
-         return table.getName() + " " + this.alias;
+         if (alias != null) {
+             return table.getName() + " " + this.alias;
+         }
+         return table.getName();
      }
 
     /**
@@ -196,8 +199,15 @@ public class TableFilter {
      */
     public void traverse(Visitor callback) {
         // TODO __ alias, join condition?
-        VisitorContext ctx = new BaseVisitorContext(VisitorContext.NodeType.TABLE, table.getName());
+        VisitorContext ctx = new BaseVisitorContext(VisitorContext.NodeType.TABLE, toString());
         callback.visit(ctx);
+        if (joinCondition != null) {
+            VisitorContext ctxOn = new BaseVisitorContext(VisitorContext.NodeType.ON, null);
+            callback.visit(ctxOn);
+            joinCondition.traverse(callback);
+            callback.endVisit(ctxOn);
+        }
+
         callback.endVisit(ctx);
     }
 }
