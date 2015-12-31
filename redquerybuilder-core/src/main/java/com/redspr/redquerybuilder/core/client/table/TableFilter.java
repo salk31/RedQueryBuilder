@@ -198,7 +198,7 @@ public class TableFilter {
      * @param callback
      */
     public void traverse(Visitor callback) {
-        // TODO __ alias, join condition?
+        // TODO 10 inner or out join info
         VisitorContext ctx = new BaseVisitorContext(VisitorContext.NodeType.TABLE, toString());
         callback.visit(ctx);
         if (joinCondition != null) {

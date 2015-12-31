@@ -23,8 +23,9 @@ public interface VisitorContext<T> {
         String TABLE = "TABLE";
     };
 
-    String getNodeType(); // TODO __ enum and JS?
-    // TODO __ what is the definition of this?
+    String getNodeType();
+
+    // TODO __ what is the definition of this? Debug? Info? Text?
     String getNodeName();
 
     HasMessages asHasMessages();

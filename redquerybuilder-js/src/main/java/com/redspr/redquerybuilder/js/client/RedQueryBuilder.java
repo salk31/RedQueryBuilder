@@ -39,7 +39,6 @@ public class RedQueryBuilder implements EntryPoint {
 
     }
 
-// TODO 00 unit test, null args
     @JsExport("$wnd.redQueryBuilder")
     static CommandBuilder configure(JsConfiguration config, String sql,
             JsArrayMixed args) throws Exception {

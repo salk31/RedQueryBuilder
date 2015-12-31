@@ -11,9 +11,7 @@ import com.google.gwt.core.client.JsonUtils;
 
 public class GwtTestBasics extends AbstractTest {
 
-// TODO __ test putting dates, numbers into the args
-
-
+// TODO __ Visitor example do something useful - nice tree output with all info?
     @Test
     public void testNothing() throws Throwable {
         test(null, "Config is null.");

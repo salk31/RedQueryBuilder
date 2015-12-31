@@ -65,7 +65,7 @@ public class GwtTestJsVisitor extends AbstractTest {
               args("foo", "bar"));
 
         String result = new VisitorJs().visitSerialise(result2b);
-        // TODO __ WHERE is out vs inner join?
+
         assertEquals("(SELECT(FROM(TABLE:ticket T)(TABLE:user U(ON(COMPARISON:=(COLUMN:T.OWNER_ID)(COLUMN:U.ID)))))(WHERE(COMPARISON:=(COLUMN:U.ID)(PARAMETER:?))))", result);
     }
 }
