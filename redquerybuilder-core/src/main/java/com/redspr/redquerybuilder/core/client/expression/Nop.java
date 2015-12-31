@@ -15,4 +15,15 @@ public class Nop extends Expression {
     public String getSQL(List args) {
         return "1=1";
     }
+
+
+    @Override
+    public String getNodeType() {
+        return null;
+    }
+
+    @Override
+    public String getNodeName() {
+        return null;
+    }
 }

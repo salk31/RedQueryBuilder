@@ -2,6 +2,7 @@ package com.redspr.redquerybuilder.core.client.expression;
 
 import java.util.List;
 
+import com.redspr.redquerybuilder.core.client.VisitorContext;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 
 public class Wildcard extends Expression {
@@ -19,5 +20,15 @@ public class Wildcard extends Expression {
             return "*";
         }
         return getSession().quoteIdentifier(table) + ".*";
+    }
+
+    @Override
+    public String getNodeType() {
+        return VisitorContext.NodeType.WILDCARD;
+    }
+
+    @Override
+    public String getNodeName() {
+        return getSQL(null);
     }
 }

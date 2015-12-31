@@ -14,7 +14,7 @@ import com.redspr.redquerybuilder.core.client.expression.Expression;
  * @author sam
  */
 // XXX kill the event bus?
-public class BaseSqlWidget extends Composite {
+public abstract class BaseSqlWidget extends Composite implements VisitorContext {
 
 
     {
@@ -53,11 +53,10 @@ public class BaseSqlWidget extends Composite {
     }
 
     public final void traverse(Visitor callback) {
-        VisitorContext context = new BaseVisitorContext(this);
-        callback.visit(context);
+        callback.visit(this);
         acceptChildren(callback);
         callback.handle(this);
-        callback.endVisit(context);
+        callback.endVisit(this);
     }
 
     protected void acceptChildren(Visitor callback) {

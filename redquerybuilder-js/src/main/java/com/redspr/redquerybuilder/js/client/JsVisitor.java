@@ -20,10 +20,10 @@ public class JsVisitor implements Visitor {
     }
 
     @Override
-    public void visit(VisitorContext<?> context) {
+    public void visit(VisitorContext context) {
     }
 
     @Override
-    public void endVisit(VisitorContext<?> context) {
+    public void endVisit(VisitorContext context) {
     }
 }

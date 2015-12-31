@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.redspr.redquerybuilder.core.client.VisitorContext;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.engine.TableEvent;
 import com.redspr.redquerybuilder.core.client.engine.TableEventHandler;
@@ -217,5 +218,15 @@ public class ExpressionColumn extends Expression implements TableEventHandler {
         public void execute() {
             selectConstraintRef(constraintReferential);
         }
+    }
+
+    @Override
+    public String getNodeType() {
+        return VisitorContext.NodeType.COLUMN;
+    }
+
+    @Override
+    public String getNodeName() {
+        return getQualifiedColumnName();
     }
 }

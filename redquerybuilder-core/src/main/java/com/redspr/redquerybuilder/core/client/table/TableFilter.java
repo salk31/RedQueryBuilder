@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.redspr.redquerybuilder.core.client.BaseVisitorContext;
 import com.redspr.redquerybuilder.core.client.Visitor;
 import com.redspr.redquerybuilder.core.client.VisitorContext;
+import com.redspr.redquerybuilder.core.client.VisitorContextBase;
 import com.redspr.redquerybuilder.core.client.command.dml.Select;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.expression.ConditionAndOr;
@@ -199,10 +199,10 @@ public class TableFilter {
      */
     public void traverse(Visitor callback) {
         // TODO 10 inner or out join info
-        VisitorContext ctx = new BaseVisitorContext(VisitorContext.NodeType.TABLE, toString());
+        VisitorContext ctx = new VisitorContextBase(VisitorContext.NodeType.TABLE, toString());
         callback.visit(ctx);
         if (joinCondition != null) {
-            VisitorContext ctxOn = new BaseVisitorContext(VisitorContext.NodeType.ON, null);
+            VisitorContext ctxOn = new VisitorContextBase(VisitorContext.NodeType.ON, null);
             callback.visit(ctxOn);
             joinCondition.traverse(callback);
             callback.endVisit(ctxOn);

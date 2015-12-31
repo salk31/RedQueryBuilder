@@ -87,9 +87,9 @@ RedQueryBuilderFactory.create({
 	onSqlChange : function(sql, args) {
 		var visitor = new rqb.Visitor();
 		visitor.visit = function(ctx) {
-			if (ctx.asHasMessages()) {
-				var msg = new rqb.Message('Hello ' + ctx.asHasValue().getValue());
-				ctx.asHasMessages().showMessage(msg);
+			if (ctx.getNodeType() == 'PARAMETER') {
+				var msg = new rqb.Message('Hello ' + ctx.getValue());
+				ctx.showMessage(msg);
 			}
 		}
 		this.instance.accept(visitor);

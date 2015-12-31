@@ -17,11 +17,11 @@ public interface Visitor {
         }
 
         @Override
-        public void visit(VisitorContext<?> context) {
+        public void visit(VisitorContext context) {
         }
 
         @Override
-        public void endVisit(VisitorContext<?> context) {
+        public void endVisit(VisitorContext context) {
         }
 
     }
@@ -29,7 +29,7 @@ public interface Visitor {
     @Deprecated
     void handle(BaseSqlWidget w);
 
-    void visit(VisitorContext<?> context);
+    void visit(VisitorContext context);
 
-    void endVisit(VisitorContext<?> context);
+    void endVisit(VisitorContext context);
 }

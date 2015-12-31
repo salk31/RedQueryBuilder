@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.redspr.redquerybuilder.core.client.BaseSqlWidget;
 import com.redspr.redquerybuilder.core.client.Visitor;
+import com.redspr.redquerybuilder.core.client.VisitorContext;
 import com.redspr.redquerybuilder.core.client.engine.Session;
 import com.redspr.redquerybuilder.core.client.table.TableFilter;
 import com.redspr.redquerybuilder.core.client.util.ListBox2;
@@ -213,6 +214,16 @@ public class Comparison extends Condition {
         if (xright.getValue() != null) {
             xright.getValue().traverse(callback);
         }
+    }
+
+    @Override
+    public String getNodeType() {
+        return VisitorContext.NodeType.COMPARISON;
+    }
+
+    @Override
+    public String getNodeName() {
+        return getOperatorName();
     }
 }
 

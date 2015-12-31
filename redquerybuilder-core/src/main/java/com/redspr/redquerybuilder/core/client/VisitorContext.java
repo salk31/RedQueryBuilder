@@ -1,7 +1,6 @@
 package com.redspr.redquerybuilder.core.client;
 
 import com.google.gwt.core.client.js.JsType;
-import com.google.gwt.user.client.ui.HasValue;
 
 /**
  *
@@ -10,8 +9,9 @@ import com.google.gwt.user.client.ui.HasValue;
  * @param <T>
  */
 @JsType
-public interface VisitorContext<T> {
+public interface VisitorContext {
     interface NodeType {
+        String NULL = "NULL";
         String PARAMETER = "PARAMETER";
         String COLUMN = "COLUMN";
         String COMPARISON = "COMPARISON";
@@ -21,14 +21,11 @@ public interface VisitorContext<T> {
         String WHERE = "WHERE";
         String ON = "ON";
         String TABLE = "TABLE";
+        String WILDCARD = "WILDCARD";
     };
 
     String getNodeType();
 
     // TODO __ what is the definition of this? Debug? Info? Text?
     String getNodeName();
-
-    HasMessages asHasMessages();
-
-    HasValue<T> asHasValue();
 }

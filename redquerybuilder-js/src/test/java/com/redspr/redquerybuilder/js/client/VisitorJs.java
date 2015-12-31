@@ -49,9 +49,8 @@ public class VisitorJs {
 
         var result = '';
         visitor.visit = function(context) {
-            var hasValue = context.asHasValue();
-            if (hasValue) {
-                result += '(' + hasValue.getValue() + ')';
+            if (context.getNodeType() == 'PARAMETER') {
+                result += '(' + context.getValue() + ')';
             }
         }
 
@@ -65,11 +64,10 @@ public class VisitorJs {
 
         var result = '';
         visitor.visit = function(context) {
-            var hasMessages = context.asHasMessages();
-            if (hasMessages) {
+            if (context.getNodeType() == 'PARAMETER') {
                 var message = new $wnd.rqb.Message('Magical message');
 
-                hasMessages.showMessage(message);
+                context.showMessage(message);
             }
         }
 
