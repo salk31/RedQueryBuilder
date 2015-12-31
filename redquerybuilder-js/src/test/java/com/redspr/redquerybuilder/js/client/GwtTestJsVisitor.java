@@ -20,7 +20,7 @@ public class GwtTestJsVisitor extends AbstractTest {
 
         String result = new VisitorJs().visitValues(result2);
 
-        assertEquals("([foo, bar])", result);
+        assertEquals("([foo, bar])", result); // TODO __ what type
     }
 
     @Test

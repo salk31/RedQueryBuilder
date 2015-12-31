@@ -5,8 +5,6 @@ import com.google.gwt.core.client.js.JsType;
 /**
  *
  * EXPERIMENTAL - likely to change
- *
- * @param <T>
  */
 @JsType
 public interface VisitorContext {
@@ -26,6 +24,8 @@ public interface VisitorContext {
 
     String getNodeType();
 
-    // TODO __ what is the definition of this? Debug? Info? Text?
+    /**
+     * @return Simple human readable string representing the state of the node. Often the SQL representation.
+     */
     String getNodeName();
 }

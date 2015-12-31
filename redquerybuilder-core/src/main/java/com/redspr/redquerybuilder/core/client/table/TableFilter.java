@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.google.gwt.core.client.js.JsType;
 import com.redspr.redquerybuilder.core.client.Visitor;
 import com.redspr.redquerybuilder.core.client.VisitorContext;
 import com.redspr.redquerybuilder.core.client.VisitorContextBase;
@@ -14,7 +15,8 @@ import com.redspr.redquerybuilder.core.client.expression.Expression;
 import com.redspr.redquerybuilder.core.client.util.StringUtils;
 import com.redspr.redquerybuilder.core.shared.meta.Table;
 
-public class TableFilter {
+@JsType
+public class TableFilter implements VisitorContext {
     private Table table = null;
     private final String alias;
 
@@ -193,12 +195,8 @@ public class TableFilter {
          return table.getName();
      }
 
-    /**
-     *
-     * @param callback
-     */
     public void traverse(Visitor callback) {
-        // TODO 10 inner or out join info
+        // TODO __ get table, alias, inner/outer
         VisitorContext ctx = new VisitorContextBase(VisitorContext.NodeType.TABLE, toString());
         callback.visit(ctx);
         if (joinCondition != null) {
@@ -209,5 +207,15 @@ public class TableFilter {
         }
 
         callback.endVisit(ctx);
+    }
+
+    @Override
+    public String getNodeType() {
+        return VisitorContext.NodeType.TABLE;
+    }
+
+    @Override
+    public String getNodeName() {
+        return toString();
     }
 }
