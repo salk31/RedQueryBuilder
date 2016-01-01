@@ -196,9 +196,8 @@ public class TableFilter implements VisitorContext {
      }
 
     public void traverse(Visitor callback) {
-        // TODO __ get table, alias, inner/outer
-        VisitorContext ctx = new VisitorContextBase(VisitorContext.NodeType.TABLE, toString());
-        callback.visit(ctx);
+        // TODO __ test get table, alias, inner/outer
+        callback.visit(this);
         if (joinCondition != null) {
             VisitorContext ctxOn = new VisitorContextBase(VisitorContext.NodeType.ON, null);
             callback.visit(ctxOn);
@@ -206,7 +205,7 @@ public class TableFilter implements VisitorContext {
             callback.endVisit(ctxOn);
         }
 
-        callback.endVisit(ctx);
+        callback.endVisit(this);
     }
 
     @Override
