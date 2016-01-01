@@ -49,7 +49,7 @@ public class GwtTestJsVisitor extends AbstractTest {
               args("foo", "bar"));
 
         String result = new VisitorJs().visitSerialise(result2);
-        assertEquals("(SELECT(FROM(TABLE:ticket))(WHERE(LOGIC:AND(COMPARISON:IN(COLUMN:PRIORITY)(PARAMETER:?))(COMPARISON:=(COLUMN:PRIORITY)(PARAMETER:?)))))", result);
+        assertEquals("(SELECT(FROM(TABLE:ticket))(WHERE(LOGIC:AND(COMPARISON:IN(COLUMN:PRIORITY)(PARAMETER:(?, ?)))(COMPARISON:=(COLUMN:PRIORITY)(PARAMETER:?)))))", result);
     }
 
     @Test

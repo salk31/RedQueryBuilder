@@ -149,7 +149,7 @@ public class Parameter extends Expression implements HasMessages {
 
     @Override
     public String getNodeName() {
-        return "?"; // or multiple? TODO __ test
+        return getSQL(new ArrayList()); // XXX throw away list
     }
 
     public Object getValue() {
