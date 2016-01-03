@@ -96,8 +96,6 @@ public class VisitorJs {
         return result;
     }-*/;
 
-    // TODO __ test getting IN with multiple ?,?
-
     public final native JavaScriptObject start(JsConfiguration config, String sql, JsArrayMixed args) /*-{
         return $wnd.redQueryBuilder(config, sql, args);
     }-*/;

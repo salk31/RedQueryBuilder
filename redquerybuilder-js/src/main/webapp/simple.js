@@ -91,7 +91,7 @@ RedQueryBuilderFactory.create({
 			}
 			out += '\r\n';
 		}
-		document.getElementById("debug").value = out;
+		document.getElementById("rqgDebug").value = out;
 	},
 	enumerate : function(request, response) {
 		if (request.columnName == 'CATEGORY') {

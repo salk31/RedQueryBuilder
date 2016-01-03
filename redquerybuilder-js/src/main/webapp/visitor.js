@@ -86,11 +86,24 @@ RedQueryBuilderFactory.create({
 	},
 	onSqlChange : function(sql, args) {
 		var visitor = new rqb.Visitor();
+		var debug = document.getElementById("rqbVisitorDebug");
+		var indent = 0;
+		debug.value = '';
 		visitor.visit = function(ctx) {
+			debug.value += "  ".repeat(indent);
+			debug.value += ctx.getNodeType();
+			if (ctx.getNodeName() != null) {
+				debug.value += " " + ctx.getNodeName();
+			}
 			if (ctx.getNodeType() == 'PARAMETER') {
 				var msg = new rqb.Message('Hello ' + ctx.getValue());
 				ctx.showMessage(msg);
 			}
+			debug.value += "\n";
+			indent++;
+		}
+		visitor.endVisit = function(ctx) {
+			indent--;
 		}
 		this.instance.accept(visitor);
 	},
