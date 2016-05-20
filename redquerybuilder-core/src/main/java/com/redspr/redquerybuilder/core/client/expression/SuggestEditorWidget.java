@@ -303,6 +303,7 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
             @Override
             public void onBlur(BlurEvent event) {
                 active = false;
+                scrollDisplay.page = 0;
             }
         });
 
