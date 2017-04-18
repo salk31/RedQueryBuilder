@@ -104,7 +104,11 @@ public class SuggestEditorWidget<T> extends Composite implements HasValue<T> {
             scrollPanel.setWidget(suggestionList);
 
             scrollPanel.setHeight(Window.getClientHeight() / 3 + "px");
+
             // Commenting this out lets it dynamically resize
+
+            // This will cause the box to dynamically resize based on the largest element of the list.
+            // If this is present it will cause it to stick at 150px
             // scrollPanel.setWidth("150px");
 
             scrollPanel.addScrollHandler(new ScrollHandler() {
