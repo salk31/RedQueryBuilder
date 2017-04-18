@@ -123,10 +123,6 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
         public Widget getMenu() {
             return getPopupPanel().getWidget();
         }
-
-	public Widget getMyPopupPanel() {
-	    return getPopupPanel();
-	}
     }
 
     final LocalSuggestionDisplay suggestionDisplay = new LocalSuggestionDisplay();
@@ -136,8 +132,6 @@ public class CommandSuggestBox extends SimplePanel implements HasConstrainedValu
 
     public CommandSuggestBox(BaseSqlWidget p) {
         this.widget = p;
-
-	suggestionDisplay.getMyPopupPanel().addStyleName("gwt-columnPicker");
 
         suggestBox.getValueBox().addFocusHandler(new FocusHandler() {
             @Override
